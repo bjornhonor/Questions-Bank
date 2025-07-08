@@ -8,4 +8,7 @@ const { protect } = require('../middleware/authMiddleware');
 // Se o token for válido, ele segue para o 'submitTestResult'.
 router.post('/submit', protect, submitTestResult);
 
+// Rota específica para testes aleatórios (usa o mesmo controller)
+router.post('/submit-random', protect, submitTestResult);
+
 module.exports = router;
