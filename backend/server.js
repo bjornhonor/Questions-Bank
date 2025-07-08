@@ -11,6 +11,7 @@ const questionRoutes = require('./routes/questionRoutes');
 const resultRoutes = require('./routes/resultRoutes');
 const userRoutes = require('./routes/userRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes'); // ← ADICIONADO
+const simuladosRoutes = require('./routes/simuladosRoutes');
 
 // Conectar ao Banco de Dados
 connectDB();
@@ -35,6 +36,7 @@ app.use('/api/questions', questionRoutes);
 app.use('/api/results', resultRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/dashboard', dashboardRoutes); // ← ADICIONADO
+app.use('/api/simulados', simuladosRoutes);
 
 const PORT = process.env.PORT || 5000;
 
