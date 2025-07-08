@@ -1,0 +1,229 @@
+/* /frontend/src/styles/ImageModal.css */
+
+/* Container do modal */
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.image-modal-content {
+  background-color: white;
+  padding: 20px 30px 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 950px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease;
+}
+
+/* Botão de fechar */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 10px 14px;
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #6c757d;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.close-button:hover {
+  background-color: #e9ecef;
+  color: #495057;
+  transform: scale(1.05);
+}
+
+/* Título do modal */
+.modal-title {
+  margin: 0 0 25px 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+  border-bottom: 3px solid #e9ecef;
+  padding-bottom: 12px;
+}
+
+/* Conteúdo dos anexos */
+.attachment-content {
+  margin-bottom: 0;
+}
+
+/* Estilos para imagens */
+.attachment-image {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  display: block;
+  cursor: zoom-in;
+  transition: all 0.3s ease;
+}
+
+.attachment-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagem em modo zoom */
+.attachment-image.zoomed {
+  cursor: zoom-out;
+  transform: scale(1.5);
+  z-index: 100;
+  position: relative;
+}
+
+/* Container para imagens grandes */
+.image-container {
+  text-align: center;
+  margin: 20px 0;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* Estilos para texto */
+.attachment-text {
+  margin-bottom: 18px;
+  line-height: 1.7;
+  font-size: 16px;
+  color: #333;
+  text-align: justify;
+}
+
+.attachment-text:first-of-type {
+  margin-top: 10px;
+}
+
+/* Separador visual entre diferentes tipos de conteúdo */
+.content-separator {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ddd, transparent);
+  margin: 25px 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .image-modal-content {
+    width: 95%;
+    padding: 15px 20px 25px;
+    margin: 10px;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .attachment-text {
+    font-size: 15px;
+    text-align: left;
+  }
+  
+  .close-button {
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-modal-content {
+    width: 98%;
+    max-height: 95vh;
+    padding: 12px 15px 20px;
+  }
+  
+  .modal-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .attachment-image {
+    margin: 15px 0;
+  }
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Loading para imagens */
+.image-loading {
+  display: inline-block;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  color: #6c757d;
+  font-style: italic;
+  margin: 15px 0;
+}
+
+/* Fallback para quando a imagem não carrega */
+.image-error {
+  display: inline-block;
+  padding: 20px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+  margin: 15px 0;
+}
+
+/* Tooltip para imagens */
+.image-tooltip {
+  position: relative;
+}
+
+.image-tooltip::after {
+  content: "Clique para ampliar";
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.image-tooltip:hover::after {
+  opacity: 1;
+}

@@ -12,12 +12,16 @@ const QuestionSchema = new mongoose.Schema({
   sourceTestId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Test', 
-    required: false // <-- A MUDANÇA ESTÁ AQUI
+    required: false
   },
 
+  // Anexos podem ser texto ou URLs de imagens
+  // Para texto: string normal
+  // Para imagem: URL que termina com .jpg, .png, .gif, .webp, etc.
   attachments: { 
     type: [String],
-    required: false
+    required: false,
+    default: []
   }
 });
 
