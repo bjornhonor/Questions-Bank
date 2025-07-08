@@ -7,8 +7,21 @@ const QuestionSchema = new mongoose.Schema({
   correctOptionIndex: { type: Number, required: true },
   area: { type: String, required: true, index: true },
   topic: { type: String, required: true, index: true },
+  
+  // CAMPO ADICIONADO: Ano da questão para organizar simulados
+  ano: { 
+    type: Number, 
+    required: true, 
+    index: true 
+  },
+  
+  // CAMPO ADICIONADO: Número da questão no exame original
+  numeroQuestao: { 
+    type: Number, 
+    required: false 
+  },
 
-  // CAMPO MODIFICADO: A ligação com um Teste agora é opcional
+  // A ligação com um Teste agora é opcional
   sourceTestId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Test', 
@@ -24,5 +37,9 @@ const QuestionSchema = new mongoose.Schema({
     default: []
   }
 });
+
+// Índices para melhor performance
+QuestionSchema.index({ ano: 1, area: 1 });
+QuestionSchema.index({ ano: 1, numeroQuestao: 1 });
 
 module.exports = mongoose.model('Question', QuestionSchema);

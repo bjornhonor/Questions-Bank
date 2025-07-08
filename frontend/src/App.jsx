@@ -13,13 +13,15 @@ import SingleQuestionPage from './pages/SingleQuestionPage';
 import RandomTestPage from './pages/RandomTestPage';
 import TestsPage from './pages/TestsPage';
 import SimuladosPage from './pages/SimuladosPage';
+import AnoSimuladosPage from './pages/AnoSimuladosPage';
+import ExecutarSimuladoPage from './pages/ExecutarSimuladoPage';
 import RedacaoPage from './pages/RedacaoPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import HistoryPage from './pages/HistoryPage';
 
-// O componente Navigation atualizado com link para Testes
+// O componente Navigation atualizado com link para Simulados
 const Navigation = () => {
   const { userInfo, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -40,6 +42,7 @@ const Navigation = () => {
               <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
               <Link to="/questions" style={linkStyle}>Banco de Questões</Link>
               <Link to="/tests" style={linkStyle}>Testes</Link>
+              <Link to="/simulados" style={linkStyle}>Simulados</Link>
             </>
           )}
         </div>
@@ -84,7 +87,7 @@ const buttonStyle = {
   transition: 'background-color 0.2s ease',
 };
 
-// O componente App principal com as novas rotas
+// O componente App principal com as rotas
 function App() {
   return (
     <BrowserRouter>
@@ -105,6 +108,8 @@ function App() {
             <Route path="/random-test" element={<RandomTestPage />} />
             <Route path="/tests" element={<TestsPage />} />
             <Route path="/simulados" element={<SimuladosPage />} />
+            <Route path="/simulados/:ano" element={<AnoSimuladosPage />} />
+            <Route path="/simulados/:ano/:numero/executar" element={<ExecutarSimuladoPage />} />
             <Route path="/redacao" element={<RedacaoPage />} />
           </Route>
         </Routes>

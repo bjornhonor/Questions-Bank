@@ -1,0 +1,422 @@
+/* /frontend/src/styles/simulados.css */
+
+/* ====== ESTILOS GLOBAIS DOS SIMULADOS ====== */
+
+/* Animações */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ====== HOVER EFFECTS ====== */
+
+/* Cards de Ano */
+.simulados-ano-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15) !important;
+}
+
+.simulados-ano-card:hover .iniciar-button {
+  background-color: #1557b0 !important;
+  transform: translateY(-1px);
+}
+
+/* Cards de Simulado */
+.simulados-simulado-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12) !important;
+}
+
+.simulados-simulado-card:hover .simulado-numero {
+  animation: pulse 1s ease-in-out;
+}
+
+/* Botões */
+.simulados-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.simulados-button:active {
+  transform: translateY(0);
+}
+
+/* Stat Cards */
+.simulados-stat-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.35) !important;
+}
+
+/* Opções de Resposta */
+.simulados-option:hover {
+  background-color: #f8f9ff !important;
+  border-color: #1a73e8 !important;
+  transform: translateX(3px);
+}
+
+.simulados-option-selected:hover {
+  background-color: #e3f2fd !important;
+}
+
+/* Navegador de Questões */
+.simulados-question-nav:hover {
+  transform: scale(1.1);
+  border-color: #1a73e8 !important;
+}
+
+.simulados-question-nav-active:hover {
+  background-color: #1557b0 !important;
+}
+
+.simulados-question-nav-answered:hover {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+/* Imagens */
+.simulados-attachment-thumb:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+}
+
+.simulados-expand-button:hover {
+  background-color: #1557b0 !important;
+  transform: translateY(-1px);
+}
+
+/* ====== LOADING STATES ====== */
+
+.simulados-loading-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.simulados-loading-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.simulados-loading-exit {
+  opacity: 1;
+}
+
+.simulados-loading-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+/* ====== RESPONSIVE DESIGN ====== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .simulados-container {
+    padding: 0 20px !important;
+  }
+  
+  .simulados-header {
+    padding: 50px 30px !important;
+  }
+  
+  .simulados-title {
+    font-size: 2.5em !important;
+  }
+  
+  .simulados-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 25px !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .simulados-container {
+    padding: 0 15px !important;
+  }
+  
+  .simulados-header {
+    padding: 40px 20px !important;
+  }
+  
+  .simulados-title {
+    font-size: 2.2em !important;
+    line-height: 1.2;
+  }
+  
+  .simulados-subtitle {
+    font-size: 1.1em !important;
+    margin-bottom: 30px !important;
+  }
+  
+  .simulados-stats {
+    gap: 15px !important;
+    flex-direction: column;
+  }
+  
+  .simulados-stat-card {
+    min-width: auto !important;
+    padding: 15px !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .simulados-stat-number {
+    font-size: 1.8em !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .simulados-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .simulados-card {
+    padding: 20px !important;
+  }
+  
+  .simulados-question-nav-container {
+    gap: 6px !important;
+  }
+  
+  .simulados-question-nav {
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 0.85em !important;
+  }
+  
+  .simulados-test-header {
+    padding: 15px 20px !important;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .simulados-timer {
+    font-size: 1.1em !important;
+  }
+  
+  .simulados-question-container {
+    padding: 25px 20px !important;
+  }
+  
+  .simulados-question-text {
+    font-size: 1.2em !important;
+    padding: 20px !important;
+  }
+  
+  .simulados-option {
+    padding: 15px !important;
+    font-size: 1em !important;
+  }
+  
+  .simulados-option-letter {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.9em !important;
+  }
+  
+  .simulados-nav-container {
+    padding: 15px 20px !important;
+  }
+  
+  .simulados-nav-buttons {
+    gap: 10px !important;
+  }
+  
+  .simulados-nav-button {
+    padding: 10px 16px !important;
+    font-size: 0.9em !important;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .simulados-title {
+    font-size: 1.8em !important;
+  }
+  
+  .simulados-subtitle {
+    font-size: 1em !important;
+  }
+  
+  .simulados-card {
+    padding: 15px !important;
+  }
+  
+  .simulados-question-text {
+    font-size: 1.1em !important;
+    padding: 15px !important;
+  }
+  
+  .simulados-option {
+    padding: 12px !important;
+    gap: 10px;
+  }
+  
+  .simulados-attachment-thumb {
+    max-width: 250px !important;
+    max-height: 150px !important;
+  }
+}
+
+/* ====== DARK MODE SUPPORT ====== */
+
+@media (prefers-color-scheme: dark) {
+  .simulados-card {
+    background-color: #2d3748 !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .simulados-text-muted {
+    color: #a0aec0 !important;
+  }
+  
+  .simulados-option {
+    background-color: #2d3748 !important;
+    border-color: #4a5568 !important;
+    color: #e2e8f0 !important;
+  }
+  
+  .simulados-option:hover {
+    background-color: #4a5568 !important;
+  }
+  
+  .simulados-question-text {
+    background-color: #2d3748 !important;
+    color: #e2e8f0 !important;
+  }
+}
+
+/* ====== ACCESSIBILITY ====== */
+
+/* Focus states */
+.simulados-button:focus,
+.simulados-option:focus,
+.simulados-nav-button:focus {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .simulados-card {
+    border: 2px solid #000 !important;
+  }
+  
+  .simulados-button {
+    border: 2px solid #000 !important;
+  }
+  
+  .simulados-option {
+    border: 2px solid #000 !important;
+  }
+}
+
+/* ====== PRINT STYLES ====== */
+
+@media print {
+  .simulados-header,
+  .simulados-nav-container,
+  .simulados-timer {
+    display: none !important;
+  }
+  
+  .simulados-question-container {
+    page-break-inside: avoid;
+  }
+  
+  .simulados-attachment-thumb {
+    max-width: 100% !important;
+    max-height: none !important;
+  }
+}
+
+/* ====== UTILITIES ====== */
+
+.simulados-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.simulados-slide-in-left {
+  animation: slideInFromLeft 0.3s ease-out;
+}
+
+.simulados-slide-in-right {
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+.simulados-no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.simulados-smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+.simulados-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.simulados-break-words {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ====== PERFORMANCE OPTIMIZATIONS ====== */
+
+.simulados-gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.simulados-container-query {
+  container-type: inline-size;
+}
+
+/* Container queries para cards */
+@container (max-width: 300px) {
+  .simulados-card-content {
+    padding: 10px !important;
+  }
+  
+  .simulados-card-title {
+    font-size: 1.2em !important;
+  }
+}
