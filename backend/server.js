@@ -10,6 +10,7 @@ const questionRoutes = require('./routes/questionRoutes');
 const resultRoutes = require('./routes/resultRoutes');
 const userRoutes = require('./routes/userRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const debugRoutes = require('./routes/debugRoutes');
 
 // Conectar ao Banco de Dados
 connectDB();

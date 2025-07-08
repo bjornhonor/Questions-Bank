@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import QuestionCard from '../components/QuestionCard';
+import DebugInfo from '../components/DebugInfo';
 
 function QuestionsPage() {
   const [questions, setQuestions] = useState([]);
@@ -9,6 +10,7 @@ function QuestionsPage() {
   const [filters, setFilters] = useState({ area: '', topic: '' });
   const [allAreas, setAllAreas] = useState([]);
   const [allTopics, setAllTopics] = useState([]);
+  const [showDebug, setShowDebug] = useState(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -52,7 +54,18 @@ function QuestionsPage() {
 
   return (
     <div>
-      <h2>Banco de Questões ({questions.length})</h2>
+      <div style={styles.header}>
+        <h2>Banco de Questões ({questions.length})</h2>
+        <button 
+          onClick={() => setShowDebug(!showDebug)}
+          style={styles.debugToggle}
+        >
+          {showDebug ? '🔧 Ocultar Debug' : '🔧 Mostrar Debug'}
+        </button>
+      </div>
+
+      {/* Componente de Debug (temporário) */}
+      {showDebug && <DebugInfo />}
 
       <div style={{ marginBottom: '20px' }}>
         <select name="area" value={filters.area} onChange={handleFilterChange}>
@@ -72,11 +85,62 @@ function QuestionsPage() {
             <QuestionCard key={question._id} question={question} />
           ))
         ) : (
-          <p>Nenhuma questão encontrada para os filtros selecionados.</p>
+          <div style={styles.emptyState}>
+            <h3>😕 Nenhuma questão encontrada</h3>
+            <p>
+              {filters.area || filters.topic 
+                ? 'Tente alterar os filtros ou limpar a busca.' 
+                : 'Parece que não há questões carregadas no sistema.'}
+            </p>
+            {!filters.area && !filters.topic && (
+              <div style={styles.helpText}>
+                <p><strong>Possíveis soluções:</strong></p>
+                <ul>
+                  <li>Verifique se o banco de dados está conectado</li>
+                  <li>Execute <code>npm run seed</code> no backend para carregar as questões</li>
+                  <li>Use o debug acima para investigar o problema</li>
+                </ul>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
   );
 }
+
+const styles = {
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '20px',
+  },
+  debugToggle: {
+    padding: '8px 16px',
+    backgroundColor: '#ff9800',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontWeight: '500',
+  },
+  emptyState: {
+    textAlign: 'center',
+    padding: '60px 20px',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '8px',
+    border: '1px solid #dadce0',
+  },
+  helpText: {
+    marginTop: '20px',
+    padding: '20px',
+    backgroundColor: '#e3f2fd',
+    borderRadius: '6px',
+    textAlign: 'left',
+    maxWidth: '500px',
+    margin: '20px auto 0',
+  },
+};
 
 export default QuestionsPage;
