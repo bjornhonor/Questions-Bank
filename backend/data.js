@@ -1,5 +1,3 @@
-// /backend/data.js
-// Não precisamos mais de uma seção separada para textos de apoio
 const questions = [
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -20,7 +18,10 @@ const questions = [
       "É o que mostra também uma pesquisa recente conduzida pela empresa de segurança digital Kaspersky, realizada com 6 mil pessoas em países da União Europeia. Ao receberem uma questão, 57% dos entrevistados tentam sugerir uma resposta sozinhos, mas 36% usam a internet para elaborar sua resposta. Além disso, 24% de todos os entrevistados admitiram esquecer a informação logo após utilizá-la para responder à pergunta - o que gerou a expressão \"amnésia digital\".",
       "Para Bertolucci, no entanto, o conceito é incorreto. \"Amnésia significa esquecer-se de algo; na 'amnésia digital', a pessoa não chega nem a aprender e, portanto, não consegue esquecer algo que escolheu nem lembrar.\"",
       "(Bruno Capelas. O Estado de S. Paulo, 06.06.2016. Adaptado)"
-    ]
+    ],
+    "ano": 2017,
+    "numeroQuestao": 1,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -37,7 +38,10 @@ const questions = [
     "attachments": [
       "\"Efeito Google\" muda uso da memória humana",
       "Pense rápido: qual o número de telefone da casa em que morou quando era criança? E o celular das pessoas com quem tem trocado mensagens recentemente? Por certo, foi mais fácil responder à primeira pergunta do que à segunda - mas você não está sozinho. Estudos científicos chamam esse fenômeno de \"efeito Google\" ou \"amnésia digital\", um sintoma de um comportamento cada vez mais comum: o de confiar o armazenamento de dados importantes aos nossos dispositivos eletrônicos e à internet em vez de guardá-los na cabeça."
-    ]
+    ],
+    "ano": 2017,
+    "numeroQuestao": 2,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -53,7 +57,10 @@ const questions = [
     "correctOptionIndex": 0,
     "attachments": [
       "É o que mostra também uma pesquisa recente conduzida pela empresa de segurança digital Kaspersky, realizada com 6 mil pessoas em países da União Europeia. Ao receberem uma questão, 57% dos entrevistados tentam sugerir uma resposta sozinhos, mas 36% usam a internet para elaborar sua resposta. Além disso, 24% de todos os entrevistados admitiram esquecer a informação logo após utilizá-la para responder à pergunta - o que gerou a expressão \"amnésia digital\"."
-    ]
+    ],
+    "ano": 2017,
+    "numeroQuestao": 3,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -69,7 +76,10 @@ const questions = [
     "correctOptionIndex": 2,
     "attachments": [
       "Para Bertolucci, no entanto, o conceito é incorreto. \"Amnésia significa esquecer-se de algo; na 'amnésia digital', a pessoa não chega nem a aprender e, portanto, não consegue esquecer algo que escolheu nem lembrar.\""
-    ]
+    ],
+    "ano": 2017,
+    "numeroQuestao": 4,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -82,7 +92,11 @@ const questions = [
       "em vista disso.",
       "portanto."
     ],
-    "correctOptionIndex": 2
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 5,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -101,7 +115,10 @@ const questions = [
       "Pense rápido: qual o número de telefone da casa em que morou quando era criança? E o celular das pessoas com quem tem trocado mensagens recentemente? Por certo, foi mais fácil responder à primeira pergunta do que à segunda - mas você não está sozinho. Estudos científicos chamam esse fenômeno de \"efeito Google\" ou \"amnésia digital\", um sintoma de um comportamento cada vez mais comum: o de confiar o armazenamento de dados importantes aos nossos dispositivos eletrônicos e à internet em vez de guardá-los na cabeça.",
       "Na internet, basta um clique para vasculhar um sem-número de informações. Segundo Adrian F. Ward, da Universidade de Austin, nos Estados Unidos, o acesso rápido e a quantidade de textos fazem com que o cérebro humano não considere útil gravar esses dados, uma vez que é fácil encontrá-los de novo rapidamente. \"É como quando consultamos o telefone de uma loja: após discar e fazer a ligação, não precisamos mais dele\", explica Paulo Bertolucci, da Unifesp.",
       "É o que mostra também uma pesquisa recente conduzida pela empresa de segurança digital Kaspersky, realizada com 6 mil pessoas em países da União Europeia. Ao receberem uma questão, 57% dos entrevistados tentam sugerir uma resposta sozinhos, mas 36% usam a internet para elaborar sua resposta. Além disso, 24% de todos os entrevistados admitiram esquecer a informação logo após utilizá-la para responder à pergunta - o que gerou a expressão \"amnésia digital\"."
-    ]
+    ],
+    "ano": 2017,
+    "numeroQuestao": 6,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -121,8 +138,11 @@ const questions = [
       "Primeiro, associe suas memórias com objetos físicos. Você já deve ter passado por este problema: acabou de ser apresentado a alguém e, assim que a pessoa vira as costas, já esqueceu como ela se chama. Acontece - mas é extremamente embaraçoso precisar perguntar o nome dela novamente. A dica é associar o nome a algum objeto. Por exemplo, se você acabou de conhecer a Giovana e ela estava próxima a uma janela, pense nela como a Giovana da Janela.",
       "Segundo, não memorize apenas por repetição. Ao ver ou participar de apresentações, você deve ter sentido isto: é muito claro quando alguém apenas decorou o que devia falar. Mas basta acontecer alguma mudança no roteiro para que a pessoa se perca. Memorizar algo de fato depende de compreensão. Então, ao pensar em falas e apresentações, tente entender o conceito todo ao redor do que você está falando. Pesquisas mostram que apenas a repetição automática pode até impedir que você entenda o que está expondo.",
       "Terceiro, rabisque! Estudos indicam que rabiscar enquanto \"ingerimos\" informações não visuais (em aulas, por exemplo) aumenta a capacidade de nossa memória. Uma pesquisa de 2009 mostrou que pessoas que rabiscavam enquanto ouviam uma lista de nomes lembravam 29% a mais os nomes ditos.",
-      "(Luciana Galastri. Revista Galileu, 03.02.2015. http://revistagalileu.globo.com. Adaptado)"
-    ]
+      "(Luciana Galastri. Revista Galileu, 03.02.2015. http://revistagalileu.globo.com  . Adaptado)"
+    ],
+    "ano": 2017,
+    "numeroQuestao": 7,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -135,7 +155,11 @@ const questions = [
       "inclusive.",
       "com certeza."
     ],
-    "correctOptionIndex": 3
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 8,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -148,7 +172,11 @@ const questions = [
       "figurado, equivalendo a \"captamos equivocadamente\".",
       "próprio, equivalendo a \"devoramos avidamente\"."
     ],
-    "correctOptionIndex": 1
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 9,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -161,7 +189,11 @@ const questions = [
       "Pense rápido: qual o número de telefone da casa em que morou quando era criança?",
       "É o que mostra também uma pesquisa recente conduzida pela empresa de segurança digital Kaspersky..."
     ],
-    "correctOptionIndex": 3
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 10,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -174,7 +206,11 @@ const questions = [
       "É sempre válido aprender técnicas de memorização, especialmente quando se tratam de exercícios simples, como rabiscar enquanto se assistem a uma palestra.",
       "Mesmo indivíduos com uma excelente memória têm episódios de esquecimento, os quais se tornam frequentes em momentos de estresse."
     ],
-    "correctOptionIndex": 4
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 11,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -195,7 +231,10 @@ const questions = [
       "Não há nenhum mal nisto, e eu gostaria que mais cantores publicassem suas memórias. Mas só uma biografia de verdade oferece o quadro completo. No livro de Rita, ela fala, por exemplo, de um show na gafieira Som de Cristal, em 1968, com os tropicalistas e astros da velha guarda. Na passagem de som, à tarde, Sérgio e Arnaldo, \"intencionalmente, ligaram os instrumentos no volume máximo, quase explodindo os vidros da gafieira\", e o veterano cantor Vicente Celestino \"lá presente, teve um piripaque\". Fim.",
       "Uma biografia contaria o resto da história - que Celestino foi para o Hotel Normandie, a fim de se preparar para o show, e lá teve o infarto que o matou. Uma biografia deveria...",
       "(Ruy Castro. Folha de S.Paulo, 26.11.2016. Adaptado)"
-    ]
+    ],
+    "ano": 2017,
+    "numeroQuestao": 12,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -208,7 +247,18 @@ const questions = [
       "reacionário e moralista.",
       "inculto e medíocre."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [
+      "Autobiografia e memória",
+      "Rita Lee acaba de publicar um livro delicioso, que chamou de Uma autobiografia. É uma narrativa, na primeira pessoa, de sua vida como mulher e cantora, escrita com humor e franqueza incomuns em artistas brasileiros do seu porte. Exemplos. Foi presa grávida e salva por Elis Regina de abortar. Teve LPs lançados com faixas riscadas a tesoura pela Censura.",
+      "É um apanhado e tanto, com final feliz. Mas será uma \"autobiografia\"? Supõe-se que uma autobiografia seja uma biografia escrita pela própria pessoa, não? E será, mas só se ela usar as armas de um biógrafo, entre as quais ouvir um mínimo de 200 fontes de informações. Na verdade, a \"autobiografia\", entre nós, é mais uma memória, em que o autor ouve apenas a si mesmo.",
+      "Não há nenhum mal nisto, e eu gostaria que mais cantores publicassem suas memórias. Mas só uma biografia de verdade oferece o quadro completo. No livro de Rita, ela fala, por exemplo, de um show na gafieira Som de Cristal, em 1968, com os tropicalistas e astros da velha guarda. Na passagem de som, à tarde, Sérgio e Arnaldo, \"intencionalmente, ligaram os instrumentos no volume máximo, quase explodindo os vidros da gafieira\", e o veterano cantor Vicente Celestino \"lá presente, teve um piripaque\". Fim.",
+      "Uma biografia contaria o resto da história - que Celestino foi para o Hotel Normandie, a fim de se preparar para o show, e lá teve o infarto que o matou. Uma biografia deveria...",
+      "(Ruy Castro. Folha de S.Paulo, 26.11.2016. Adaptado)"
+    ],
+    "ano": 2017,
+    "numeroQuestao": 13,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -221,7 +271,18 @@ const questions = [
       "requer um convívio factual, íntimo e amistoso com seus personagens.",
       "deve ser delegada a historiadores profissionais gabaritados."
     ],
-    "correctOptionIndex": 2
+    "correctOptionIndex": 2,
+    "attachments": [
+      "Autobiografia e memória",
+      "Rita Lee acaba de publicar um livro delicioso, que chamou de Uma autobiografia. É uma narrativa, na primeira pessoa, de sua vida como mulher e cantora, escrita com humor e franqueza incomuns em artistas brasileiros do seu porte. Exemplos. Foi presa grávida e salva por Elis Regina de abortar. Teve LPs lançados com faixas riscadas a tesoura pela Censura.",
+      "É um apanhado e tanto, com final feliz. Mas será uma \"autobiografia\"? Supõe-se que uma autobiografia seja uma biografia escrita pela própria pessoa, não? E será, mas só se ela usar as armas de um biógrafo, entre as quais ouvir um mínimo de 200 fontes de informações. Na verdade, a \"autobiografia\", entre nós, é mais uma memória, em que o autor ouve apenas a si mesmo.",
+      "Não há nenhum mal nisto, e eu gostaria que mais cantores publicassem suas memórias. Mas só uma biografia de verdade oferece o quadro completo. No livro de Rita, ela fala, por exemplo, de um show na gafieira Som de Cristal, em 1968, com os tropicalistas e astros da velha guarda. Na passagem de som, à tarde, Sérgio e Arnaldo, \"intencionalmente, ligaram os instrumentos no volume máximo, quase explodindo os vidros da gafieira\", e o veterano cantor Vicente Celestino \"lá presente, teve um piripaque\". Fim.",
+      "Uma biografia contaria o resto da história - que Celestino foi para o Hotel Normandie, a fim de se preparar para o show, e lá teve o infarto que o matou. Uma biografia deveria...",
+      "(Ruy Castro. Folha de S.Paulo, 26.11.2016. Adaptado)"
+    ],
+    "ano": 2017,
+    "numeroQuestao": 14,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -231,10 +292,21 @@ const questions = [
       "atentar para o resto da história...",
       "reportar-se o resto da história...",
       "ater-se do resto da história...",
-      "fazer alusão do resto da história....",
+      "fazer alusão do resto da história...",
       "fazer menção no resto da história..."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [
+      "Autobiografia e memória",
+      "Rita Lee acaba de publicar um livro delicioso, que chamou de Uma autobiografia. É uma narrativa, na primeira pessoa, de sua vida como mulher e cantora, escrita com humor e franqueza incomuns em artistas brasileiros do seu porte. Exemplos. Foi presa grávida e salva por Elis Regina de abortar. Teve LPs lançados com faixas riscadas a tesoura pela Censura.",
+      "É um apanhado e tanto, com final feliz. Mas será uma \"autobiografia\"? Supõe-se que uma autobiografia seja uma biografia escrita pela própria pessoa, não? E será, mas só se ela usar as armas de um biógrafo, entre as quais ouvir um mínimo de 200 fontes de informações. Na verdade, a \"autobiografia\", entre nós, é mais uma memória, em que o autor ouve apenas a si mesmo.",
+      "Não há nenhum mal nisto, e eu gostaria que mais cantores publicassem suas memórias. Mas só uma biografia de verdade oferece o quadro completo. No livro de Rita, ela fala, por exemplo, de um show na gafieira Som de Cristal, em 1968, com os tropicalistas e astros da velha guarda. Na passagem de som, à tarde, Sérgio e Arnaldo, \"intencionalmente, ligaram os instrumentos no volume máximo, quase explodindo os vidros da gafieira\", e o veterano cantor Vicente Celestino \"lá presente, teve um piripaque\". Fim.",
+      "Uma biografia contaria o resto da história - que Celestino foi para o Hotel Normandie, a fim de se preparar para o show, e lá teve o infarto que o matou. Uma biografia deveria...",
+      "(Ruy Castro. Folha de S.Paulo, 26.11.2016. Adaptado)"
+    ],
+    "ano": 2017,
+    "numeroQuestao": 15,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -247,7 +319,18 @@ const questions = [
       "Mas só uma biografia de verdade oferece o quadro completo. (4° parágrafo) → Mas só uma biografia de verdade oferece-lo.",
       "... ligaram os instrumentos no volume máximo... (4° parágrafo) → ... ligaram-nos no volume máximo..."
     ],
-    "correctOptionIndex": 4
+    "correctOptionIndex": 4,
+    "attachments": [
+      "Autobiografia e memória",
+      "Rita Lee acaba de publicar um livro delicioso, que chamou de Uma autobiografia. É uma narrativa, na primeira pessoa, de sua vida como mulher e cantora, escrita com humor e franqueza incomuns em artistas brasileiros do seu porte. Exemplos. Foi presa grávida e salva por Elis Regina de abortar. Teve LPs lançados com faixas riscadas a tesoura pela Censura.",
+      "É um apanhado e tanto, com final feliz. Mas será uma \"autobiografia\"? Supõe-se que uma autobiografia seja uma biografia escrita pela própria pessoa, não? E será, mas só se ela usar as armas de um biógrafo, entre as quais ouvir um mínimo de 200 fontes de informações. Na verdade, a \"autobiografia\", entre nós, é mais uma memória, em que o autor ouve apenas a si mesmo.",
+      "Não há nenhum mal nisto, e eu gostaria que mais cantores publicassem suas memórias. Mas só uma biografia de verdade oferece o quadro completo. No livro de Rita, ela fala, por exemplo, de um show na gafieira Som de Cristal, em 1968, com os tropicalistas e astros da velha guarda. Na passagem de som, à tarde, Sérgio e Arnaldo, \"intencionalmente, ligaram os instrumentos no volume máximo, quase explodindo os vidros da gafieira\", e o veterano cantor Vicente Celestino \"lá presente, teve um piripaque\". Fim.",
+      "Uma biografia contaria o resto da história - que Celestino foi para o Hotel Normandie, a fim de se preparar para o show, e lá teve o infarto que o matou. Uma biografia deveria...",
+      "(Ruy Castro. Folha de S.Paulo, 26.11.2016. Adaptado)"
+    ],
+    "ano": 2017,
+    "numeroQuestao": 16,
+    "printar": false
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -262,8 +345,11 @@ const questions = [
     ],
     "correctOptionIndex": 3,
     "attachments": [
-      "Quadrinho: 'Eu já jogava meu tempo fora antes de inventarem a internet.' / 'Você era um homem à frente do seu tempo.' / 'À frente do seu tempo jogado fora.'"
-    ]
+      "http://localhost:5000/images/2017-17.png" 
+    ],
+    "ano": 2017,
+    "numeroQuestao": 17,
+    "printar": true
   },
   {
     "area": "Língua Portuguesa e Interpretação de Texto",
@@ -276,7 +362,11 @@ const questions = [
       "O personagem refere-se à uma maneira de se portar com relação ao tempo.",
       "O personagem revelou à pessoa com quem conversava que jogava o tempo fora."
     ],
-    "correctOptionIndex": 4
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 18,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -291,9 +381,11 @@ const questions = [
     ],
     "correctOptionIndex": 1,
     "attachments": [
-      "A tabela mostra a movimentação da conta corrente de uma pessoa em determinado dia.",
-      "Tabela de movimentação: Saldo no início do dia: +530,00; Pagamento de boleto: -424,00; Depósito: +280,00; Saque: X; Depósito: +310,00; Saldo no final do dia: Y."
-    ]
+      "http://localhost:5000/images/2017-19.png" 
+    ],
+    "ano": 2017,
+    "numeroQuestao": 19,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -306,7 +398,11 @@ const questions = [
       "125.",
       "115."
     ],
-    "correctOptionIndex": 2
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 20,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -319,7 +415,11 @@ const questions = [
       "385.",
       "256."
     ],
-    "correctOptionIndex": 1
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 21,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -332,7 +432,11 @@ const questions = [
       "28.",
       "16."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 22,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -345,7 +449,11 @@ const questions = [
       "44%.",
       "52%."
     ],
-    "correctOptionIndex": 2
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 23,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -358,7 +466,11 @@ const questions = [
       "36 minutos.",
       "30 minutos."
     ],
-    "correctOptionIndex": 3
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 24,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -371,7 +483,11 @@ const questions = [
       "21 anos.",
       "23 anos."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 25,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -384,7 +500,11 @@ const questions = [
       "180.",
       "120."
     ],
-    "correctOptionIndex": 4
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 26,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -397,7 +517,11 @@ const questions = [
       "12.",
       "20."
     ],
-    "correctOptionIndex": 2
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 27,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -412,9 +536,11 @@ const questions = [
     ],
     "correctOptionIndex": 1,
     "attachments": [
-      "A tabela mostra o tempo de cada uma das 4 viagens feitas por um ônibus em certo dia.",
-      "Tabela de Viagens: 1ª: 1 hora e 20 minutos; 2ª: 1 hora e 15 minutos; 3ª: 1 hora e 20 minutos; 4ª: ?"
-    ]
+      "http://localhost:5000/images/2017-28.png" 
+    ],
+    "ano": 2017,
+    "numeroQuestao": 28,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -427,7 +553,11 @@ const questions = [
       "675.",
       "600."
     ],
-    "correctOptionIndex": 1
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 29,
+    "printar": false
   },
   {
     "area": "Matemática",
@@ -442,9 +572,11 @@ const questions = [
     ],
     "correctOptionIndex": 3,
     "attachments": [
-      "A figura mostra duas salas, A e B, ambas retangulares, com medidas em metros.",
-      "Sala A: lados x e x+3. Sala B: lados 8 e x+1."
-    ]
+      "http://localhost:5000/images/2017-30.png" 
+    ],
+    "ano": 2017,
+    "numeroQuestao": 30,
+    "printar": true
   },
   {
     "area": "Conhecimentos Gerais",
@@ -457,7 +589,11 @@ const questions = [
       "as tensões nacionalistas na região dos países bálticos, o conflito com a Bélgica pelo acesso ao mar do Norte e os impasses diplomáticos com a Holanda.",
       "o embate com a Sérvia na fronteira oriental, a disputa territorial com a Suíça ao sul e a concorrência econômica e comercial com os EUA."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 31,
+    "printar": false
   },
   {
     "area": "Conhecimentos Gerais",
@@ -470,7 +606,11 @@ const questions = [
       "a ação conjunta de China e Japão contra o avanço imperialista dos EUA sobre o Pacífico, o que levou à formação de uma aliança antiocidental.",
       "o ingresso da União Soviética na aliança antifascista formada por França, EUA e Inglaterra, o que gerou desconfiança no Japão anticomunista."
     ],
-    "correctOptionIndex": 2
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 32,
+    "printar": false
   },
   {
     "area": "Conhecimentos Gerais",
@@ -483,7 +623,11 @@ const questions = [
       "um contexto de (re)construção da identidade nacional a partir de elementos como o patrimônio, que representava a história na preservação de alguns edifícios históricos, evidenciando a parceria entre os intelectuais e o Estado na formulação de importantes políticas públicas.",
       "uma época de consolidação das propostas de preservação do patrimônio baseadas em concepções eurocêntricas, que tomavam a ideia de civilização como referência e consideravam o nacional como cultura inferior, que deveria ser preservada por suas marcas folclóricas."
     ],
-    "correctOptionIndex": 3
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 33,
+    "printar": false
   },
   {
     "area": "Conhecimentos Gerais",
@@ -496,7 +640,11 @@ const questions = [
       "o biênio 1988-1989, quando foi eleita a Assembleia que escreveu a Constituição, que só entrou em vigor depois do plebiscito sobre a forma de governo de 1993.",
       "o biênio 1978-1979, quando o AI-5 foi extinto, a Lei da Anistia foi promulgada e extinguiu-se o bipartidarismo, passando a haver vários partidos."
     ],
-    "correctOptionIndex": 4
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 34,
+    "printar": false
   },
   {
     "area": "Conhecimentos Gerais",
@@ -509,7 +657,11 @@ const questions = [
       "devem transformar-se, até a próxima década, no bloco mais populoso, pois China, Índia e Rússia são países com elevado crescimento demográfico.",
       "superaram a fase de países emergentes porque apresentam grande potencial econômico e financeiro que atrai investimentos internacionais de grande porte."
     ],
-    "correctOptionIndex": 1
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 35,
+    "printar": false
   },
   {
     "area": "Conhecimentos Gerais",
@@ -522,7 +674,11 @@ const questions = [
       "à atuação do El Niño.",
       "à contaminação dos lençóis freáticos."
     ],
-    "correctOptionIndex": 1
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 36,
+    "printar": false
   },
   {
     "area": "Conhecimentos Gerais",
@@ -535,7 +691,13 @@ const questions = [
       "as matas galerias.",
       "a mata de araucárias."
     ],
-    "correctOptionIndex": 2
+    "correctOptionIndex": 2,
+    "attachments": [
+      "http://localhost:5000/images/2017-37.png" 
+    ],
+    "ano": 2017,
+    "numeroQuestao": 37,
+    "printar": true
   },
   {
     "area": "Conhecimentos Gerais",
@@ -548,7 +710,13 @@ const questions = [
       "a população adulta apresentou declínio.",
       "a proporção de mulheres adultas diminuiu."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [
+      "http://localhost:5000/images/2017-38.png" 
+    ],
+    "ano": 2017,
+    "numeroQuestao": 38,
+    "printar": true
   },
   {
     "area": "Conhecimentos Gerais",
@@ -561,7 +729,11 @@ const questions = [
       "que, desde o início do século XXI, vem lutando para promover a reforma agrária para os camponeses colombianos.",
       "como retribuição por sua luta pela reconstrução do país, parcialmente destruído desde o terremoto de 2010."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 39,
+    "printar": false
   },
   {
     "area": "Conhecimentos Gerais",
@@ -574,7 +746,11 @@ const questions = [
       "a obrigatoriedade da participação no Enem, considerado uma avaliação conteudista.",
       "a reforma do ensino médio proposta pelo governo federal."
     ],
-    "correctOptionIndex": 4
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 40,
+    "printar": false
   },
   {
     "area": "Noções Básicas de Informática",
@@ -587,7 +763,11 @@ const questions = [
       "Ligar e desligar o computador.",
       "Editar textos simples, sem recursos de formatação."
     ],
-    "correctOptionIndex": 1
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 41,
+    "printar": false
   },
   {
     "area": "Noções Básicas de Informática",
@@ -600,7 +780,11 @@ const questions = [
       "Se o usuário pressionar a tecla Delete, a frase selecionada será eliminada do documento, mas poderá ser colada novamente em outra parte do documento, usando-se as teclas CTRL+V, mantendo todas as formatações que lhe estavam aplicadas.",
       "Se o usuário pressionar as teclas CTRL+X, eliminará a frase selecionada do documento e poderá usar as teclas CTRL+V para colá-la em outro ponto do documento, mantendo todas as formatações que estavam aplicadas."
     ],
-    "correctOptionIndex": 4
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 42,
+    "printar": false
   },
   {
     "area": "Noções Básicas de Informática",
@@ -615,8 +799,11 @@ const questions = [
     ],
     "correctOptionIndex": 3,
     "attachments": [
-      "Planilha do Excel com colunas: Nome, Cidade, UF, Sexo, Idade. Aparentemente um filtro é indicado por um pequeno ícone de funil no cabeçalho da coluna. Na imagem, a coluna 'Idade' parece ter esse ícone."
-    ]
+      "http://localhost:5000/images/2017-43.png" 
+    ],
+    "ano": 2017,
+    "numeroQuestao": 43,
+    "printar": true
   },
   {
     "area": "Noções Básicas de Informática",
@@ -629,7 +816,11 @@ const questions = [
       "Plano de fundo Branco.",
       "Transição com duração de 0 segundo."
     ],
-    "correctOptionIndex": 1
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 44,
+    "printar": false
   },
   {
     "area": "Noções Básicas de Informática",
@@ -642,7 +833,11 @@ const questions = [
       "Responder a todos.",
       "Marcar como lida."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 45,
+    "printar": false
   },
   {
     "area": "Noções de Administração Pública",
@@ -655,7 +850,11 @@ const questions = [
       "os cargos, empregos e funções públicas são acessíveis aos brasileiros que preencham os requisitos estabelecidos em lei, sendo vedado o ingresso de estrangeiros no serviço público.",
       "a proibição de acumular empregos e funções não abrange autarquias, fundações, empresas públicas, sociedades de economia mista, suas subsidiárias e sociedades controladas, direta ou indiretamente, pelo poder público."
     ],
-    "correctOptionIndex": 2
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 46,
+    "printar": false
   },
   {
     "area": "Noções de Administração Pública",
@@ -668,7 +867,11 @@ const questions = [
       "o Presidente do Tribunal de Justiça e o Presidente da Assembleia Legislativa.",
       "o Presidente da Assembleia Legislativa e o Presidente do Tribunal de Justiça."
     ],
-    "correctOptionIndex": 4
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 47,
+    "printar": false
   },
   {
     "area": "Noções de Administração Pública",
@@ -681,7 +884,11 @@ const questions = [
       "poderá requisitá-las ao dirigente máximo do órgão ou entidade que a detiver, que decidirá se deve prestá-las ou não.",
       "deverá solicitá-las ao dirigente do respectivo órgão ou entidade, que será obrigado a fornecê-las no prazo de 7 (sete) dias."
     ],
-    "correctOptionIndex": 0
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2017,
+    "numeroQuestao": 48,
+    "printar": false
   },
   {
     "area": "Noções de Administração Pública",
@@ -697,7 +904,10 @@ const questions = [
     "correctOptionIndex": 3,
     "attachments": [
       "Considere a seguinte situação hipotética: Policial Militar do Estado de São Paulo, designado para realizar atividade policial-militar com veículo automotor, que deveria permanecer, por determinado período, estacionado em cruzamento com alto índice de ocorrências, resolve afastar-se do local e ir até região na qual considera ter maior número de ocorrências envolvendo violência, distante 2 km do local onde deveria estar estacionado."
-    ]
+    ],
+    "ano": 2017,
+    "numeroQuestao": 49,
+    "printar": false
   },
   {
     "area": "Noções de Administração Pública",
@@ -713,9 +923,11 @@ const questions = [
     "correctOptionIndex": 0,
     "attachments": [
       "Considere o seguinte caso hipotético: Cidadão solicita à Polícia Militar, para fins de consulta para a elaboração de uma pesquisa acadêmica, acesso a um grande volume de documentos que, por serem antigos, não se encontram em formato digital. Embora o manuseio não traga qualquer risco à integridade de tais documentos, o valor necessário ao ressarcimento do custo dos serviços e dos materiais utilizados para a reprodução dos documentos chega a cerca de R$ 10.000,00 (dez mil reais). O Cidadão afirma não poder arcar com esse custo, já que percebe apenas uma bolsa mensal no valor de R$ 1.500,00 (um mil e quinhentos reais mensais)."
-    ]
+    ],
+    "ano": 2017,
+    "numeroQuestao": 50,
+    "printar": false
   }
 ];
 
-// Exportamos apenas examsData agora
 module.exports = questions;
