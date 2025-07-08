@@ -1,0 +1,198 @@
+/* /frontend/src/pages/QuestionsPage.css */
+
+/* Animações */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromTop {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Aplicar animações aos elementos */
+.questions-page-container {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.questions-page-header {
+  animation: slideInFromTop 0.8s ease-out;
+}
+
+.questions-page-filters {
+  animation: slideInFromLeft 0.6s ease-out 0.2s both;
+}
+
+.question-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.question-card:nth-child(1) { animation-delay: 0.1s; }
+.question-card:nth-child(2) { animation-delay: 0.2s; }
+.question-card:nth-child(3) { animation-delay: 0.3s; }
+.question-card:nth-child(4) { animation-delay: 0.4s; }
+.question-card:nth-child(5) { animation-delay: 0.5s; }
+.question-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Efeitos de hover aprimorados */
+.filter-select:hover {
+  border-color: #1a73e8;
+  background-color: #f8f9ff;
+}
+
+.filter-select:focus {
+  border-color: #1a73e8;
+  background-color: #f8f9ff;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+}
+
+.clear-button:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.show-all-button:hover {
+  background-color: #1557b0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+/* Efeitos para os cards de estatísticas */
+.stat-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.3);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .questions-page-container {
+    padding: 15px;
+  }
+  
+  .questions-page-header {
+    padding: 30px 20px;
+  }
+  
+  .questions-page-title {
+    font-size: 2em !important;
+  }
+  
+  .stats-container {
+    gap: 15px !important;
+  }
+  
+  .stat-card {
+    min-width: 100px !important;
+    padding: 15px !important;
+  }
+  
+  .filters-container {
+    flex-direction: column;
+    gap: 15px !important;
+  }
+  
+  .filter-group {
+    min-width: auto !important;
+  }
+  
+  .questions-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .questions-page-title {
+    font-size: 1.8em !important;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stat-card {
+    width: 200px;
+  }
+}
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Melhorar a aparência da scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Estados de foco melhorados para acessibilidade */
+.filter-select:focus,
+.clear-button:focus,
+.show-all-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+}
+
+/* Efeito de loading aprimorado */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Efeito de pulse para elementos de loading */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.loading-text {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Transições suaves para mudanças de estado */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Efeito hover para tags de filtro ativo */
+.filter-tag:hover {
+  background-color: #bbdefb;
+  transform: scale(1.05);
+}
+
+/* Efeito de destaque para questões */
+.question-card:hover .view-button {
+  color: #1557b0;
+}
+
+/* Melhorar a aparência dos elementos no dark mode (se necessário no futuro) */
+@media (prefers-color-scheme: dark) {
+  /* Estilos para dark mode podem ser adicionados aqui */
+}
