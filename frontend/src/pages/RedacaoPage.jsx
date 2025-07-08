@@ -11,22 +11,22 @@ function RedacaoPage() {
         <div style={styles.titleSection}>
           <h1 style={styles.title}>Redação</h1>
           <p style={styles.subtitle}>
-            Desenvolva suas habilidades de escrita com temas atuais e relevantes
+            Pratique com temas de redações de provas passadas de concursos públicos
           </p>
         </div>
         
         <div style={styles.statsContainer}>
           <div style={styles.statCard}>
-            <div style={styles.statNumber}>✍️</div>
-            <div style={styles.statLabel}>Escrita</div>
+            <div style={styles.statNumber}>📚</div>
+            <div style={styles.statLabel}>Provas Passadas</div>
           </div>
           <div style={styles.statCard}>
             <div style={styles.statNumber}>🚧</div>
             <div style={styles.statLabel}>Em Breve</div>
           </div>
           <div style={styles.statCard}>
-            <div style={styles.statNumber}>📝</div>
-            <div style={styles.statLabel}>Correção</div>
+            <div style={styles.statNumber}>✍️</div>
+            <div style={styles.statLabel}>Prática</div>
           </div>
         </div>
       </div>
@@ -37,44 +37,44 @@ function RedacaoPage() {
           <div style={styles.comingSoonIcon}>📚</div>
           <h2 style={styles.comingSoonTitle}>Módulo de Redação em Desenvolvimento</h2>
           <p style={styles.comingSoonText}>
-            Estamos criando uma experiência completa para aprimorar suas habilidades de redação. 
-            Em breve, você terá acesso a temas atuais, correção automática e dicas personalizadas.
+            Estamos criando uma biblioteca completa de temas de redação de provas passadas. 
+            Em breve, você terá acesso a centenas de temas reais de concursos públicos.
           </p>
           
           <div style={styles.featuresPreview}>
             <h3 style={styles.featuresTitle}>O que estará disponível:</h3>
             <div style={styles.featuresList}>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}>📰</span>
-                <span>Temas atuais e relevantes</span>
+                <span style={styles.featureIcon}>📚</span>
+                <span>Temas de provas passadas</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}>🤖</span>
-                <span>Correção automática inteligente</span>
+                <span style={styles.featureIcon}>🏛️</span>
+                <span>Diferentes órgãos públicos</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}>💡</span>
-                <span>Dicas personalizadas de melhoria</span>
+                <span style={styles.featureIcon}>📝</span>
+                <span>Diversos tipos de redação</span>
               </div>
               <div style={styles.featureItem}>
                 <span style={styles.featureIcon}>📊</span>
-                <span>Análise de estrutura e coesão</span>
+                <span>Histórico de temas por ano</span>
               </div>
               <div style={styles.featureItem}>
                 <span style={styles.featureIcon}>🎯</span>
-                <span>Diferentes tipos de redação</span>
+                <span>Prática direcionada</span>
               </div>
               <div style={styles.featureItem}>
                 <span style={styles.featureIcon}>📈</span>
                 <span>Acompanhamento de progresso</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}>🏆</span>
-                <span>Banco de redações modelo</span>
+                <span style={styles.featureIcon}>🔍</span>
+                <span>Busca por tema ou concurso</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}>⏱️</span>
-                <span>Cronômetro para prática</span>
+                <span style={styles.featureIcon}>💾</span>
+                <span>Salvar rascunhos</span>
               </div>
             </div>
           </div>
@@ -82,9 +82,9 @@ function RedacaoPage() {
           <div style={styles.tipBox}>
             <h4 style={styles.tipTitle}>💡 Dica Enquanto Aguarda:</h4>
             <p style={styles.tipText}>
-              Pratique lendo editoriais de jornais, identifique a estrutura argumentativa 
-              e tente reescrevê-los com suas próprias palavras. Isso ajudará a desenvolver 
-              seu estilo de escrita e repertório cultural.
+              Pesquise temas de redação de concursos passados na internet e pratique escrevendo 
+              sobre eles. Observe os padrões dos temas mais cobrados e familiarize-se com 
+              diferentes tipos de textos solicitados (dissertativo, argumentativo, etc.).
             </p>
           </div>
 

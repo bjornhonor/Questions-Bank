@@ -20,22 +20,22 @@ function TestsPage() {
     {
       id: 'simulados',
       title: 'Simulados',
-      description: 'Pratique com simulados completos baseados em provas reais de concursos',
+      description: 'Resolva 12 questões baseando-se na proporção da prova real de concursos',
       icon: '📝',
       color: '#34a853',
       gradient: 'linear-gradient(135deg, #34a853 0%, #4caf50 100%)',
       route: '/simulados',
-      features: ['Provas completas', 'Tempo cronometrado', 'Ranking de desempenho']
+      features: ['12 questões proporcionais', 'Baseado em provas reais', 'Resultado detalhado']
     },
     {
       id: 'redacao',
       title: 'Redação',
-      description: 'Desenvolva suas habilidades de escrita com temas atuais e relevantes',
+      description: 'Pratique com temas de redações de provas passadas de concursos públicos',
       icon: '✍️',
       color: '#ff9800',
       gradient: 'linear-gradient(135deg, #ff9800 0%, #ffc107 100%)',
       route: '/redacao',
-      features: ['Temas atuais', 'Correção automática', 'Dicas de escrita']
+      features: ['Temas de provas passadas', 'Diferentes concursos', 'Prática direcionada']
     }
   ];
 
@@ -58,14 +58,6 @@ function TestsPage() {
           <div style={styles.statCard}>
             <div style={styles.statNumber}>3</div>
             <div style={styles.statLabel}>Modalidades</div>
-          </div>
-          <div style={styles.statCard}>
-            <div style={styles.statNumber}>∞</div>
-            <div style={styles.statLabel}>Possibilidades</div>
-          </div>
-          <div style={styles.statCard}>
-            <div style={styles.statNumber}>100%</div>
-            <div style={styles.statLabel}>Aprendizado</div>
           </div>
         </div>
       </div>
@@ -128,7 +120,7 @@ function TestsPage() {
                   border: `2px solid ${card.color}`,
                 }}>
                   {card.id === 'random-test' ? 'Iniciar Teste' : 
-                   card.id === 'simulados' ? 'Ver Simulados' : 'Abrir Redação'}
+                   card.id === 'simulados' ? 'Ver Simulados' : 'Ver Redações'}
                 </button>
               </div>
             </div>
@@ -136,33 +128,7 @@ function TestsPage() {
         ))}
       </div>
 
-      {/* Seção de Estatísticas */}
-      <div style={styles.infoSection}>
-        <h2 style={styles.infoTitle}>Por que fazer testes?</h2>
-        <div style={styles.infoGrid}>
-          <div style={styles.infoCard}>
-            <div style={styles.infoIcon}>🎯</div>
-            <h4 style={styles.infoCardTitle}>Identificar Pontos Fracos</h4>
-            <p style={styles.infoCardText}>
-              Descubra quais áreas precisam de mais atenção e foque seus estudos de forma eficiente
-            </p>
-          </div>
-          <div style={styles.infoCard}>
-            <div style={styles.infoIcon}>📊</div>
-            <h4 style={styles.infoCardTitle}>Acompanhar Progresso</h4>
-            <p style={styles.infoCardText}>
-              Monitore sua evolução ao longo do tempo e veja como está se saindo em cada área
-            </p>
-          </div>
-          <div style={styles.infoCard}>
-            <div style={styles.infoIcon}>🏆</div>
-            <h4 style={styles.infoCardTitle}>Preparação Real</h4>
-            <p style={styles.infoCardText}>
-              Simule condições reais de prova e ganhe confiança para o dia da avaliação
-            </p>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }
@@ -253,7 +219,9 @@ const styles = {
     cursor: 'pointer',
     position: 'relative',
     overflow: 'hidden',
-    minHeight: '400px',
+    minHeight: '450px',
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   hoverIndicator: {
@@ -270,6 +238,7 @@ const styles = {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    flex: '1',
   },
 
   cardIcon: {
@@ -308,6 +277,9 @@ const styles = {
   featuresContainer: {
     flex: '1',
     marginBottom: '25px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
 
   feature: {
@@ -330,6 +302,7 @@ const styles = {
 
   cardFooter: {
     marginTop: 'auto',
+    paddingTop: '10px',
   },
 
   cardButton: {
@@ -342,53 +315,6 @@ const styles = {
     transition: 'all 0.3s ease',
     textTransform: 'uppercase',
     letterSpacing: '0.5px',
-  },
-
-  infoSection: {
-    marginTop: '60px',
-    textAlign: 'center',
-  },
-
-  infoTitle: {
-    fontSize: '2em',
-    fontWeight: '700',
-    color: '#212529',
-    marginBottom: '40px',
-  },
-
-  infoGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '30px',
-  },
-
-  infoCard: {
-    background: 'white',
-    padding: '30px',
-    borderRadius: '16px',
-    border: '1px solid #e9ecef',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-    transition: 'transform 0.3s ease',
-    textAlign: 'center',
-  },
-
-  infoIcon: {
-    fontSize: '3em',
-    marginBottom: '20px',
-  },
-
-  infoCardTitle: {
-    fontSize: '1.3em',
-    fontWeight: '600',
-    color: '#212529',
-    marginBottom: '15px',
-  },
-
-  infoCardText: {
-    fontSize: '1em',
-    color: '#6c757d',
-    lineHeight: '1.6',
-    margin: '0',
   },
 };
 

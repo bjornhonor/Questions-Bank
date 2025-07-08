@@ -11,22 +11,22 @@ function SimuladosPage() {
         <div style={styles.titleSection}>
           <h1 style={styles.title}>Simulados</h1>
           <p style={styles.subtitle}>
-            Pratique com simulados completos baseados em provas reais de concursos
+            Resolva 12 questões baseando-se na proporção da prova real de concursos
           </p>
         </div>
         
         <div style={styles.statsContainer}>
           <div style={styles.statCard}>
-            <div style={styles.statNumber}>🚧</div>
-            <div style={styles.statLabel}>Em Breve</div>
+            <div style={styles.statNumber}>12</div>
+            <div style={styles.statLabel}>Questões</div>
           </div>
           <div style={styles.statCard}>
-            <div style={styles.statNumber}>⏰</div>
-            <div style={styles.statLabel}>Aguarde</div>
+            <div style={styles.statNumber}>⚖️</div>
+            <div style={styles.statLabel}>Proporcionais</div>
           </div>
           <div style={styles.statCard}>
             <div style={styles.statNumber}>🎯</div>
-            <div style={styles.statLabel}>Preparação</div>
+            <div style={styles.statLabel}>Direcionado</div>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@ function SimuladosPage() {
           <h2 style={styles.comingSoonTitle}>Funcionalidade em Desenvolvimento</h2>
           <p style={styles.comingSoonText}>
             Estamos trabalhando duro para trazer os melhores simulados para você. 
-            Em breve, você poderá praticar com provas completas, cronômetro e ranking de desempenho.
+            Em breve, você poderá praticar com 12 questões proporcionais baseadas em provas reais.
           </p>
           
           <div style={styles.featuresPreview}>
@@ -46,27 +46,27 @@ function SimuladosPage() {
             <div style={styles.featuresList}>
               <div style={styles.featureItem}>
                 <span style={styles.featureIcon}>📝</span>
-                <span>Simulados baseados em provas reais</span>
+                <span>12 questões por simulado</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}>⏱️</span>
-                <span>Cronômetro para simular condições reais</span>
+                <span style={styles.featureIcon}>⚖️</span>
+                <span>Proporção baseada em provas reais</span>
               </div>
               <div style={styles.featureItem}>
                 <span style={styles.featureIcon}>📊</span>
                 <span>Relatórios detalhados de desempenho</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}>🏆</span>
-                <span>Ranking entre usuários</span>
+                <span style={styles.featureIcon}>🎯</span>
+                <span>Questões de diferentes áreas</span>
               </div>
               <div style={styles.featureItem}>
                 <span style={styles.featureIcon}>📚</span>
-                <span>Diferentes níveis de dificuldade</span>
+                <span>Baseado em concursos públicos</span>
               </div>
               <div style={styles.featureItem}>
-                <span style={styles.featureIcon}>🎯</span>
-                <span>Simulados por área específica</span>
+                <span style={styles.featureIcon}>🔄</span>
+                <span>Simulados ilimitados</span>
               </div>
             </div>
           </div>
