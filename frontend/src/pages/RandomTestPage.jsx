@@ -37,10 +37,13 @@ const closeButtonStyle = {
   padding: '8px 12px',
   cursor: 'pointer',
   border: 'none',
-  backgroundColor: '#f5f5f5',
+  backgroundColor: '#f44336',
+  color: 'white',
   borderRadius: '6px',
   fontSize: '14px',
   fontWeight: 'bold',
+  transition: 'all 0.2s ease',
+  boxShadow: '0 2px 6px rgba(244, 67, 54, 0.3)'
 };
 
 function RandomTestPage() {
@@ -50,6 +53,7 @@ function RandomTestPage() {
     const [testState, setTestState] = useState('loading');
     const [finalResult, setFinalResult] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalQuestionIndex, setModalQuestionIndex] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
 
     const { userInfo } = useContext(AuthContext);
@@ -139,8 +143,79 @@ function RandomTestPage() {
         return colors.border;
     };
 
-    const isAttachmentImage = (attachment) => {
-        return /\.(jpg|jpeg|png|gif|webp)$/i.test(attachment);
+    // Função para determinar o texto do botão baseado no tipo de conteúdo
+    const getButtonText = (attachments) => {
+        if (!attachments || attachments.length === 0) {
+            return 'Ver Material de Apoio';
+        }
+
+        const hasImages = attachments.some(isImageUrl);
+        const hasText = attachments.some(content => !isImageUrl(content));
+
+        if (hasImages && hasText) {
+            return 'Ver Material de Apoio';
+        } else if (hasImages) {
+            return 'Ver Imagens';
+        } else {
+            return 'Ver Texto de Apoio';
+        }
+    };
+
+    // Função para detectar se o conteúdo é uma imagem (baseada no SingleQuestionPage)
+    const isImageUrl = (content) => {
+        if (typeof content !== 'string') return false;
+        const imageExtensions = /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i;
+        const urlPattern = /^(https?:\/\/|\.\.?\/|\/)/;
+        return urlPattern.test(content) && imageExtensions.test(content);
+    };
+
+    // Função para renderizar o conteúdo do anexo
+    const renderAttachmentContent = (content, index) => {
+        if (isImageUrl(content)) {
+            return (
+                <div key={index} style={{ textAlign: 'center', margin: '20px 0' }}>
+                    <img 
+                        src={content} 
+                        alt={`Material de apoio ${index + 1}`}
+                        style={{
+                            maxWidth: '100%',
+                            height: 'auto',
+                            margin: '15px 0',
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            display: 'block'
+                        }}
+                        onError={(e) => {
+                            e.target.style.display = 'none';
+                            const errorDiv = document.createElement('div');
+                            errorDiv.style.cssText = `
+                                display: inline-block;
+                                padding: 20px;
+                                background-color: #f8d7da;
+                                border: 1px solid #f5c6cb;
+                                border-radius: 8px;
+                                color: #721c24;
+                                margin: 15px 0;
+                            `;
+                            errorDiv.textContent = `⚠️ Erro ao carregar imagem: ${content}`;
+                            e.target.parentNode.appendChild(errorDiv);
+                        }}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <p key={index} style={{
+                    marginBottom: '15px',
+                    lineHeight: '1.6',
+                    fontSize: '14px',
+                    color: '#333',
+                    whiteSpace: 'pre-wrap'
+                }}>
+                    {content}
+                </p>
+            );
+        }
     };
 
     if (testState === 'loading') {
@@ -343,20 +418,32 @@ function RandomTestPage() {
                             {question.attachments && question.attachments.length > 0 && (
                                 <div style={{ marginBottom: '15px' }}>
                                     <button
-                                        onClick={() => setIsModalOpen(true)}
+                                        onClick={() => {
+                                            setModalQuestionIndex(index);
+                                            setIsModalOpen(true);
+                                        }}
                                         style={{
                                             padding: '8px 16px',
-                                            backgroundColor: colors.secondary,
+                                            backgroundColor: '#1e88e5',
                                             color: 'white',
                                             border: 'none',
                                             borderRadius: '6px',
                                             cursor: 'pointer',
                                             fontSize: '14px',
                                             fontWeight: 'bold',
-                                            transition: baseStyles.transition
+                                            transition: baseStyles.transition,
+                                            boxShadow: '0 2px 8px rgba(30, 136, 229, 0.3)'
+                                        }}
+                                        onMouseOver={(e) => {
+                                            e.target.style.backgroundColor = '#1565c0';
+                                            e.target.style.boxShadow = '0 3px 12px rgba(30, 136, 229, 0.4)';
+                                        }}
+                                        onMouseOut={(e) => {
+                                            e.target.style.backgroundColor = '#1e88e5';
+                                            e.target.style.boxShadow = '0 2px 8px rgba(30, 136, 229, 0.3)';
                                         }}
                                     >
-                                        📎 Ver Texto de Apoio
+                                        📎 {getButtonText(question.attachments)}
                                     </button>
                                 </div>
                             )}
@@ -388,42 +475,64 @@ function RandomTestPage() {
 
                 {/* Modal de anexos */}
                 {isModalOpen && (
-                    <div style={modalOverlayStyle} onClick={() => setIsModalOpen(false)}>
+                    <div style={modalOverlayStyle} onClick={() => {
+                        setIsModalOpen(false);
+                        setModalQuestionIndex(0);
+                    }}>
                         <div style={modalContentStyle} onClick={(e) => e.stopPropagation()}>
                             <button
                                 style={closeButtonStyle}
-                                onClick={() => setIsModalOpen(false)}
+                                onClick={() => {
+                                    setIsModalOpen(false);
+                                    setModalQuestionIndex(0);
+                                }}
+                                onMouseOver={(e) => {
+                                    e.target.style.backgroundColor = '#d32f2f';
+                                    e.target.style.boxShadow = '0 3px 10px rgba(244, 67, 54, 0.4)';
+                                }}
+                                onMouseOut={(e) => {
+                                    e.target.style.backgroundColor = '#f44336';
+                                    e.target.style.boxShadow = '0 2px 6px rgba(244, 67, 54, 0.3)';
+                                }}
                             >
                                 ✕
                             </button>
-                            <h3 style={{ marginBottom: '20px' }}>📎 Texto de Apoio</h3>
-                            {questions[currentQuestionIndex]?.attachments?.map((attachment, index) => (
-                                <div key={index} style={{ marginBottom: '15px' }}>
-                                    {isAttachmentImage(attachment) ? (
-                                        <img 
-                                            src={`http://localhost:5000/images/${attachment}`} 
-                                            alt={`Anexo ${index + 1}`}
-                                            style={{ 
-                                                maxWidth: '100%', 
-                                                height: 'auto',
-                                                borderRadius: '8px',
-                                                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                                            }}
-                                        />
-                                    ) : (
-                                        <div style={{
-                                            backgroundColor: '#f5f5f5',
-                                            padding: '15px',
-                                            borderRadius: '8px',
-                                            fontSize: '14px',
-                                            lineHeight: '1.6',
-                                            whiteSpace: 'pre-wrap'
-                                        }}>
-                                            {attachment}
+                            <h3 style={{ marginBottom: '20px' }}>📎 {getButtonText(questions[modalQuestionIndex]?.attachments)}</h3>
+                            <div>
+                                {questions[modalQuestionIndex]?.attachments?.map((attachment, index) => {
+                                    const isImage = isImageUrl(attachment);
+                                    const prevIsImage = index > 0 ? isImageUrl(questions[modalQuestionIndex].attachments[index - 1]) : false;
+                                    const showSeparator = index > 0 && isImage !== prevIsImage;
+                                    
+                                    return (
+                                        <div key={index}>
+                                            {showSeparator && (
+                                                <div style={{
+                                                    height: '1px',
+                                                    background: 'linear-gradient(to right, transparent, #ddd, transparent)',
+                                                    margin: '25px 0'
+                                                }} />
+                                            )}
+                                            {renderAttachmentContent(attachment, index)}
                                         </div>
-                                    )}
+                                    );
+                                })}
+                            </div>
+                            
+                            {/* Instrução de uso */}
+                            {questions[modalQuestionIndex]?.attachments?.some(isImageUrl) && (
+                                <div style={{
+                                    marginTop: '20px',
+                                    padding: '12px 16px',
+                                    backgroundColor: '#e3f2fd',
+                                    border: '1px solid #1e88e5',
+                                    borderRadius: '8px',
+                                    fontSize: '14px',
+                                    color: '#1565c0'
+                                }}>
+                                    💡 <strong>Dica:</strong> As imagens são exibidas em tamanho otimizado.
                                 </div>
-                            ))}
+                            )}
                         </div>
                     </div>
                 )}
@@ -519,10 +628,13 @@ function RandomTestPage() {
                 {currentQuestion.attachments && currentQuestion.attachments.length > 0 && (
                     <div style={{ marginBottom: '20px' }}>
                         <button
-                            onClick={() => setIsModalOpen(true)}
+                            onClick={() => {
+                                setModalQuestionIndex(currentQuestionIndex);
+                                setIsModalOpen(true);
+                            }}
                             style={{
                                 padding: '10px 20px',
-                                backgroundColor: colors.secondary,
+                                backgroundColor: '#1e88e5',
                                 color: 'white',
                                 border: 'none',
                                 borderRadius: '8px',
@@ -530,12 +642,18 @@ function RandomTestPage() {
                                 fontSize: '14px',
                                 fontWeight: 'bold',
                                 transition: baseStyles.transition,
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                boxShadow: '0 3px 10px rgba(30, 136, 229, 0.3)'
                             }}
-                            onMouseOver={(e) => e.target.style.backgroundColor = '#2980b9'}
-                            onMouseOut={(e) => e.target.style.backgroundColor = colors.secondary}
+                            onMouseOver={(e) => {
+                                e.target.style.backgroundColor = '#1565c0';
+                                e.target.style.boxShadow = '0 4px 15px rgba(30, 136, 229, 0.4)';
+                            }}
+                            onMouseOut={(e) => {
+                                e.target.style.backgroundColor = '#1e88e5';
+                                e.target.style.boxShadow = '0 3px 10px rgba(30, 136, 229, 0.3)';
+                            }}
                         >
-                            📎 Ver Texto de Apoio
+                            📎 {getButtonText(currentQuestion.attachments)}
                         </button>
                     </div>
                 )}
@@ -670,42 +788,64 @@ function RandomTestPage() {
 
             {/* Modal de anexos */}
             {isModalOpen && (
-                <div style={modalOverlayStyle} onClick={() => setIsModalOpen(false)}>
+                <div style={modalOverlayStyle} onClick={() => {
+                    setIsModalOpen(false);
+                    setModalQuestionIndex(0);
+                }}>
                     <div style={modalContentStyle} onClick={(e) => e.stopPropagation()}>
                         <button
                             style={closeButtonStyle}
-                            onClick={() => setIsModalOpen(false)}
+                            onClick={() => {
+                                setIsModalOpen(false);
+                                setModalQuestionIndex(0);
+                            }}
+                            onMouseOver={(e) => {
+                                e.target.style.backgroundColor = '#d32f2f';
+                                e.target.style.boxShadow = '0 3px 10px rgba(244, 67, 54, 0.4)';
+                            }}
+                            onMouseOut={(e) => {
+                                e.target.style.backgroundColor = '#f44336';
+                                e.target.style.boxShadow = '0 2px 6px rgba(244, 67, 54, 0.3)';
+                            }}
                         >
                             ✕
                         </button>
-                        <h3 style={{ marginBottom: '20px' }}>📎 Texto de Apoio</h3>
-                        {currentQuestion.attachments?.map((attachment, index) => (
-                            <div key={index} style={{ marginBottom: '15px' }}>
-                                {isAttachmentImage(attachment) ? (
-                                    <img 
-                                        src={`http://localhost:5000/images/${attachment}`} 
-                                        alt={`Anexo ${index + 1}`}
-                                        style={{ 
-                                            maxWidth: '100%', 
-                                            height: 'auto',
-                                            borderRadius: '8px',
-                                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                                        }}
-                                    />
-                                ) : (
-                                    <div style={{
-                                        backgroundColor: '#f5f5f5',
-                                        padding: '15px',
-                                        borderRadius: '8px',
-                                        fontSize: '14px',
-                                        lineHeight: '1.6',
-                                        whiteSpace: 'pre-wrap'
-                                    }}>
-                                        {attachment}
+                        <h3 style={{ marginBottom: '20px' }}>📎 {getButtonText(questions[modalQuestionIndex]?.attachments)}</h3>
+                        <div>
+                            {questions[modalQuestionIndex]?.attachments?.map((attachment, index) => {
+                                const isImage = isImageUrl(attachment);
+                                const prevIsImage = index > 0 ? isImageUrl(questions[modalQuestionIndex].attachments[index - 1]) : false;
+                                const showSeparator = index > 0 && isImage !== prevIsImage;
+                                
+                                return (
+                                    <div key={index}>
+                                        {showSeparator && (
+                                            <div style={{
+                                                height: '1px',
+                                                background: 'linear-gradient(to right, transparent, #ddd, transparent)',
+                                                margin: '25px 0'
+                                            }} />
+                                        )}
+                                        {renderAttachmentContent(attachment, index)}
                                     </div>
-                                )}
+                                );
+                            })}
+                        </div>
+                        
+                        {/* Instrução de uso */}
+                        {questions[modalQuestionIndex]?.attachments?.some(isImageUrl) && (
+                            <div style={{
+                                marginTop: '20px',
+                                padding: '12px 16px',
+                                backgroundColor: '#e3f2fd',
+                                border: '1px solid #1e88e5',
+                                borderRadius: '8px',
+                                fontSize: '14px',
+                                color: '#1565c0'
+                            }}>
+                                💡 <strong>Dica:</strong> As imagens são exibidas em tamanho otimizado.
                             </div>
-                        ))}
+                        )}
                     </div>
                 </div>
             )}
