@@ -4144,6 +4144,1072 @@ const questions = [
     "ano": 2024,
     "numeroQuestao": 60,
     "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Semântica e Significação das Palavras",
+    "questionText": "Há uma série de palavras que correspondem a frases, em suas situações comunicativas. Assinale a palavra que mostra convencionalmente uma frase equivalente.",
+    "options": [
+      "Perigo!/aviso de trabalho na estrada.",
+      "Fogo!/ordem para parar de atirar.",
+      "Devagar!/ conselho para dirigir lentamente.",
+      "Chega!/aviso de chegada a algum lugar.",
+      "Depressa!/ pedido de ajuda."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 1,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Semântica e Significação das Palavras",
+    "questionText": "As frases a seguir mostram um termo sublinhado que foi substituído por outro termo de valor pejorativo. Assinale a opção em que isso não ocorre.",
+    "options": [
+      "Suas roupas eram de outro país / seus trajes.",
+      "Seus pés tinham mau cheiro / fedor.",
+      "O quarto se mostrava desarrumado / bagunçado.",
+      "Ele não pôde escapar de suas mãos / garras.",
+      "A capa do livro ficou pegajosa / grudenta."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 2,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "A subjetividade é particularmente expressa pelos pronomes de primeira pessoa. Assinale a frase em que outro pronome se encarrega da subjetividade, equivalente aos pronomes de primeira pessoa.",
+    "options": [
+      "Na Idade Média, preferia-se o campo à cidade.",
+      "Afinal de contas, vai-se ao teatro ou não?",
+      "Então, você vai participar do concurso?",
+      "O ministro tem a honra de convidá-lo para o cargo.",
+      "Os cidadãos honestos, esses devem enfrentar a realidade."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 3,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Reescrita de Frases",
+    "questionText": "As frases a seguir foram reescritas de forma a se eliminarem delas as marcas de subjetividade do emissor. Assinale a frase em que isso foi realizado de forma inadequada.",
+    "options": [
+      "A televisão mostrou o triste fim de um episódio lamentável / A televisão mostrou o fim do episódio.",
+      "A deplorável atitude do árbitro prejudicou a boa partida / A atitude do árbitro prejudicou a partida.",
+      "Infelizmente, a atriz, inadequada para o papel, continua na peça interessante / Infelizmente a atriz continua na peça.",
+      "Marcos emocionou-se com aquelas belas palavras / Marcos emocionou-se com aquelas palavras.",
+      "A paisagem, romântica e agreste, estava mudando / A paisagem estava mudando."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 4,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Interpretação de Texto",
+    "questionText": "Nas opções a seguir, as frases iniciais foram desenvolvidas de forma a explicitar a informação. Assinale aquela em que o desenvolvimento não tem essa função.",
+    "options": [
+      "O congresso será realizado entre os dias 25 e 30 de agosto / O congresso de literatura francesa será realizado entre os dias 25 e 30 de agosto.",
+      "O deputado apresentou um projeto de lei / O deputado Francisco Mendes apresentou um projeto de lei sobre a adoção de crianças.",
+      "A rua tinha ficado cheia de crianças / A rua, entre as avenidas principais do bairro, tinha ficado cheia de crianças.",
+      "A lagoa Rodrigo de Freitas está situada no Rio de Janeiro / A lagoa Rodrigo de Freitas e a praia de Copacabana estão situadas no Rio de Janeiro.",
+      "O pianista interpretou uma sonata / O pianista interpretou uma sonata de um moderno músico francês."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 5,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Sinônimos e Antônimos",
+    "questionText": "Assinale a frase que mostra a presença de antônimos.",
+    "options": [
+      "Em certa idade da vida, se sua casa não se encher de crianças, ela se encherá de manias e de vícios.",
+      "Às vezes você precisa conhecer alguém muito bem para saber que vocês não se conhecem.",
+      "O suicídio foi a melhor cousa que ele fez enquanto vivo.",
+      "Ganhei o prêmio porque os outros indicados já morreram.",
+      "Seja a vida longa ou curta, depende completamente para que ela serviu."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 6,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Sinônimos e Antônimos",
+    "questionText": "As frases a seguir mostram termos sublinhados e desses termos foram mostrados sinônimos. Assinale a frase em que o sinônimo indicado está incorreto.",
+    "options": [
+      "Gatos são peritos em conforto. / especialistas.",
+      "É praticamente impossível olhar para um pinguim e sentir raiva. / objetivamente.",
+      "Um cão nunca demonstra intolerância quando escolhe um dono. / rejeição.",
+      "Vimos até pegadas de onça, mas felizmente não chegamos a encarar a fera. / enfrentar.",
+      "Não acho justo que minha cachorrinha ande solta por aí. / correto."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 7,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "Observe as duas frases a seguir.\n1. O policial entrou na viatura.\n2. A viatura policial era nova.\nNessas frases a palavra \"policial\" pertence a duas classes diferentes (substantivo e adjetivo). O mesmo acontece com as palavras sublinhadas nas seguintes frases:",
+    "options": [
+      "A roupa do mendigo estava suja. / O mendigo tinha pouca roupa.",
+      "Era um povoado tranquilo. / O povo tranquilo do povoado estava presente na festa.",
+      "Os mortais são impacientes. / Nós, mortais, somos impacientes.",
+      "A máquina de costura estava na sala. / Estava na cozinha a máquina de café.",
+      "Todos somos brasileiros. / Eu sou brasileiro do Ceará."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 8,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Pontuação",
+    "questionText": "Assinale a frase cuja pontuação está inteiramente correta.",
+    "options": [
+      "Uma sociedade, sem religião é como um navio, sem bússola.",
+      "A noite é uma bela crença, na luz.",
+      "Nenhum homem chegou a ser grande senão impelido, por divina inspiração.",
+      "Algumas das maiores dádivas de Deus são preces, não atendidas.",
+      "Ensina-me a vencer, se puderes."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 9,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Crase",
+    "questionText": "Assinale a frase em que o emprego do acento grave indicativo da crase está correto.",
+    "options": [
+      "Meu objetivo principal na vida é fazer às pessoas felizes.",
+      "Encontre a paz e à preencha.",
+      "Fique atento à tartaruga: ela sai do casco.",
+      "Agora sei à metade do que já soube.",
+      "Eu cheguei à iludir a velhice, mas parei."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 10,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Conjugação Verbal",
+    "questionText": "Assinale a frase em que a forma verbal está conjugada corretamente.",
+    "options": [
+      "O policial interviu na discussão.",
+      "Nunca ouve nada igual.",
+      "Espero que eles vão bem na prova.",
+      "Não sei se haverão novas oportunidades.",
+      "Quando você as ver, fale com elas."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 11,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "Nas frases a seguir, a forma do infinitivo foi substituída por um substantivo correspondente. Assinale a frase em que essa correspondência está correta.",
+    "options": [
+      "Demolir o prédio / demolição do prédio.",
+      "Prevenir o desastre / previsão do desastre.",
+      "Ler o livro/ legibilidade do livro.",
+      "Intervir na briga / interação na briga.",
+      "Observar a cena / observamento da cena."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 12,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "Assinale a frase em que o pronome demonstrativo sublinhado está corretamente empregado, segundo a tradição gramatical.",
+    "options": [
+      "Dê-me essa camisa que está nas suas mãos.",
+      "João e Maria entraram na floresta; esta de botas, este de tênis.",
+      "Eis aqui essa bolsa: a quem ela pertence?",
+      "Aqueles dias de agora são mais longos.",
+      "Maria e Anita vieram cantar; este de roupa social, aquele de roupa esporte."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 13,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "Assinale a frase em que a palavra meio/meia está bem empregada.",
+    "options": [
+      "Minha irmã está meia adoentada.",
+      "Nós estamos meios cansados.",
+      "É meio-dia e meio.",
+      "A chuva chegou meio fraca.",
+      "A bola chegou ao gol meia fraca."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 14,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "Assinale a frase em que a preposição DE tem valor de origem.",
+    "options": [
+      "A caixa de papelão contém lápis.",
+      "O vinho de Portugal é do tipo verde.",
+      "Sapatos de couro são caros.",
+      "De real em real, ele ficou rico.",
+      "O depósito de bebidas estava cheio."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 15,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Regência Verbal",
+    "questionText": "Assinale a frase em que o verbo preferir está corretamente utilizado.",
+    "options": [
+      "Prefiro queijo do que presunto.",
+      "Prefiro mais queijo do que presunto.",
+      "Prefiro o queijo do que o presunto.",
+      "Prefiro queijo a presunto.",
+      "Mais prefiro queijo do que presunto."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 16,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Colocação Pronominal",
+    "questionText": "Assinale a frase em que a colocação do pronome pessoal oblíquo está correta.",
+    "options": [
+      "Me deram o presente antes da data.",
+      "Não deram-me o presente que pedi.",
+      "O presente que foi-me dado é caro.",
+      "Quem me deu esse presente?",
+      "Quando viram-me em casa, ficaram tristes."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 17,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Sentido Próprio e Figurado das Palavras",
+    "questionText": "Assinale a frase em que a palavra sublinhada está no sentido figurado.",
+    "options": [
+      "Nada mais comum do que julgar mal as coisas.",
+      "Muitos são bons porque não sabem ser justos.",
+      "Cada cabeça, uma sentenca!",
+      "Mais vale bem de longe, que mal de perto.",
+      "Felicidade é um subproduto."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 18,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Interpretação de Texto",
+    "questionText": "Ele é tão ganancioso que não passaria 24 horas numa ilha habitada sem meter a mão nos bolsos dos selvagens nus. (Político britânico)\nSobre o significado e a estruturação dessa frase, assinale a afirmação correta.",
+    "options": [
+      "A oração precedida pela conjunção \"que\" tem valor de causa.",
+      "A abreviatura de horas está feita de forma correta.",
+      "O pronome \"Ele\" no início da frase vai se referir a alguém presente no futuro do discurso.",
+      "A crítica da frase se dirige aos políticos britânicos em geral.",
+      "Há uma contradição lógica no final da frase."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 19,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Interpretação de Texto",
+    "questionText": "Creio na liberdade, esse vínculo entre o homem a eternidade, essa condição indispensável para situar o ser à imagem e semelhança de seu criador.\nSobre o significado e a estruturação dessa frase, assinale a afirmação correta.",
+    "options": [
+      "A frase mostra um tom filosófico-materialista.",
+      "Após a palavra \"liberdade\", todo o restante da frase funciona como explicação dessa palavra.",
+      "Todo o texto mostra a causa de o autor crer na liberdade.",
+      "As duas orações finais mostram paralelismo em sua construção.",
+      "O texto não mostra a opinião do emissor da frase, mas sim a do autor do texto religioso onde ele se fundamenta."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 20,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Resolução de Problemas",
+    "questionText": "Um carro da PM transportou o major Roberto de São Paulo para Araçatuba e retornou, no dia seguinte, pela mesma estrada. A distância rodoviária entre essas duas cidades é de 520 km e o moderno carro que transportou o major percorreu 13 km por litro de gasolina. Nessa época, o litro de gasolina custava, em São Paulo, 6,10 reais por litro. O gasto com combustível dessa viagem foi de, aproximadamente,",
+    "options": [
+      "245 reais.",
+      "350 reais.",
+      "390 reais.",
+      "460 reais.",
+      "490 reais."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 21,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Medidas de Tempo",
+    "questionText": "O soldado Rafael dedica uma hora e quinze minutos por dia a seu treinamento físico, todos os dias, exceto aos domingos. No mês de agosto de 2024 Rafael cumpriu seu treinamento, e esse mês teve cinco domingos. No mês de agosto de 2024, o tempo total que Rafael dedicou a seu treinamento foi de",
+    "options": [
+      "trinta e uma horas e quinze minutos.",
+      "trinta e uma horas e quarenta e cinco minutos.",
+      "trinta e duas horas e trinta minutos.",
+      "trinta e duas horas e cinquenta minutos.",
+      "trinta e três horas e trinta minutos."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 22,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Resolução de Problemas",
+    "questionText": "Para receber o novo comandante, o 1º Tenente Ramiro deverá organizar, no pátio do quartel da PM, uma formação retangular com 72 soldados dispostos regularmente em linhas (horizontais) e colunas (verticais). Sabe-se que essa formação retangular deve ter, no mínimo, três linhas e, no mínimo, oito colunas. O número de arrumações diferentes que Ramiro poderá fazer é igual a",
+    "options": [
+      "2.",
+      "3.",
+      "4.",
+      "5.",
+      "6."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 23,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Porcentagem",
+    "questionText": "Ricardo gasta atualmente 60% de seu salário em gastos essenciais. Segundo alguns especialistas, o ideal é que os gastos essenciais representem, no máximo, 50% do salário. Sem alterar seus gastos atuais de qualquer espécie, para que Ricardo passasse a ter os gastos essenciais dentro do que é considerado ideal, ele teria que ter um aumento salarial de, no mínimo,",
+    "options": [
+      "50%.",
+      "40%.",
+      "30%.",
+      "20%.",
+      "10%."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 24,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Geometria Plana",
+    "questionText": "Para elaborar o orçamento da reforma do piso do pátio do quartel, o sargento Raul precisa saber sua área. A forma do pátio está apresentada na figura a seguir, na qual todos os ângulos são retos e as medidas dadas em metros. A área desse pátio em metros quadrados é",
+    "options": [
+      "930.",
+      "956.",
+      "982.",
+      "1024.",
+      "1118."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [
+      "localhost:5000/images/2025-25.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 25,
+    "printar": true
+  },
+  {
+    "area": "Matemática",
+    "topic": "Grafos e Caminhos",
+    "questionText": "Um carro da PM precisa se deslocar do ponto A ao ponto B do Estado de São Paulo, no menor tempo possível. A figura a seguir mostra os pontos A e B, as estradas disponíveis e o tempo, em minutos, para percorrer cada trecho no momento da partida do carro. O menor tempo para o deslocamento de A até B é de",
+    "options": [
+      "80 minutos.",
+      "85 minutos.",
+      "90 minutos.",
+      "95 minutos.",
+      "100 minutos."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [
+      "localhost:5000/images/2025-26.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 26,
+    "printar": true
+  },
+  {
+    "area": "Matemática",
+    "topic": "Resolução de Problemas",
+    "questionText": "Vicente foi encarregado de pintar o piso de uma área de estacionamento com 160 m². A tinta que Vicente escolheu tem um rendimento de 14 m² por litro de tinta, por demão. Vicente fará uma pintura com três demãos. O número mínimo de galões de 3,6 litros que deverá ser comprado para a pintura é igual a",
+    "options": [
+      "7.",
+      "8.",
+      "9.",
+      "10.",
+      "11."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 27,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Leitura de Tabelas e Gráficos",
+    "questionText": "A linha da tabela que mostra o maior crescimento percentual de 2023 para 2024 foi a de",
+    "options": [
+      "Nº de homicídios culposos por acidente de trânsito.",
+      "Nº de infratores presos por mandado.",
+      "Nº de veículos recuperados.",
+      "Nº de armas de fogo apreendidas.",
+      "Nº de autos de apreensão."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [
+      "localhost:5000/images/2025-28.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 28,
+    "printar": true
+  },
+  {
+    "area": "Matemática",
+    "topic": "Raciocínio Lógico",
+    "questionText": "Suponha que os policiais de certo ponto de fiscalização tenham recebido, entre diversas instruções, a seguinte ordem:\nTodos os caminhões transportando madeira devem ser revistados.\nA partir da ordem dada acima, considere as afirmativas a seguir.\nI. Se um caminhão não transporta madeira ele não deve ser revistado.\nII. Se um caminhão foi revistado então ele estava transportando madeira.\nIII. Se um caminhão não foi revistado então ele não estava transportando madeira.\nDas afirmativas acima, aquela(s) que decorre (m) logicamente da ordem dada é(são):",
+    "options": [
+      "I, apenas.",
+      "II, apenas.",
+      "III, apenas.",
+      "I e II, apenas.",
+      "II e III, apenas."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 29,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Geometria Plana",
+    "questionText": "Para determinar a distância entre A e B, Renato fixou estacas em três pontos C, D e E, de forma que os ângulos ACD, CDE e DEB fossem retos, como mostra a figura. Em seguida, com uma trena, Renato mediu as seguintes distâncias: AC = 40 m, CD = 84 m, DE = 76 m e EB = 24 m. A distância, em metros, entre os pontos A e B é, aproximadamente,",
+    "options": [
+      "63.",
+      "66.",
+      "70.",
+      "73.",
+      "77."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [
+      "localhost:5000/images/2025-30.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 30,
+    "printar": true
+  },
+  {
+    "area": "Matemática",
+    "topic": "Regra de Três",
+    "questionText": "Três soldados pintam uma área de 45 m² de um muro em um determinado tempo. No mesmo tempo, e com a mesma eficiência, a área em m² que cinco soldados pintam é",
+    "options": [
+      "75.",
+      "60.",
+      "55.",
+      "45.",
+      "40."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 31,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Média Aritmética",
+    "questionText": "A tabela a seguir mostra o número de flexões que Rosilene fez em cada dia de uma determinada semana.\nNessa semana, o número de dias em que Rosilene fez mais flexões do que a média da semana foi",
+    "options": [
+      "2.",
+      "3.",
+      "4.",
+      "5.",
+      "6."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [
+      "localhost:5000/images/2025-32.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 32,
+    "printar": true
+  },
+  {
+    "area": "Matemática",
+    "topic": "Resolução de Problemas",
+    "questionText": "Durante uma missão, o soldado Ryan se viu em uma posição vulnerável e, portanto, precisando de resgate. O soldado Ryan se encontra em uma esquina, em um bairro no qual as ruas são todas de mão dupla e formam quarteirões retangulares, cada um com 100 metros na direção Leste-Oeste e 80 metros na direção Norte-Sul. O veículo para o resgate do soldado Ryan está em uma esquina na mesma rua em que Ryan está, mas a quatro quarteirões a oeste da posição de Ryan. Entretanto, no meio de um dos quarteirões entre o veículo de resgate e Ryan há um bloqueio que impede a passagem do veículo. Assim, o veiculo precisará fazer um desvio para chegar até a posição do soldado Ryan. A menor distância, em metros, que o veículo de resgate precisará percorrer para ir da sua posição inicial até a posição do soldado Ryan é igual a",
+    "options": [
+      "400.",
+      "460.",
+      "480.",
+      "540.",
+      "560."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 33,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Resolução de Problemas",
+    "questionText": "Rafaela e Mariana ficaram de plantão juntas hoje, uma terça-feira. Rafaela fica de plantão de 4 em 4 dias e Mariana de 6 em 6 dias. Sem contar o dia de hoje, após 100 dias, o próximo dia em que Rafaela e Mariana ficarão de plantão juntas será",
+    "options": [
+      "segunda-feira.",
+      "terça-feira.",
+      "quarta-feira.",
+      "quinta-feira.",
+      "sexta-feira."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 34,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Geometria Espacial",
+    "questionText": "O soldado Arquimedes precisa encher de água um recipiente com capacidade de 80 litros e dispõe de um vasilhame cujo formato é um paralelepipedo com base quadrada de lado 15 cm e 18 cm de altura. Arquimedes deverá encher o vasilhame em uma bica e despejar a água no recipiente. Para encher o recipiente, o número de vezes que Arquimedes deverá encher e despejar a água do vasilhame no recipiente é igual a",
+    "options": [
+      "20.",
+      "25.",
+      "30.",
+      "40.",
+      "45."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 35,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História Geral",
+    "questionText": "Avalie as afirmativas a seguir, que apresentam fatores que contribuíram para o início da Primeira Guerra Mundial e assinale (V) para a verdadeira e (F) para a falsa.\n( ) O crescente ideal do pan-eslavismo, que buscava a unificação dos territórios eslavos, e o pangermanismo, que buscava a unificação dos povos germânicos.\n( ) As disputas imperialistas por territórios coloniais na África e na Ásia contribuíram para a intensificação das rivalidades entre os países europeus.\n( ) O sentimento revanchista prussiano, surgido após a derrota da Prússia na Guerra Franco-Prussiana, especialmente pela perda do território da Alsácia-Lorena.\nAs afirmativas são, respectivamente,",
+    "options": [
+      "V-V-F.",
+      "V-F-V.",
+      "F-F-V.",
+      "F-V-F.",
+      "V-V-V."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 36,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História do Brasil",
+    "questionText": "Assinale a afirmativa que apresenta corretamente uma das medidas estabelecidas pela Constituição de 1891.",
+    "options": [
+      "Criou o poder moderador, que tinha a função de intervir para restaurar o equilíbrio entre os poderes Executivo, Judiciário e Legislativo, sempre que houvesse desarmonia entre eles.",
+      "Permitiu a participação democrática dos analfabetos, ao conceder-lhes o direito de votar nas eleições para cargos políticos.",
+      "Concentrou o poder na figura do presidente, retirando qualquer autonomia dos estados, que passaram a ser subordinados ao governo federal.",
+      "Estabeleceu a laicização do Estado, separando o Estado da Igreja Católica, e garantiu a liberdade de culto de todas as religiões.",
+      "Implementou o parlamentarismo como sistema político, inspirando-se no modelo inglês como referência para promover a estabilidade política."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [
+      "A Constituição de 1891 evidencia, no plano das instituições, que a classe dominante consegue alcançar seus objetivos políticos já no início da República, e é um índice de sua capacidade para promover a integração do país, na medida de tais objetivos.",
+      "(Fonte: FAUSTO, Boris. A revolução de 1930. História e historiografia. São Paulo: Companhia das Letras, 1997, p. 120.)"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 37,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História Geral",
+    "questionText": "Assinale a afirmativa que apresenta corretamente a interpretação dos dois fragmentos sobre o antissemitismo na Alemanha nazista.",
+    "options": [
+      "O texto I defende que a resistência da população alemã e de outras instituições foi fundamental para conter as intenções nazistas, e o texto II argumenta que a sociedade permaneceu apática diante do novo movimento.",
+      "O texto I defende que o ódio aos judeus foi um fenômeno novo criado pelo nazismo, e o texto II argumenta que esse ódio já existia entre os alemães antes da ascensão do regime nazista.",
+      "Os textos I e II defendem que a violência e o ódio contra os judeus foram utilizados como uma ideologia para justificar e alcançar os interesses políticos da Alemanha durante o regime nazista.",
+      "Os textos I e II defendem que o antissemitismo entre os alemães foi um elemento introduzido por Hitler, representando um fenômeno completamente novo e fora do contexto histórico da Alemanha..",
+      "Os textos I e II defendem que o ódio aos judeus foi uma característica particular dos alemães, desconhecida em outros países, e que atingiu seu auge durante o regime nazista."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [
+      "I. Uma parte da mobilização emocional, uma herança do descartado programa nacional-socialista, foi o antissemitismo...",
+      "II. O hitlerismo, por outro lado, trouxe de repente no mercado mundial um novo artigo de exportação que tinha técnicas refinadas e rapidamente adaptáveis a todos os países..."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 38,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História do Brasil",
+    "questionText": "A imagem destaca",
+    "options": [
+      "a ampla aprovação popular à permanência de Getúlio Vargas como presidente após a Revolução de 1930, mostrando o apoio da população às mudanças que ele propunha e realizava.",
+      "a proibição, durante o governo de Getúlio Vargas, do direito de as mulheres votarem em eleições para cargos políticos, o que representou a continuidade do machismo presente nas oligarquias da República Velha.",
+      "o incentivo à cultura promovido pelo governo de Getúlio Vargas, que, ao longo de toda a Era Vargas, ficou conhecido pela valorização da liberdade de expressão artistica, como exemplificado nas cantigas de carnaval.",
+      "o desprezo do governo de Getúlio Vargas pelos mais pobres e trabalhadores, ao negligenciar suas necessidades e direcionar suas políticas exclusivamente para beneficiar as classes empresariais.",
+      "a decepção de certos setores diante das promessas de Getúlio Vargas de uma nova realidade após a Revolução de 1930, ao perceberem a persistência dos mesmos problemas e estruturas do passado."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [
+      "localhost:5000/images/2025-39.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 39,
+    "printar": true
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História do Brasil",
+    "questionText": "A foto retrata um grande grupo de pessoas, predominantemente homens, com os braços erguidos em protesto, sendo que um deles segura uma placa com a inscrição: \"'Volks' trabalhadores unidos até a vitória\", fazendo referência à fábrica de automóveis Volkswagen. A foto mostra a assembleia dos operários em greve na região do ABC paulista, em 1979. As greves gerais dos metalúrgicos, que ficaram conhecidas com esse nome, começaram em 1978 e se estenderam por 1979 e 1980, durante a ditadura militar no Brasil, e mobilizaram cerca de 200 mil trabalhadores. A respeito desse movimento social, avalie as afirmativas a seguir.\nI. As greves representaram o ressurgimento do movimento trabalhista brasileiro e o início do processo de redemocratização.\nII. As greves não alcançaram o resultado esperado, e os salários dos grevistas continuaram congelados devido ao fim do período conhecido como Milagre Econômico.\nIII. As greves tiveram a adesão da maioria dos trabalhadores do setor metalúrgico, mas não conseguiram o apoio de outros segmentos trabalhistas e populares.\nEstá correto o que se afirma em",
+    "options": [
+      "I, apenas.",
+      "I e II, apenas.",
+      "I e III, apenas.",
+      "II e III, apenas.",
+      "I, II e III."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [
+      "localhost:5000/images/2025-40.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 40,
+    "printar": true
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia do Brasil",
+    "questionText": "Para superar o problema socioespacial apresentado no texto, avalie se é necessário que os profissionais em ação:\nI. respeitem a dignidade da pessoa humana dependendo de sua classe social, moradia, zona em que reside e cor da sua pele;\nII. acatem a integridade física, moral e psíquica da pessoa do preso ou de quem seja objeto de incriminação;\nIII. exerçam a função pública, seja em zona central ou periférica, com honestidade, não aceitando vantagem indevida de qualquer espécie.\nEstá correto o que se afirma em",
+    "options": [
+      "I, apenas.",
+      "I e II, apenas.",
+      "I e III, apenas.",
+      "II e III, apenas.",
+      "I, II e III."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [
+      "Em relação às ações policiais num contexto de generalização da insegurança e da reativação de estigmas socioespaciais que associam diretamente a pobreza com a violência, podemos observar que as periferias pobres das diferentes cidades são os espaços nos quais as violências legitimadas socialmente podem e são praticadas, em grande parte das vezes de forma indiscriminada - pelo simples fato de morar em um bairro pobre, o citadino está sujeito à suspeição do restante da sociedade e da policia, o que faz com que seja tratado a priori como bandido."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 41,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia Geral",
+    "questionText": "Comum na Região Metropolitana de São Paulo, o fenômeno descrito no texto é denominado",
+    "options": [
+      "aquecimento global.",
+      "efeito estufa.",
+      "inversão térmica.",
+      "chuva ácida.",
+      "destruição da camada de ozônio."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [
+      "Ela é frequentemente apontada como um dos principais vilões da poluição atmosférica. Enquanto as fontes poluidoras podem variar suas emissões, são as condições meteorológicas que determinam se esses poluentes permanecerão concentrados em níveis prejudiciais ou serão dispersos. Em baixa altitude, por exemplo, são mais comuns durante o inverno. Nessas situações, a temperatura do ar próximo à superfície esfria rapidamente, levando à formação de uma camada de ar mais fria e densa logo acima do solo, que fica \"aprisionada\" sob uma camada mais quente e menos densa. Isso cria uma barreira que impede a dispersão dos poluentes, contribuindo para o aumento da poluição atmosférica."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 42,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia do Brasil",
+    "questionText": "Correlacione os temas a seguir às respectivas ações.\n1. Ações sobre o relevo\n2. Combate às enchentes\n3. Mobilidade urbana\n4. Minimização de ilhas de calor\n( ) Executar obras de recuperação ambiental e paisagismo.\n( ) Ampliar redes de drenagem de águas pluviais e programas de desobstrução de córregos.\n( ) Realizar obras para contenção e estabilização de encostas.\n( ) Construir corredores expressos e abrir vias para tráfego de ambulâncias, caminhões de lixo e veículos policiais.\nA correlação correta, na ordem apresentada, é",
+    "options": [
+      "4-2-1-3.",
+      "4-1-2-3.",
+      "3-1-2-4.",
+      "2-3-4-1.",
+      "1-4-3-2."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [
+      "O Programa de Urbanização de Favelas é desenvolvido pela Secretaria Municipal de Habitação e tem como foco a urbanização e a regularização fundiária de áreas degradadas, ocupadas desordenadamente e sem infraestrutura. (...) Os objetivos são transformar favelas e loteamentos irregulares em bairros, garantindo a seus moradores o acesso à cidade formal, com ruas asfaltadas, saneamento básico, iluminação e serviços públicos."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 43,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia do Brasil",
+    "questionText": "A partir da temática do texto, avalie se os itens a seguir representam características da Região Metropolitana de São Paulo.\nI. Ocorrência da migração pendular\nII. Prática do êxodo rural\nIII. Existência de autossegregação e da segregação induzida\nEstá correto o que se apresenta em",
+    "options": [
+      "I, apenas.",
+      "I e III, apenas.",
+      "II e III, apenas.",
+      "I e II, apenas.",
+      "I, II e III."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [
+      "A Região Metropolitana de São Paulo é marcada pela presença do contraste social e pela constituição de espaços fragmentados. Em partes específicas de seu território, ocorre o surgimento de áreas separadas, condomínios fechados, como Alphaville, Tamboré e Granja Viana, que podem ser considerados exemplos de suburbanização de altas e médias rendas, assim como a expansão da população em condições bastante precárias de vida em áreas centrais e deterioradas do Município de São Paulo. Nesse espaço diferenciado e desigual, as maneiras como os grupos sociais resolvem a relação habitar-trabalhar, as estratégias utilizadas, tornam-se diferenciadas, atingindo-os de modo distinto."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 44,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia Geral",
+    "questionText": "Avalie se, na visão de Milton Santos, todo esse poder não é usado de forma neutra porque\nI. o meio por onde circula esse turbilhão de fluxos é impregnado de comando e ideologia, atendendo aos interesses de grupos específicos;\nII. a acelerada adoção da tecnologia de reconhecimento facial, placas de veículos e câmeras em policiais, desperta uma série de questionamentos sobre os limites de seu uso no contexto da segurança pública e de outros campos;\nIII. esse amontoado de práticas, processos e técnicas que agruparam \"ciência + tecnologia + informação\" no mundo contemporâneo, denominado de \"meio técnico-científico-informacional\", possui acesso irrestrito para todos.\nEstá correto o que se afirma em",
+    "options": [
+      "II, apenas.",
+      "I e II, apenas.",
+      "I e III, apenas.",
+      "II e III, apenas.",
+      "I, II e III."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [
+      "Em 1996, o geógrafo brasileiro Milton Santos escreveu o livro \"A Natureza do Espaço: técnica e tempo, razão e emoção\". A obra aponta (muito antes da existência da internet atual e das redes sociais) que o controle das técnicas que permitem a circulação das informações representaria o domínio da tecnologia mais decisiva de nossa época. (...) Hoje é indiscutível o tamanho do poder de empresas como a META, de Zuckerberg, que controla o Facebook, o Instagram, o WhatsApp, o Threads e outras. Essas empresas detêm os dados e informações de bilhões de pessoas que circulam nessas redes e, com o devido trabalho de direcionamento, conseguem veicular mensagens particularizadas por meio de algoritmos, visando influenciar nossas percepções e decisões econômicas, políticas e sociais."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 45,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "A matéria em questão chama atenção para o risco das deepfakes. Para além das já conhecidas notícias falsas, esse novo tipo de prática é capaz de manipular voz e imagem de pessoas públicas de maneira convincente para fins maliciosos. Assinale a opção que indica corretamente um modo eficaz de prevenção contra deepfakes.",
+    "options": [
+      "Confiar em vídeos ou mensagens que estejam de acordo com o comportamento esperado da figura pública em questão.",
+      "Priorizar conteúdo audiovisual que pareça profissional e bem editado, assegurando-se de sua boa procedência.",
+      "Verificar diretamente nos canais oficiais das figuras públicas a autenticidade de anúncios ou promoções.",
+      "Encaminhar o conteúdo recebido publicamente para confirmar com outras pessoas se o link ou vídeo é confiável.",
+      "Interagir apenas com conteúdo compartilhado por terceiros confiáveis, como amigos e familiares."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [
+      "Após 27 denúncias em quatro dias, um vídeo falso com a imagem de Marcos Mion foi o catalisador da investigação [da Polícia Civil do Distrito Federal]. Na \"propaganda\" gerada por IA, o apresentador divulga uma promoção do restaurante Outback. No entanto, ao clicar no link, as vítimas eram redirecionadas a um site falso. De acordo com a apuração, o objetivo do golpe era coletar dados pessoais para a aplicação de fraudes financeiras. (...) A lista de personalidades brasileiras que já foram \"clonadas\" pela IA é extensa..."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 46,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "O vício em plataformas de aposta tem gerado preocupação entre autoridades, e os brasileiros podem ter perdido até 35,9 bilhões de reais com essa prática em 2024, segundo estudos. Com base no texto, assinale a opção que melhor reflete um aspecto relevante associado ao vício em apostas.",
+    "options": [
+      "O vício em apostas envolve outras pessoas além do jogador, criando problemas sociais, familiares e financeiros.",
+      "A solução para o vício está associada à força de vontade, de modo que o indivíduo controle seu tempo e dinheiro.",
+      "O problema do vício é próprio de pessoas que possuem recursos financeiros para arcar com perdas nas plataformas.",
+      "As plataformas de apostas online repetem a mesma situação problemática do vício em jogos tradicionais.",
+      "O vício em apostas deve ser encarado como um problema mental e com solução individualizada."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [
+      "O vicio em apostas é uma condição psiquiátrica denominada clinicamente como \"jogo patológico\" ou \"transtorno do jogo\". (...) a condição tem como principal caracteristica a ocorrência de episódios repetidos e frequentes de jogo, que dominam a vida da pessoa. Com isso, ela torna-se incapaz de controlar o tempo e o dinheiro gastos, mesmo em situações em que isso leva a prejuízos sociais, profissionais e familiares. Embora esse tipo de dependência já seja documentado há décadas pelos especialistas, com a popularização das plataformas de apostas online as famosas bets, esse comportamento danoso ganhou nova roupagem e proporção."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 47,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "As economias europeias apresentam uma forte dependência de combustíveis fósseis, tanto para sustentar suas atividades industriais quanto para atender às necessidades de uso doméstico. A crise energética dos últimos anos se deve, em grande medida, às consequências",
+    "options": [
+      "do colapso do acordo comercial entre o Mercosul e a União Europeia, afetando exportações agrícolas.",
+      "da proibição de importação de gás natural, imposta pelos Estados Unidos sobre os países da Europa.",
+      "do aumento significativo da produção de gás natural pelo Irã, reduzindo a dependência em relação à Europa.",
+      "da interrupção parcial do fornecimento de gás natural pela Rússia devido à guerra na Ucrânia.",
+      "do conflito Israel-Palestina, gerando instabilidades na relação com os principais fornecedores de petróleo."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [
+      "No auge da crise energética em 2022, a Alemanha ordenou compras rápidas obrigatórias de gás para armazenamento no mercado global a preços recordes. Para tentar recuperar parte do custo extra, Berlim introduziu uma taxa de armazenamento de gás (...). Neste ano, os riscos de racionamento de energia são baixos. (...) Mas um inverno frio em outro lugar poderia criar mais concorrência por suprimentos e aumentar ainda mais os preços, o que causaria problemas para a região. (...) \"somos forçados a depender das importações de GNL e, com isso, da necessidade de nos mantermos competitivos em relação à Ásia.\""
+    ],
+    "ano": 2025,
+    "numeroQuestao": 48,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "O trecho menciona o Acordo de Paris, que completa 10 anos em 2025 e visa reduzir os impactos da atividade humana no planeta. O texto evidencia que há um conflito entre",
+    "options": [
+      "a remoção de gases do efeito estufa e a proibição de tecnologias de captura de carbono.",
+      "o desenvolvimento econômico e os limites planetários impostos pela crise climática.",
+      "a necessidade de atingir neutralidade climática e a eliminação nacional de energias renováveis.",
+      "o compromisso do Brasil com o Acordo e a decisão de abandonar a exploração de petróleo.",
+      "a preservação da camada de ozônio e a exploração de minerais de alto valor no Brasil."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [
+      "Para tentar garantir o sucesso do Acordo de Paris, esta geração terá a árdua missão de remover da atmosfera uma enorme quantidade de GEE (Gases do Efeito Estufa). (...) Países como o Brasil têm uma prerrogativa legítima de querer alcançar o 'nível de país desenvolvido'. Com base nisso, o governo atual, ao invés de defender a redução, defende a ampliação da exploração de petróleo."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 49,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "O redesenho das relações internacionais passa pelo BRICS, bloco integrado pelo Brasil e que vem em ritmo de expansão das atividades. Os dois países mais geopoliticamente relevantes do bloco são:",
+    "options": [
+      "Turquia e Israel.",
+      "Brasil e África do Sul.",
+      "Alemanha e Coreia do Sul.",
+      "Arábia Saudita e Índia.",
+      "China e Rússia."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [
+      "O Brasil assume pela quarta vez a presidência rotativa do BRICS em meio a expansão do bloco que, em 2025, vai contar com ao menos nove novos membros. Reforma da governança global e desenvolvimento sustentável com inclusão social são algumas das agendas que o Brasil buscará promover. (...) o governo brasileiro tem, entre os desafios, o de articular a participação dos novos membros e dar continuidade à construção do sistema de pagamento com moedas locais no comércio entre os países, substituindo o dólar."
+    ],
+    "ano": 2025,
+    "numeroQuestao": 50,
+    "printar": false
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "MS-Windows",
+    "questionText": "Um usuário do MS-Windows 10 versão BR acessou uma pasta e acionou o atalho Crtl + Shift + N com o objetivo de",
+    "options": [
+      "fechar a pasta atual.",
+      "criar uma nova pasta.",
+      "abrir uma nova janela.",
+      "imprimir arquivos da pasta.",
+      "organizar arquivos da pasta."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 51,
+    "printar": false
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "MS-Excel",
+    "questionText": "Um usuário do MS Excel 2016 BR, tomando por base dados no site da Secretaria de Segurança Pública do Estado de São Paulo, criou a planilha a seguir:\nCom base nos dados apresentados, avalie as afirmativas a seguir e assinale (V) para a verdadeira e (F) para a falsa.\n( ) O resultado da fórmula MED(B3:C3) é maior do que o resultado da fórmula =MÉDIA(B4:B6).\n( ) O resultado da fórmula =CONT.SE(B3:B13;\">1600\") é maior do que o resultado da fórmula =CONT.NÚM (C3:C13).\n( ) O resultado da fórmula =SOMA(B8:B13) é menor do que o resultado da fórmula =SOMARPRODUTO (C3:C7).\nAs afirmativas são, respectivamente,",
+    "options": [
+      "F-V-V.",
+      "V-F-V.",
+      "F-V-F.",
+      "V-F-F.",
+      "V-V-F."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [
+      "localhost:5000/images/2025-52.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 52,
+    "printar": true
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "Correio Eletrônico",
+    "questionText": "Um usuário do Gmail deseja enviar um e-mail com um arquivo anexo e em modo confidencial. Para isso, na janela \"Nova mensagem\", ele deve clicar nos seguintes botões:",
+    "options": [
+      "Ícone de clipe e ícone de relógio com cadeado.",
+      "Ícone de 'A' formatado e ícone de clipe.",
+      "Ícone de clipe e ícone de 'A' formatado.",
+      "Ícone de relógio com cadeado e ícone de caneta.",
+      "Ícone de clipe e ícone de caneta."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [
+      "localhost:5000/images/2025-53.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 53,
+    "printar": true
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "MS-PowerPoint",
+    "questionText": "As opções a seguir apresentam extensões de tipos de arquivos que podem ser salvos no MS PowerPoint 2016 BR, à exceção de uma. Assinale-a.",
+    "options": [
+      ".pptx",
+      ".pptm",
+      ".ppsm",
+      ".wmv",
+      ".cmx"
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 54,
+    "printar": false
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "MS-Word",
+    "questionText": "No MS Word 2016 BR, a Guia Revisão contém, como padrão, os botões listados a seguir, à exceção de um. Assinale-o.",
+    "options": [
+      "Controlar Alterações",
+      "Novo Comentário",
+      "Inserir Nota de Rodapé",
+      "Contagem de Palavras",
+      "Ortografia e Gramática"
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [
+      "localhost:5000/images/2025-55.png"
+    ],
+    "ano": 2025,
+    "numeroQuestao": 55,
+    "printar": true
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Constituição Federal",
+    "questionText": "Um grupo de policiais militares foi convidado por certo militar reformado a formar uma associação civil sem fins lucrativos. O objetivo era permitir que os associados, todos com porte legal de arma de fogo, pudessem participar de patrulhamento voluntário das vias públicas, devidamente uniformizados com trajes contendo as cores e o símbolo da associação, de modo a dissuadir os interessados na prática de ilícitos e prender aqueles que se encontrassem em flagrante delito, submetendo-os à autoridade competente. Ao analisarem a Constituição da República, os policiais militares convidados concluíram corretamente que é",
+    "options": [
+      "vedada a formação de associação com essas características, por ter caráter paramilitar.",
+      "vedada a formação de uma associação por militares, salvo se houver autorização dos respectivos comandantes.",
+      "vedada a formação de associação com o objetivo almejado, pois a prisão em flagrante somente pode ser realizada pelo militar em serviço.",
+      "permitida a formação da referida associação, independentemente de qualquer balizamento legal, pois o direito de associação é de natureza fundamental.",
+      "permitida a formação de associação com essas características, independentemente de autorização dos respectivos comandantes, desde que os policiais militares atuem fora do horário de serviço."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 56,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Constituição Federal",
+    "questionText": "João, membro da Polícia Militar do Estado Alfa atuando como médico, foi aprovado em concurso público de provas e títulos para outro cargo efetivo de médico, no Município Beta. Como João não almejava deixar a Policia Militar em razão da sólida carreira que construíra, consultou a Constituição da República em relação à possibilidade de acumular o cargo que já ocupava e o referido emprego público. João concluiu corretamente que a acumulação é",
+    "options": [
+      "possível, desde que haja compatibilidade de horários, com prevalência da atividade militar.",
+      "impossível, pois apenas seria viável se ocorresse junto ao mesmo ente federativo.",
+      "vedada, pois o novo cargo efetivo não é da área da educação.",
+      "vedada, pois os policiais militares não podem cumular outro cargo ou emprego público.",
+      "possível, desde que haja compatibilidade de horários e a carga horária somada, não ultrapasse 40 horas semanais."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 57,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Constituição Federal",
+    "questionText": "João, policial militar, estava conduzindo veículo da corporação durante o horário de expediente quando atropelou e matou Pedro, transeunte que atravessava a via pública no momento dos fatos. Irresignados, os familiares de Pedro informaram a alguns meios de comunicação social que ingressariam com ação de reparação de danos em face de João e do Estado Alfa, ao qual estava vinculada a sua corporação. À luz da Constituição da República, é correto afirmar que",
+    "options": [
+      "João e o Estado Alfa somente podem ser responsabilizados com a demonstração da culpa daquele.",
+      "somente o Estado Alfa pode ser responsabilizado independentemente da demonstração da culpa de João.",
+      "João pode ser responsabilizado independentemente da demonstração de culpa, o mesmo ocorrendo com o Estado Alfa.",
+      "somente será possível a responsabilização de João e do Estado Alfa caso a família da vítima demonstre que esta última não teve culpa no atropelamento.",
+      "como João estava conduzindo o veículo da corporação durante o horário de expediente, cumprindo um dever legal, não é possível a sua responsabilização pelo atropelamento."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 58,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Constituição do Estado de São Paulo",
+    "questionText": "Ângelo, soldado da Polícia Militar do Estado de São Paulo, foi denunciado, pelo Ministério Público, pela alegada prática de crime militar contra civil. Ao tomar conhecimento do ocorrido, consultou a Constituição do Estado de São Paulo para verificar a autoridade ou órgão competente para processá-lo e julgá-lo. Ao fim de sua análise, Ângelo concluiu corretamente que a referida autoridade é",
+    "options": [
+      "o Conselho de Justificação.",
+      "o Tribunal de Justiça Militar.",
+      "um juiz de direito do juízo militar.",
+      "um juiz de direito do juízo comum, não militar.",
+      "o Conselho de Justiça, sob presidência do juiz de direito."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 59,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Lei de Acesso à Informação",
+    "questionText": "Uma pessoa, credora de Pedro, soldado da Polícia Militar do Estado de São Paulo, encaminhou requerimento ao Comandante-Geral da corporação solicitando que fosse informado o valor da renda mensal do referido agente. Acresceu que o objetivo era utilizar essa informação na montagem da estratégia a ser utilizada para promover a cobrança do crédito que tinha com Pedro. O Comandante-Geral, após analisar a sistemática vigente, concluiu corretamente que a informação solicitada",
+    "options": [
+      "diz respeito à intimidade de Pedro, logo, não pode ser fornecida.",
+      "deve ser divulgada, o que independe até mesmo de requerimento, por ser de interesse geral.",
+      "somente pode ser fornecida se os documentos apresentados comprovarem que a pessoa, de fato, é credora de Pedro.",
+      "deve ser divulgada, pois a administração pública não pode invocar sigilo em relação a nenhum requerimento de acesso à informação.",
+      "somente pode ser fornecida se a pessoa for titular de um crédito alimentar."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2025,
+    "numeroQuestao": 60,
+    "printar": false
   }
 ];
 
