@@ -1,87 +1,99 @@
 // /frontend/src/pages/HomePage.jsx
 import { useState, useEffect, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import axios from 'axios';
 
 function HomePage() {
   const { userInfo } = useContext(AuthContext);
-  const navigate = useNavigate();
   const [stats, setStats] = useState({
-    totalQuestions: 0,
+    totalQuestoes: 0,
     totalAreas: 0,
-    totalTopics: 0
+    totalSimulados: 0
   });
   const [loading, setLoading] = useState(true);
 
-  // Buscar estatísticas da API otimizada
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/stats');
-        const statsData = response.data;
-        
-        setStats({
-          totalQuestions: statsData.questions.total,
-          totalAreas: statsData.questions.areas,
-          totalTopics: statsData.questions.topics
-        });
-      } catch (error) {
-        console.error('Erro ao buscar estatísticas:', error);
-        // Fallback para API de questões se a API de stats não estiver disponível
-        try {
-          const fallbackResponse = await axios.get('http://localhost:5000/api/questions');
-          const questions = fallbackResponse.data;
-          
-          const uniqueAreas = [...new Set(questions.map(q => q.area))];
-          const uniqueTopics = [...new Set(questions.map(q => q.topic))];
-          
-          setStats({
-            totalQuestions: questions.length,
-            totalAreas: uniqueAreas.length,
-            totalTopics: uniqueTopics.length
-          });
-        } catch (fallbackError) {
-          console.error('Erro no fallback:', fallbackError);
-          // Valores padrão em caso de erro total
-          setStats({
-            totalQuestions: 110,
-            totalAreas: 5,
-            totalTopics: 49
-          });
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchStats();
+    fetchSimuladosCount();
   }, []);
 
-  // Função para determinar a saudação personalizada
-  const getGreeting = () => {
-    if (!userInfo) return 'Bem-vindo(a)';
-    
-    const email = userInfo.email?.toLowerCase() || '';
-    if (email.includes('gabrielle')) {
-      return 'Bem-vinda, meu amor ❤️';
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/stats');
+      if (response.ok) {
+        const data = await response.json();
+        setStats(prevStats => ({
+          ...prevStats,
+          totalQuestoes: data.questions.total,
+          totalAreas: data.questions.areas
+        }));
+      }
+    } catch (error) {
+      console.error('Erro ao buscar estatísticas:', error);
     }
+  };
+
+  const fetchSimuladosCount = async () => {
+    try {
+      // Buscar anos disponíveis
+      const anosResponse = await fetch('http://localhost:5000/api/simulados/anos');
+      if (anosResponse.ok) {
+        const anosData = await anosResponse.json();
+        
+        if (anosData.success && anosData.anos.length > 0) {
+          // Para cada ano, buscar quantos simulados existem
+          let totalSimulados = 0;
+          
+          for (const anoInfo of anosData.anos) {
+            try {
+              const simuladosResponse = await fetch(`http://localhost:5000/api/simulados/${anoInfo.ano}`);
+              if (simuladosResponse.ok) {
+                const simuladosData = await simuladosResponse.json();
+                if (simuladosData.success) {
+                  totalSimulados += simuladosData.simulados.length;
+                }
+              }
+            } catch (error) {
+              console.error(`Erro ao buscar simulados do ano ${anoInfo.ano}:`, error);
+            }
+          }
+          
+          setStats(prevStats => ({
+            ...prevStats,
+            totalSimulados
+          }));
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao buscar contagem de simulados:', error);
+    }
+    finally {
+      setLoading(false);
+    }
+  };
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    const name = userInfo?.name || 'Estudante';
     
-    return `Olá, ${userInfo.name || 'Usuário'}`;
+    if (hour < 12) return `Bom dia, ${name}! ☀️`;
+    if (hour < 18) return `Boa tarde, ${name}! 🌤️`;
+    return `Boa noite, ${name}! 🌙`;
   };
 
   const styles = {
     container: {
-      minHeight: '100vh',
+      margin: '0',
+      padding: '0',
       backgroundColor: '#f8f9fa',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      minHeight: '100vh'
     },
     
     // Hero Section
     heroSection: {
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       color: 'white',
-      padding: '80px 20px',
+      padding: '100px 20px',
       textAlign: 'center',
       position: 'relative',
       overflow: 'hidden'
@@ -92,30 +104,28 @@ function HomePage() {
       position: 'relative',
       zIndex: 2
     },
-    heroTitle: {
-      fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-      fontWeight: '700',
+    heroGreeting: {
+      fontSize: '1.3rem',
+      fontWeight: '500',
       marginBottom: '20px',
-      lineHeight: '1.2',
-      textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+      opacity: '0.95'
+    },
+    heroTitle: {
+      fontSize: '3.5rem',
+      fontWeight: '700',
+      marginBottom: '30px',
+      lineHeight: '1.2'
     },
     heroSubtitle: {
-      fontSize: 'clamp(1.1rem, 3vw, 1.3rem)',
+      fontSize: '1.3rem',
       marginBottom: '40px',
-      opacity: '0.95',
       lineHeight: '1.6',
-      fontWeight: '300'
-    },
-    heroGreeting: {
-      fontSize: '1.2rem',
-      marginBottom: '30px',
-      opacity: '0.9',
-      fontWeight: '500'
+      opacity: '0.9'
     },
     heroCTA: {
       display: 'inline-block',
-      padding: '15px 35px',
-      fontSize: '1.1rem',
+      padding: '18px 40px',
+      fontSize: '1.2rem',
       fontWeight: '600',
       backgroundColor: '#ff6b6b',
       color: 'white',
@@ -126,46 +136,47 @@ function HomePage() {
       border: 'none',
       cursor: 'pointer'
     },
-    
+
     // Tools Section
     toolsSection: {
       padding: '80px 20px',
       backgroundColor: 'white'
     },
-    sectionContainer: {
+    toolsContainer: {
       maxWidth: '1200px',
       margin: '0 auto'
     },
-    sectionTitle: {
+    toolsTitle: {
       fontSize: '2.5rem',
       fontWeight: '700',
       textAlign: 'center',
-      marginBottom: '50px',
-      color: '#2c3e50',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text'
+      marginBottom: '20px',
+      color: '#2c3e50'
+    },
+    toolsSubtitle: {
+      fontSize: '1.2rem',
+      textAlign: 'center',
+      marginBottom: '60px',
+      color: '#7f8c8d',
+      lineHeight: '1.6'
     },
     toolsGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
       gap: '30px',
-      marginTop: '40px'
+      marginTop: '50px'
     },
     toolCard: {
       backgroundColor: 'white',
-      borderRadius: '20px',
       padding: '40px 30px',
+      borderRadius: '20px',
       textAlign: 'center',
-      boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+      boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
       transition: 'all 0.3s ease',
-      border: '1px solid #f0f0f0',
-      position: 'relative',
-      overflow: 'hidden'
+      border: '1px solid #f1f3f4'
     },
     toolIcon: {
-      fontSize: '3rem',
+      fontSize: '4rem',
       marginBottom: '20px',
       display: 'block'
     },
@@ -177,36 +188,48 @@ function HomePage() {
     },
     toolDescription: {
       fontSize: '1rem',
-      color: '#666',
+      color: '#7f8c8d',
       lineHeight: '1.6',
       marginBottom: '25px'
     },
     toolButton: {
       display: 'inline-block',
-      padding: '12px 25px',
+      padding: '12px 30px',
       backgroundColor: '#667eea',
       color: 'white',
       textDecoration: 'none',
       borderRadius: '25px',
-      fontSize: '0.95rem',
-      fontWeight: '500',
-      transition: 'all 0.3s ease'
+      fontWeight: '600',
+      fontSize: '1rem',
+      transition: 'all 0.3s ease',
+      border: 'none',
+      cursor: 'pointer'
     },
-    
+
     // Stats Section
     statsSection: {
       padding: '80px 20px',
-      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
+      backgroundColor: '#f8f9fa'
+    },
+    statsContainer: {
+      maxWidth: '1000px',
+      margin: '0 auto',
+      textAlign: 'center'
+    },
+    statsTitle: {
+      fontSize: '2.5rem',
+      fontWeight: '700',
+      marginBottom: '50px',
+      color: '#2c3e50'
     },
     statsGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '30px',
-      marginTop: '40px'
+      gap: '30px'
     },
     statCard: {
       backgroundColor: 'white',
-      borderRadius: '20px',
+      borderRadius: '15px',
       padding: '40px 20px',
       textAlign: 'center',
       boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
@@ -288,7 +311,7 @@ function HomePage() {
 
   const tools = [
     {
-      icon: '📚',
+      icon: '📖',
       title: 'Banco de Questões',
       description: 'Filtre por área e tópico, pratique com questões de provas anteriores e reforce seu conhecimento.',
       link: '/questions',
@@ -297,16 +320,16 @@ function HomePage() {
     {
       icon: '⏱️',
       title: 'Simulados',
-      description: 'Resolva provas no formato real do concurso, com tempo cronometrado e gabarito detalhado.',
+      description: 'Teste seus conhecimentos com adaptações de 10 a 12 questões que respeitam a proporção da prova real do concurso.',
       link: '/simulados',
       buttonText: 'Ver Simulados'
     },
     {
       icon: '✍️',
-      title: 'Testes Personalizados',
-      description: 'Crie testes personalizados com o número de questões que você quiser para focar nos seus estudos.',
-      link: '/tests',
-      buttonText: 'Criar Teste'
+      title: 'Redação',
+      description: 'Pratique redação com temas de provas passadas. Escreva sua redação e receba correção personalizada para melhorar sua escrita.',
+      link: '/redacao',
+      buttonText: 'Praticar Redação'
     }
   ];
 
@@ -324,7 +347,7 @@ function HomePage() {
             Sua aprovação no concurso de Bombeiro SP começa aqui
           </h1>
           <p style={styles.heroSubtitle}>
-            A plataforma completa com milhares de questões, simulados realistas e todo o conteúdo que você precisa para conquistar sua vaga.
+            Você vai encontrar todas as questões anteriores aqui, organizadas e prontas para seus estudos completos e direcionados.
           </p>
           {userInfo ? (
             <Link 
@@ -354,7 +377,7 @@ function HomePage() {
                 e.target.style.boxShadow = '0 8px 25px rgba(255, 107, 107, 0.3)';
               }}
             >
-              Iniciar Meus Estudos →
+              Começar Agora →
             </Link>
           )}
         </div>
@@ -362,20 +385,24 @@ function HomePage() {
 
       {/* Tools Section */}
       <section style={styles.toolsSection}>
-        <div style={styles.sectionContainer}>
-          <h2 style={styles.sectionTitle}>Escolha por onde começar</h2>
+        <div style={styles.toolsContainer}>
+          <h2 style={styles.toolsTitle}>Escolha por onde começar</h2>
+          <p style={styles.toolsSubtitle}>
+            Nossa plataforma oferece todas as ferramentas que você precisa para se preparar de forma completa e eficiente.
+          </p>
+          
           <div style={styles.toolsGrid}>
             {tools.map((tool, index) => (
               <div 
-                key={index} 
+                key={index}
                 style={styles.toolCard}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-10px)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+                  e.target.style.transform = 'translateY(-8px)';
+                  e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.08)';
                 }}
               >
                 <span style={styles.toolIcon}>{tool.icon}</span>
@@ -385,12 +412,12 @@ function HomePage() {
                   to={tool.link} 
                   style={styles.toolButton}
                   onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = '#764ba2';
-                    e.target.style.transform = 'scale(1.05)';
+                    e.target.style.backgroundColor = '#5a67d8';
+                    e.target.style.transform = 'translateY(-2px)';
                   }}
                   onMouseLeave={(e) => {
                     e.target.style.backgroundColor = '#667eea';
-                    e.target.style.transform = 'scale(1)';
+                    e.target.style.transform = 'translateY(0)';
                   }}
                 >
                   {tool.buttonText}
@@ -403,8 +430,9 @@ function HomePage() {
 
       {/* Stats Section */}
       <section style={styles.statsSection}>
-        <div style={styles.sectionContainer}>
-          <h2 style={styles.sectionTitle}>Uma plataforma em constante evolução</h2>
+        <div style={styles.statsContainer}>
+          <h2 style={styles.statsTitle}>Nossa plataforma em números</h2>
+          
           {loading ? (
             <div style={styles.loadingContainer}>
               Carregando estatísticas...
@@ -414,80 +442,69 @@ function HomePage() {
               <div 
                 style={styles.statCard}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.target.style.transform = 'translateY(-5px)';
+                  e.target.style.backgroundColor = 'rgba(255,255,255,0.95)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.backgroundColor = 'white';
                 }}
               >
-                <div style={styles.statNumber}>{stats.totalQuestions}+</div>
+                <div style={styles.statNumber}>{stats.totalQuestoes}</div>
                 <div style={styles.statLabel}>Questões Disponíveis</div>
               </div>
+              
               <div 
                 style={styles.statCard}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.target.style.transform = 'translateY(-5px)';
+                  e.target.style.backgroundColor = 'rgba(255,255,255,0.95)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.backgroundColor = 'white';
                 }}
               >
                 <div style={styles.statNumber}>{stats.totalAreas}</div>
-                <div style={styles.statLabel}>Áreas Cobertas</div>
+                <div style={styles.statLabel}>Áreas de Conhecimento</div>
               </div>
+              
               <div 
                 style={styles.statCard}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.target.style.transform = 'translateY(-5px)';
+                  e.target.style.backgroundColor = 'rgba(255,255,255,0.95)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.backgroundColor = 'white';
                 }}
               >
-                <div style={styles.statNumber}>{stats.totalTopics}+</div>
-                <div style={styles.statLabel}>Tópicos Abordados</div>
+                <div style={styles.statNumber}>{stats.totalSimulados}</div>
+                <div style={styles.statLabel}>Simulados Disponíveis</div>
               </div>
             </div>
           )}
         </div>
       </section>
 
-      {/* CTA Final Section */}
+      {/* CTA Final */}
       <section style={styles.ctaSection}>
-        <div style={styles.sectionContainer}>
-          <h2 style={styles.ctaTitle}>Pronto para garantir a sua farda?</h2>
-          {userInfo ? (
-            <Link 
-              to="/questions" 
-              style={styles.ctaButton}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-3px)';
-                e.target.style.boxShadow = '0 12px 35px rgba(0,0,0,0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
-              }}
-            >
-              Começar a Estudar Agora
-            </Link>
-          ) : (
-            <Link 
-              to="/register" 
-              style={styles.ctaButton}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-3px)';
-                e.target.style.boxShadow = '0 12px 35px rgba(0,0,0,0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
-              }}
-            >
-              Criar Minha Conta Gratuitamente
-            </Link>
-          )}
-        </div>
+        <h2 style={styles.ctaTitle}>Pronto para começar sua jornada?</h2>
+        <Link 
+          to="/tests" 
+          style={styles.ctaButton}
+          onMouseEnter={(e) => {
+            e.target.style.transform = 'translateY(-3px)';
+            e.target.style.boxShadow = '0 12px 35px rgba(0,0,0,0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = 'translateY(0)';
+            e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
+          }}
+        >
+          Explorar Testes →
+        </Link>
       </section>
     </div>
   );
