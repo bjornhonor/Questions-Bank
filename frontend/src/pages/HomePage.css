@@ -1,0 +1,242 @@
+/* /frontend/src/pages/HomePage.css - Estilos adicionais opcionais */
+
+/* Animações personalizadas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Classe para animação de entrada */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Efeito de gradiente animado no hero */
+.hero-gradient {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #667eea, #764ba2);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+/* Efeito glass morphism para cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Hover effect para estatísticas */
+.stat-card:hover .stat-number {
+  animation: pulse 0.6s ease-in-out;
+}
+
+/* Efeito de partículas no fundo (opcional) */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Melhorar scrollbar customizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6b4190 100%);
+}
+
+/* Responsividade melhorada */
+@media (max-width: 1200px) {
+  .section-container {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem !important;
+  }
+  
+  .section-title {
+    font-size: 2rem !important;
+  }
+  
+  .tool-card {
+    padding: 30px 20px !important;
+  }
+  
+  .stat-card {
+    padding: 30px 15px !important;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 60px 15px !important;
+  }
+  
+  .tools-section,
+  .stats-section,
+  .cta-section {
+    padding: 60px 15px !important;
+  }
+  
+  .hero-title {
+    font-size: 2rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem !important;
+  }
+  
+  .hero-cta,
+  .cta-button {
+    padding: 12px 25px !important;
+    font-size: 1rem !important;
+  }
+  
+  .tool-button {
+    padding: 10px 20px !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Dark mode support (para futuro) */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: #1a1a1a;
+  }
+  
+  .tools-section {
+    background-color: #2d2d2d;
+  }
+  
+  .tool-card,
+  .stat-card {
+    background-color: #3d3d3d;
+    border-color: #4d4d4d;
+  }
+  
+  .tool-title {
+    color: #ffffff;
+  }
+  
+  .tool-description,
+  .stat-label {
+    color: #cccccc;
+  }
+}
+
+/* Efeitos de loading melhorados */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Acessibilidade melhorada */
+.hero-cta:focus,
+.tool-button:focus,
+.cta-button:focus {
+  outline: 3px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
+}
+
+/* Transições suaves globais */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Remove transição para elementos que não precisam */
+.stat-number,
+.hero-title,
+.section-title {
+  transition: none;
+}
+
+/*
+=== COMO USAR ===
+
+1. Salve este arquivo como HomePage.css
+2. Importe no seu HomePage.jsx:
+   import './HomePage.css';
+
+3. Adicione classes conforme necessário:
+   - .fade-in-up para animações de entrada
+   - .hero-gradient para fundo animado
+   - .glass-card para efeito glass morphism
+   - .loading-skeleton para loading states
+
+=== CLASSES ÚTEIS ===
+
+.fade-in-up - Animação de entrada suave
+.hero-gradient - Gradiente animado
+.glass-card - Efeito vidro
+.stat-card:hover - Efeito hover nas estatísticas
+.loading-skeleton - Loading state elegante
+
+Este CSS é totalmente opcional e complementa o styling inline
+já implementado no componente React.
+*/
