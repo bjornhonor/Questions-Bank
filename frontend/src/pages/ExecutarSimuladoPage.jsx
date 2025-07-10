@@ -1,4 +1,10 @@
-// /frontend/src/pages/ExecutarSimuladoPage.jsx
+// Função para ir para a primeira questão não respondida
+  const goToFirstUnansweredQuestion = () => {
+    const firstUnanswered = questoes.findIndex((_, index) => selectedAnswers[index] === undefined);
+    if (firstUnanswered !== -1) {
+      setCurrentQuestionIndex(firstUnanswered);
+    }
+  };// /frontend/src/pages/ExecutarSimuladoPage.jsx
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -23,6 +29,7 @@ const ExecutarSimuladoPage = () => {
   const [testFinished, setTestFinished] = useState(false);
   const [results, setResults] = useState(null);
   const [showIncompleteWarning, setShowIncompleteWarning] = useState(false);
+  const [showIncompleteQuestions, setShowIncompleteQuestions] = useState(false);
   
   // Estados do modal de anexos
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,6 +40,14 @@ const ExecutarSimuladoPage = () => {
   useEffect(() => {
     buscarSimulado();
   }, [ano, numero]);
+
+  // Effect para esconder aviso e questões vermelhas quando todas questões forem respondidas
+  useEffect(() => {
+    if ((showIncompleteWarning || showIncompleteQuestions) && Object.keys(selectedAnswers).length === questoes.length) {
+      setShowIncompleteWarning(false);
+      setShowIncompleteQuestions(false);
+    }
+  }, [selectedAnswers, questoes.length, showIncompleteWarning, showIncompleteQuestions]);
 
   const buscarSimulado = async () => {
     try {
@@ -66,16 +81,26 @@ const ExecutarSimuladoPage = () => {
     });
   };
 
+  // Função para ir para a primeira questão não respondida
+  const goToFirstUnansweredQuestion = () => {
+    const firstUnanswered = questoes.findIndex((_, index) => selectedAnswers[index] === undefined);
+    if (firstUnanswered !== -1) {
+      setCurrentQuestionIndex(firstUnanswered);
+    }
+  };
+
   const finishTest = () => {
     // Verificar se todas as questões foram respondidas
     const totalQuestoes = questoes.length;
     const questoesRespondidas = Object.keys(selectedAnswers).length;
     
     if (questoesRespondidas < totalQuestoes) {
-      setShowIncompleteWarning(true);
-      // Esconder o aviso após 5 segundos
+      setShowIncompleteWarning(true); // Banner de alerta
+      setShowIncompleteQuestions(true); // Questões ficam vermelhas
+      // Banner se esconde após 5 segundos, mas questões continuam vermelhas
       setTimeout(() => {
         setShowIncompleteWarning(false);
+        // showIncompleteQuestions continua true até todas serem respondidas
       }, 5000);
       return;
     }
@@ -264,17 +289,36 @@ const ExecutarSimuladoPage = () => {
         {/* Aviso de questões incompletas */}
         {showIncompleteWarning && (
           <div style={styles.warningBanner}>
-            <div style={styles.warningContent}>
+            <div 
+              style={styles.warningContent}
+              onClick={goToFirstUnansweredQuestion}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#fff8e1';
+                e.target.style.transform = 'scale(1.02)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#fff3cd';
+                e.target.style.transform = 'scale(1)';
+              }}
+            >
               <span style={styles.warningIcon}>⚠️</span>
               <div style={styles.warningText}>
                 <strong>Atenção!</strong> Você precisa responder todas as questões antes de finalizar o simulado.
                 <br />
                 <span style={styles.warningSubtext}>
                   Ainda faltam {questoes.length - Object.keys(selectedAnswers).length} questões para responder.
+                  <br />
+                  <em style={{ fontSize: '0.85rem', color: '#6c5005' }}>
+                    Clique aqui para ir à primeira questão não respondida. As questões não respondidas ficarão destacadas em vermelho.
+                  </em>
                 </span>
               </div>
               <button 
-                onClick={() => setShowIncompleteWarning(false)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowIncompleteWarning(false);
+                  // Não resetar showIncompleteQuestions - elas devem continuar vermelhas
+                }}
                 style={styles.warningCloseButton}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = 'rgba(133, 100, 4, 0.1)';
@@ -361,6 +405,7 @@ const ExecutarSimuladoPage = () => {
                 {questoes.map((_, index) => {
                   const isAnswered = selectedAnswers[index] !== undefined;
                   const isCurrent = index === currentQuestionIndex;
+                  const shouldShowAsIncomplete = showIncompleteQuestions && !isAnswered;
                   
                   let buttonStyle = { ...styles.questionNavButton };
                   
@@ -368,8 +413,8 @@ const ExecutarSimuladoPage = () => {
                     buttonStyle = { ...buttonStyle, ...styles.questionNumberActive };
                   } else if (isAnswered) {
                     buttonStyle = { ...buttonStyle, ...styles.questionNumberAnswered };
-                  } else {
-                    buttonStyle = { ...buttonStyle, ...styles.questionNumberUnanswered };
+                  } else if (shouldShowAsIncomplete) {
+                    buttonStyle = { ...buttonStyle, ...styles.questionNumberIncomplete };
                   }
 
                   return (
@@ -377,7 +422,13 @@ const ExecutarSimuladoPage = () => {
                       key={index}
                       onClick={() => setCurrentQuestionIndex(index)}
                       style={buttonStyle}
-                      title={isAnswered ? 'Questão respondida' : 'Questão não respondida'}
+                      title={
+                        isAnswered 
+                          ? 'Questão respondida' 
+                          : shouldShowAsIncomplete 
+                            ? 'Questão não respondida - clique para responder'
+                            : 'Questão não respondida'
+                      }
                     >
                       {index + 1}
                     </button>
@@ -810,7 +861,7 @@ const styles = {
     color: 'white'
   },
 
-  questionNumberUnanswered: {
+  questionNumberIncomplete: {
     backgroundColor: '#dc3545',
     borderColor: '#dc3545',
     color: 'white',
@@ -837,7 +888,9 @@ const styles = {
     display: 'flex',
     alignItems: 'flex-start',
     gap: '15px',
-    boxShadow: '0 8px 25px rgba(255, 193, 7, 0.3)'
+    boxShadow: '0 8px 25px rgba(255, 193, 7, 0.3)',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease'
   },
 
   warningIcon: {
