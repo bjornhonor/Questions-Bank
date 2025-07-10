@@ -1,6 +1,7 @@
-// /frontend/src/pages/ExecutarSimuladoPage.jsx
+const API_BASE_URL = 'http://localhost:5000';// /frontend/src/pages/ExecutarSimuladoPage.jsx
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import useTimer from '../hooks/useTimer';
 import ImageModal from '../components/ImageModal';
 
@@ -36,154 +37,15 @@ const ExecutarSimuladoPage = () => {
     try {
       setLoading(true);
       
-      // Por enquanto, vamos simular dados do simulado baseado em questões reais
-      const questoesSimuladas = [
-        {
-          _id: '1',
-          area: 'Matemática',
-          topic: 'Porcentagem',
-          questionText: 'Em uma caixa, havia 150 peças, das quais 30% estavam enferrujadas e, portanto, não podiam ser utilizadas. Das demais peças, 20% apresentavam defeitos e também não podiam ser utilizadas. Considerando-se o número total de peças da caixa, é correto dizer que o número de peças que podiam ser utilizadas representava',
-          options: ['48%.', '40%.', '56%.', '44%.', '52%.'],
-          correctOptionIndex: 2,
-          attachments: []
-        },
-        {
-          _id: '2',
-          area: 'Língua Portuguesa',
-          topic: 'Interpretação de Texto',
-          questionText: 'Uma frase condizente com a afirmação do personagem no primeiro quadrinho e redigida conforme a norma-padrão da língua é:',
-          options: [
-            'Mesmo antes que fosse inventado a internet, eu já perderia meu tempo.',
-            'Antes que se inventem a internet, meu tempo já desperdiçara.',
-            'Embora se inventasse a internet, meu tempo foi sendo perdido.',
-            'Antes de a internet ser inventada, eu já desperdiçava meu tempo.',
-            'Com a invenção da internet, meu tempo passou-se a se perder.'
-          ],
-          correctOptionIndex: 3,
-          attachments: ['http://localhost:5000/images/2017-17.png']
-        },
-        {
-          _id: '3',
-          area: 'Matemática',
-          topic: 'Regra de três simples',
-          questionText: 'Para percorrer um determinado trecho de estrada, um carro com velocidade constante de 80 km/h gasta 45 minutos. Se esse carro percorresse esse mesmo trecho com velocidade constante de 100 km/h, gastaria',
-          options: ['32 minutos.', '42 minutos.', '39 minutos.', '36 minutos.', '30 minutos.'],
-          correctOptionIndex: 3,
-          attachments: []
-        },
-        {
-          _id: '4',
-          area: 'Conhecimentos Gerais',
-          topic: 'Geografia do Brasil',
-          questionText: 'A partir da comparação entre as pirâmides etárias de 1991 e 2010 e dos conhecimentos sobre a dinâmica demográfica brasileira, é correto concluir que, no período,',
-          options: [
-            'as taxas de fertilidade e de natalidade apresentaram redução.',
-            'as taxas de natalidade e de mortalidade apresentaram pequena variação.',
-            'a expectativa de vida da população se manteve alta.',
-            'a população adulta apresentou declínio.',
-            'a proporção de mulheres adultas diminuiu.'
-          ],
-          correctOptionIndex: 0,
-          attachments: ['http://localhost:5000/images/2017-38.png']
-        },
-        {
-          _id: '5',
-          area: 'Informática',
-          topic: 'MS-Excel 2016',
-          questionText: 'Assinale a alternativa que indica quantas colunas estão com algum tipo de filtro aplicado.',
-          options: ['3.', '2.', '5.', '1.', 'Nenhuma.'],
-          correctOptionIndex: 3,
-          attachments: ['http://localhost:5000/images/2017-43.png']
-        },
-        {
-          _id: '6',
-          area: 'Matemática',
-          topic: 'Sistema de equações do 1º grau',
-          questionText: 'Uma pessoa comprou empadas e coxinhas, num total de 30 unidades, e pagou R$ 114,00. Sabendo-se que o preço de uma empada é R$ 3,50 e o preço de uma coxinha é R$ 4,00, então o número de coxinhas compradas foi',
-          options: ['14.', '16.', '18.', '12.', '20.'],
-          correctOptionIndex: 2,
-          attachments: []
-        },
-        {
-          _id: '7',
-          area: 'Língua Portuguesa',
-          topic: 'Crase',
-          questionText: 'O acento indicativo de crase está empregado corretamente em:',
-          options: [
-            'O personagem evita considerar à internet responsável por suas atitudes.',
-            'O personagem reconheceu que já tinha uma propensão à jogar o tempo fora.',
-            'O personagem tinha um comportamento indiferente à qualquer influência da internet.',
-            'O personagem refere-se à uma maneira de se portar com relação ao tempo.',
-            'O personagem revelou à pessoa com quem conversava que jogava o tempo fora.'
-          ],
-          correctOptionIndex: 4,
-          attachments: []
-        },
-        {
-          _id: '8',
-          area: 'Administração Pública',
-          topic: 'Constituição Federal',
-          questionText: 'A Constituição Federal estabelece que a Administração Pública Direta e Indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá aos princípios de legalidade, impessoalidade, moralidade, publicidade e eficiência e, também, ao seguinte:',
-          options: [
-            'são garantidos ao servidor público civil os direitos sociais previstos para o trabalhador em geral, como o direito à livre associação sindical, sendo-lhe, contudo, proibido o exercício do direito à greve.',
-            'os cargos, empregos e funções públicas são acessíveis aos brasileiros que preencham os requisitos estabelecidos em lei, assim como aos estrangeiros, na forma da lei.',
-            'a investidura em cargo ou emprego público depende de aprovação prévia em concurso público de provas ou de provas e títulos, de acordo com a natureza e a complexidade do cargo ou emprego, na forma prevista em lei.',
-            'é garantida a estabilidade aos servidores nomeados para cargo de provimento efetivo em virtude de concurso público após três anos de efetivo exercício.',
-            'os vencimentos dos cargos do Poder Legislativo e do Poder Judiciário não poderão ser superiores aos pagos pelo Poder Executivo.'
-          ],
-          correctOptionIndex: 2,
-          attachments: []
-        },
-        {
-          _id: '9',
-          area: 'Informática',
-          topic: 'MS-PowerPoint 2016',
-          questionText: 'No Microsoft PowerPoint 2010, em sua configuração padrão, um usuário criou uma apresentação com 20 slides, mas deseja que o slide 5, sem ser excluído, não seja exibido na apresentação de slides. Assinale a alternativa que indica a ação correta a ser aplicada ao slide 5 para que ele não seja exibido durante a apresentação.',
-          options: [
-            'Animação Desaparecer.',
-            'Ocultar Slide.',
-            'Transição de slides Cortar.',
-            'Plano de fundo Branco.',
-            'Transição com duração de 0 segundo.'
-          ],
-          correctOptionIndex: 1,
-          attachments: []
-        },
-        {
-          _id: '10',
-          area: 'Conhecimentos Gerais',
-          topic: 'Atualidades',
-          questionText: 'Um dos principais motivos que mobilizaram os estudantes foi',
-          options: [
-            'o desvio de recursos para custear bolsas de estudo para alunos carentes.',
-            'a possibilidade de a Operação Lava-Jato ser encerrada sem concluir seus trabalhos.',
-            'a suspensão da entrega de livros didáticos devido à redução dos recursos.',
-            'a obrigatoriedade da participação no Enem, considerado uma avaliação conteudista.',
-            'a reforma do ensino médio proposta pelo governo federal.'
-          ],
-          correctOptionIndex: 4,
-          attachments: []
-        }
-      ];
-
-      const simuladoData = {
-        id: `${ano}-${numero}`,
-        nome: `${ano}-${numero}`,
-        ano: parseInt(ano),
-        numero: parseInt(numero),
-        questoes: questoesSimuladas,
-        totalQuestoes: questoesSimuladas.length,
-        proporcoes: {
-          'Matemática': { questoesSimulado: 3, porcentagem: 30.0 },
-          'Língua Portuguesa': { questoesSimulado: 2, porcentagem: 20.0 },
-          'Conhecimentos Gerais': { questoesSimulado: 2, porcentagem: 20.0 },
-          'Informática': { questoesSimulado: 2, porcentagem: 20.0 },
-          'Administração Pública': { questoesSimulado: 1, porcentagem: 10.0 }
-        }
-      };
+      // Buscar simulado real da API
+      const response = await axios.get(`${API_BASE_URL}/api/simulados/${ano}/${numero}`);
       
-      setSimulado(simuladoData);
-      setQuestoes(questoesSimuladas);
+      if (response.data.success) {
+        setSimulado(response.data.simulado);
+        setQuestoes(response.data.simulado.questoes);
+      } else {
+        setError('Simulado não encontrado');
+      }
       
     } catch (error) {
       console.error('Erro ao buscar simulado:', error);
@@ -483,7 +345,7 @@ const PreTestPage = ({ simulado, onStart, onBack }) => (
             <div style={styles.infoLabel}>Questões</div>
           </div>
           <div style={styles.infoItem}>
-            <div style={styles.infoNumber}>20</div>
+            <div style={styles.infoNumber}>{Math.round(simulado.totalQuestoes * 2)}</div>
             <div style={styles.infoLabel}>Minutos sugeridos</div>
           </div>
           <div style={styles.infoItem}>

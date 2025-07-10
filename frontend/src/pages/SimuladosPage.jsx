@@ -19,12 +19,14 @@ const SimuladosPage = () => {
     try {
       setLoading(true);
       
-      // Por enquanto, vamos focar apenas no ano 2017 que temos as questões
-      const anosSimulados = [
-        { ano: 2017, totalQuestoes: 50 }  // Corrigido para 50 questões
-      ];
+      // Buscar anos reais da API
+      const response = await axios.get(`${API_BASE_URL}/api/simulados/anos`);
       
-      setAnos(anosSimulados);
+      if (response.data.success) {
+        setAnos(response.data.anos);
+      } else {
+        setError('Erro ao carregar anos disponíveis');
+      }
       
     } catch (error) {
       console.error('Erro ao buscar anos:', error);
@@ -68,7 +70,7 @@ const SimuladosPage = () => {
         <div style={styles.titleSection}>
           <h1 style={styles.title}>Simulados</h1>
           <p style={styles.subtitle}>
-            Pratique com simulados organizados por ano. Para 2017: 5 simulados de 10 questões cada, respeitando as proporções originais da prova.
+            Pratique com simulados organizados por ano. Cada simulado mantém as proporções originais da prova.
           </p>
           <div style={styles.statsContainer}>
             <div style={styles.statCard}>
@@ -80,7 +82,7 @@ const SimuladosPage = () => {
               <div style={styles.statLabel}>Simulados Totais</div>
             </div>
             <div style={styles.statCard}>
-              <div style={styles.statNumber}>10</div>
+              <div style={styles.statNumber}>10-12</div>
               <div style={styles.statLabel}>Questões por Simulado</div>
             </div>
           </div>
@@ -122,7 +124,7 @@ const AnoCard = ({ anoInfo, onClick }) => {
         </div>
         
         <div style={styles.descricaoSimulado}>
-          Cada simulado contém 10 questões selecionadas respeitando a proporção original das áreas
+          Cada simulado contém 10-12 questões selecionadas respeitando a proporção original das áreas
         </div>
       </div>
       

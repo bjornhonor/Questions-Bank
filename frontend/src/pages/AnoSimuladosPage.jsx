@@ -1,40 +1,50 @@
 // /frontend/src/pages/AnoSimuladosPage.jsx
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:5000';
 
 const AnoSimuladosPage = () => {
   const { ano } = useParams();
   const navigate = useNavigate();
   const [simulados, setSimulados] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [proporcoes, setProporcoes] = useState({});
 
   useEffect(() => {
-    // Simular dados para 2017
-    if (ano === '2017') {
-      const simulados2017 = [
-        { id: 1, nome: '2017-1', ano: 2017, numero: 1, totalQuestoes: 10 },
-        { id: 2, nome: '2017-2', ano: 2017, numero: 2, totalQuestoes: 10 },
-        { id: 3, nome: '2017-3', ano: 2017, numero: 3, totalQuestoes: 10 },
-        { id: 4, nome: '2017-4', ano: 2017, numero: 4, totalQuestoes: 10 },
-        { id: 5, nome: '2017-5', ano: 2017, numero: 5, totalQuestoes: 10 }
-      ];
-      
-      setSimulados(simulados2017);
-    }
-    setLoading(false);
+    buscarSimulados();
   }, [ano]);
+
+  const buscarSimulados = async () => {
+    try {
+      setLoading(true);
+      
+      // Buscar simulados reais da API
+      const response = await axios.get(`${API_BASE_URL}/api/simulados/${ano}`);
+      
+      if (response.data.success) {
+        setSimulados(response.data.simulados);
+        
+        // Se há simulados, usar as proporções do primeiro
+        if (response.data.simulados.length > 0) {
+          setProporcoes(response.data.simulados[0].proporcoes);
+        }
+      } else {
+        setError('Erro ao carregar simulados');
+      }
+      
+    } catch (error) {
+      console.error('Erro ao buscar simulados:', error);
+      setError('Erro ao conectar com o servidor');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSimuladoClick = (simulado) => {
     navigate(`/simulados/${ano}/${simulado.numero}/executar`);
-  };
-
-  // Proporções simuladas para 2017 (baseado nas 50 questões)
-  const proporcoes2017 = {
-    'Matemática': { questoesSimulado: 3, porcentagem: 30.0 },
-    'Língua Portuguesa': { questoesSimulado: 2, porcentagem: 20.0 },
-    'Conhecimentos Gerais': { questoesSimulado: 2, porcentagem: 20.0 },
-    'Informática': { questoesSimulado: 2, porcentagem: 20.0 },
-    'Administração Pública': { questoesSimulado: 1, porcentagem: 10.0 }
   };
 
   if (loading) {
@@ -42,6 +52,19 @@ const AnoSimuladosPage = () => {
       <div style={styles.loadingContainer}>
         <div style={styles.spinner}></div>
         <p style={styles.loadingText}>Preparando simulados de {ano}...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={styles.errorContainer}>
+        <div style={styles.errorIcon}>⚠️</div>
+        <h3 style={styles.errorTitle}>Erro ao carregar</h3>
+        <p style={styles.errorText}>{error}</p>
+        <button onClick={buscarSimulados} style={styles.retryButton}>
+          Tentar Novamente
+        </button>
       </div>
     );
   }
@@ -56,7 +79,7 @@ const AnoSimuladosPage = () => {
           </Link>
           <h1 style={styles.title}>Simulados {ano}</h1>
           <p style={styles.subtitle}>
-            5 simulados únicos com 10 questões cada, mantendo as proporções originais da prova de {ano}
+            5 simulados únicos com {simulados.length > 0 ? simulados[0].totalQuestoes : '10-12'} questões cada, mantendo as proporções originais da prova de {ano}
           </p>
           <div style={styles.statsContainer}>
             <div style={styles.statCard}>
@@ -64,11 +87,11 @@ const AnoSimuladosPage = () => {
               <div style={styles.statLabel}>Simulados</div>
             </div>
             <div style={styles.statCard}>
-              <div style={styles.statNumber}>10</div>
+              <div style={styles.statNumber}>{simulados.length > 0 ? simulados[0].totalQuestoes : 10}</div>
               <div style={styles.statLabel}>Questões Cada</div>
             </div>
             <div style={styles.statCard}>
-              <div style={styles.statNumber}>{Object.keys(proporcoes2017).length}</div>
+              <div style={styles.statNumber}>{Object.keys(proporcoes).length}</div>
               <div style={styles.statLabel}>Áreas Cobertas</div>
             </div>
           </div>
@@ -80,24 +103,26 @@ const AnoSimuladosPage = () => {
         <h2 style={styles.sectionTitle}>Escolha um Simulado</h2>
         
         {/* Proporções Section */}
-        <div style={styles.proporcoesContainer}>
-          <h3 style={styles.proporcoesTitle}>Distribuição por Área (10 questões)</h3>
-          <div style={styles.proporcoesGrid}>
-            {Object.entries(proporcoes2017).map(([area, info]) => (
-              <div key={area} style={styles.proporcaoCard}>
-                <div style={styles.proporcaoArea}>{area}</div>
-                <div style={styles.proporcaoInfo}>
-                  <span style={styles.proporcaoQuestoes}>
-                    {info.questoesSimulado} questões
-                  </span>
-                  <span style={styles.proporcaoPorcentagem}>
-                    ({info.porcentagem.toFixed(1)}%)
-                  </span>
+        {Object.keys(proporcoes).length > 0 && (
+          <div style={styles.proporcoesContainer}>
+            <h3 style={styles.proporcoesTitle}>Distribuição por Área ({simulados.length > 0 ? simulados[0].totalQuestoes : 10} questões)</h3>
+            <div style={styles.proporcoesGrid}>
+              {Object.entries(proporcoes).map(([area, info]) => (
+                <div key={area} style={styles.proporcaoCard}>
+                  <div style={styles.proporcaoArea}>{area}</div>
+                  <div style={styles.proporcaoInfo}>
+                    <span style={styles.proporcaoQuestoes}>
+                      {info.questoesSimulado} questões
+                    </span>
+                    <span style={styles.proporcaoPorcentagem}>
+                      ({info.porcentagem.toFixed(1)}%)
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Simulados Grid */}
         <div style={styles.simuladosGrid}>
@@ -148,7 +173,7 @@ const SimuladoCard = ({ simulado, index, onClick }) => {
           </div>
           <div style={styles.infoItem}>
             <span style={styles.infoLabel}>Tempo sugerido:</span>
-            <span style={styles.infoValue}>20 min</span>
+            <span style={styles.infoValue}>{Math.round(simulado.totalQuestoes * 2)} min</span>
           </div>
         </div>
 
@@ -197,6 +222,46 @@ const styles = {
     color: '#6c757d',
     fontSize: '1.1em',
     fontWeight: '500',
+  },
+
+  errorContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '60vh',
+    backgroundColor: '#f8f9fa',
+    textAlign: 'center',
+  },
+
+  errorIcon: {
+    fontSize: '4em',
+    marginBottom: '20px',
+  },
+
+  errorTitle: {
+    color: '#dc3545',
+    fontSize: '1.5em',
+    fontWeight: '600',
+    marginBottom: '10px',
+  },
+
+  errorText: {
+    color: '#6c757d',
+    marginBottom: '30px',
+    lineHeight: '1.5',
+  },
+
+  retryButton: {
+    padding: '12px 24px',
+    backgroundColor: '#1a73e8',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '1em',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
   },
 
   header: {
