@@ -14,6 +14,99 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
+// GET /api/simulados/stats - Estatísticas dos simulados
+router.get('/stats', async (req, res) => {
+  try {
+    // Contar total de simulados
+    const totalSimulados = await Simulado.countDocuments();
+    
+    // Contar simulados por ano
+    const simuladosPorAno = await Simulado.aggregate([
+      { $group: { _id: '$ano', total: { $sum: 1 } } },
+      { $sort: { _id: 1 } }
+    ]);
+    
+    // Buscar anos disponíveis nas questões
+    const anosComQuestoes = await Question.distinct('ano');
+    
+    // Calcular anos sem simulados
+    const anosComSimulados = simuladosPorAno.map(item => item._id);
+    const anosSemSimulados = anosComQuestoes.filter(ano => !anosComSimulados.includes(ano));
+    
+    res.json({
+      success: true,
+      totalSimulados,
+      anosComQuestoes: anosComQuestoes.length,
+      anosComSimulados: anosComSimulados.length,
+      anosSemSimulados: anosSemSimulados.length,
+      detalhes: {
+        simuladosPorAno,
+        anosSemSimulados
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao buscar estatísticas:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// DELETE /api/simulados/reset - Deletar todos os simulados
+router.delete('/reset', async (req, res) => {
+  try {
+    const result = await Simulado.deleteMany({});
+    
+    res.json({
+      success: true,
+      message: 'Todos os simulados foram removidos',
+      deletedCount: result.deletedCount
+    });
+  } catch (error) {
+    console.error('Erro ao deletar simulados:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// POST /api/simulados/generate - Gerar todos os simulados
+router.post('/generate', async (req, res) => {
+  try {
+    const anosDisponiveis = await Question.distinct('ano');
+    let totalGerados = 0;
+    
+    for (const ano of anosDisponiveis) {
+      const questoesAno = await Question.find({ ano });
+      
+      if (questoesAno.length < 5) {
+        continue; // Pula anos com poucas questões
+      }
+      
+      // Verificar se já existem simulados para este ano
+      const simuladosExistentes = await Simulado.countDocuments({ ano });
+      if (simuladosExistentes === 0) {
+        const simulados = await gerarSimuladosParaAno(ano);
+        totalGerados += simulados.length;
+      }
+    }
+    
+    res.json({
+      success: true,
+      message: 'Simulados gerados com sucesso',
+      totalGerados
+    });
+  } catch (error) {
+    console.error('Erro ao gerar simulados:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
 // GET /api/simulados/anos - Buscar anos disponíveis
 router.get('/anos', async (req, res) => {
   try {
@@ -153,6 +246,10 @@ async function gerarSimuladosParaAno(ano) {
     throw new Error(`Nenhuma questão encontrada para o ano ${ano}`);
   }
   
+  if (questoesAno.length < 5) {
+    throw new Error(`Questões insuficientes para ${ano}: ${questoesAno.length} (mínimo 5)`);
+  }
+  
   // 2. Calcular proporções por área
   const areasCounts = {};
   questoesAno.forEach(questao => {
@@ -163,11 +260,16 @@ async function gerarSimuladosParaAno(ano) {
   });
   
   const totalQuestoes = questoesAno.length;
+  // 🎯 CALCULAR QUESTÕES POR SIMULADO = TOTAL ÷ 5
+  const questoesPorSimulado = Math.floor(totalQuestoes / 5);
+  
+  console.log(`Total questões ${ano}: ${totalQuestoes}, Por simulado: ${questoesPorSimulado}`);
+  
   const proporcoes = {};
   
   Object.entries(areasCounts).forEach(([area, count]) => {
     const porcentagem = (count / totalQuestoes) * 100;
-    const questoesSimulado = Math.round((porcentagem / 100) * 12);
+    const questoesSimulado = Math.round((porcentagem / 100) * questoesPorSimulado);
     
     proporcoes[area] = {
       questoesTotais: count,
@@ -176,11 +278,11 @@ async function gerarSimuladosParaAno(ano) {
     };
   });
   
-  // 3. Ajustar para garantir exatamente 12 questões
+  // 3. Ajustar para garantir exatamente o número correto de questões
   let totalSimulado = Object.values(proporcoes).reduce((sum, prop) => sum + prop.questoesSimulado, 0);
   
-  while (totalSimulado !== 12) {
-    if (totalSimulado < 12) {
+  while (totalSimulado !== questoesPorSimulado) {
+    if (totalSimulado < questoesPorSimulado) {
       // Adicionar questões nas áreas com mais questões
       const areaComMaisQuestoes = Object.entries(proporcoes)
         .sort((a, b) => b[1].questoesTotais - a[1].questoesTotais)[0][0];

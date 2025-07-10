@@ -1,9 +1,10 @@
-const API_BASE_URL = 'http://localhost:5000';// /frontend/src/pages/ExecutarSimuladoPage.jsx
+// /frontend/src/pages/ExecutarSimuladoPage.jsx
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import useTimer from '../hooks/useTimer';
-import ImageModal from '../components/ImageModal';
+
+const API_BASE_URL = 'http://localhost:5000';
 
 const ExecutarSimuladoPage = () => {
   const { ano, numero } = useParams();
@@ -22,8 +23,7 @@ const ExecutarSimuladoPage = () => {
   const [testFinished, setTestFinished] = useState(false);
   const [results, setResults] = useState(null);
   
-  // Estados do modal de imagem
-  const [modalImage, setModalImage] = useState(null);
+  // Estados do modal de anexos
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Hook do timer
@@ -37,7 +37,6 @@ const ExecutarSimuladoPage = () => {
     try {
       setLoading(true);
       
-      // Buscar simulado real da API
       const response = await axios.get(`${API_BASE_URL}/api/simulados/${ano}/${numero}`);
       
       if (response.data.success) {
@@ -46,10 +45,9 @@ const ExecutarSimuladoPage = () => {
       } else {
         setError('Simulado não encontrado');
       }
-      
     } catch (error) {
       console.error('Erro ao buscar simulado:', error);
-      setError('Erro ao carregar o simulado');
+      setError('Erro ao carregar simulado');
     } finally {
       setLoading(false);
     }
@@ -60,37 +58,11 @@ const ExecutarSimuladoPage = () => {
     timer.start();
   };
 
-  const selectAnswer = (questionIndex, answerIndex) => {
+  const handleAnswerSelect = (questionIndex, optionIndex) => {
     setSelectedAnswers({
       ...selectedAnswers,
-      [questionIndex]: answerIndex
+      [questionIndex]: optionIndex
     });
-  };
-
-  const nextQuestion = () => {
-    if (currentQuestionIndex < questoes.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
-  };
-
-  const previousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
-  };
-
-  const goToQuestion = (index) => {
-    setCurrentQuestionIndex(index);
-  };
-
-  const openImageModal = (imageUrl) => {
-    setModalImage(imageUrl);
-    setIsModalOpen(true);
-  };
-
-  const closeImageModal = () => {
-    setIsModalOpen(false);
-    setModalImage(null);
   };
 
   const finishTest = () => {
@@ -98,234 +70,360 @@ const ExecutarSimuladoPage = () => {
     
     // Calcular resultados
     let correctAnswers = 0;
-    const questionResults = questoes.map((question, index) => {
-      const isCorrect = selectedAnswers[index] === question.correctOptionIndex;
+    const detailedResults = questoes.map((questao, index) => {
+      const userAnswer = selectedAnswers[index];
+      const isCorrect = userAnswer === questao.correctOptionIndex;
       if (isCorrect) correctAnswers++;
       
       return {
-        questionIndex: index,
-        question: question,
-        selectedAnswer: selectedAnswers[index],
-        correctAnswer: question.correctOptionIndex,
-        isCorrect: isCorrect
+        questionIndex: index + 1,
+        question: questao.questionText,
+        userAnswer: userAnswer !== undefined ? questao.options[userAnswer] : 'Não respondida',
+        correctAnswer: questao.options[questao.correctOptionIndex],
+        isCorrect,
+        area: questao.area,
+        topic: questao.topic
       };
     });
 
-    const score = (correctAnswers / questoes.length) * 100;
+    const score = Math.round((correctAnswers / questoes.length) * 100);
 
-    const testResults = {
-      simuladoNome: simulado.nome,
+    setResults({
+      score,
+      correctAnswers,
       totalQuestions: questoes.length,
-      correctAnswers: correctAnswers,
-      incorrectAnswers: questoes.length - correctAnswers,
-      score: score,
-      timeElapsed: timer.getElapsedTime(),
-      questionResults: questionResults,
-      areas: simulado.proporcoes
-    };
+      timeElapsed: timer.timeElapsed,
+      detailedResults
+    });
 
-    setResults(testResults);
     setTestFinished(true);
   };
 
-  const restartTest = () => {
-    setCurrentQuestionIndex(0);
-    setSelectedAnswers({});
-    setTestStarted(false);
-    setTestFinished(false);
-    setResults(null);
-    timer.reset();
+  // Função para verificar se é URL de imagem
+  const isImageUrl = (url) => {
+    if (!url || typeof url !== 'string') return false;
+    const imageExtensions = /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i;
+    const urlPattern = /^(https?:\/\/|\.\.?\/|\/)/;
+    return urlPattern.test(url) && imageExtensions.test(url);
   };
 
-  // Loading state
-  if (loading) {
-    return (
-      <div style={styles.loadingContainer}>
-        <div style={styles.spinner}></div>
-        <p style={styles.loadingText}>Carregando simulado...</p>
-      </div>
-    );
-  }
+  // Função para obter texto do botão baseado no tipo de conteúdo
+  const getButtonText = (attachments) => {
+    if (!attachments || attachments.length === 0) {
+      return 'Ver Material de Apoio';
+    }
 
-  // Error state
-  if (error) {
-    return (
-      <div style={styles.errorContainer}>
-        <div style={styles.errorIcon}>⚠️</div>
-        <h3 style={styles.errorTitle}>Erro</h3>
-        <p style={styles.errorText}>{error}</p>
-        <Link to={`/simulados/${ano}`} style={styles.backButton}>
-          Voltar aos Simulados
-        </Link>
-      </div>
-    );
-  }
+    const hasImages = attachments.some(isImageUrl);
+    const hasText = attachments.some(content => !isImageUrl(content));
 
-  // Results page
-  if (testFinished && results) {
-    return <ResultsPage results={results} simulado={simulado} onRestart={restartTest} navigate={navigate} />;
-  }
+    if (hasImages && hasText) {
+      return 'Ver Material de Apoio';
+    } else if (hasImages) {
+      return 'Ver Imagens';
+    } else {
+      return 'Ver Texto de Apoio';
+    }
+  };
 
-  // Pre-test page
-  if (!testStarted) {
-    return (
-      <PreTestPage 
-        simulado={simulado} 
-        onStart={startTest} 
-        onBack={() => navigate(`/simulados/${ano}`)} 
-      />
-    );
-  }
-
-  // Test execution
   const currentQuestion = questoes[currentQuestionIndex];
-  const selectedAnswer = selectedAnswers[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / questoes.length) * 100;
+
+  if (loading) return <LoadingScreen />;
+  if (error) return <ErrorScreen error={error} onBack={() => navigate(`/simulados/${ano}`)} />;
+  if (!simulado) return <ErrorScreen error="Simulado não encontrado" onBack={() => navigate(`/simulados/${ano}`)} />;
+
+  if (!testStarted) {
+    return <PreTestPage simulado={simulado} onStart={startTest} onBack={() => navigate(`/simulados/${ano}`)} />;
+  }
+
+  if (testFinished) {
+    return <ResultsPage results={results} simulado={simulado} onRestart={() => window.location.reload()} navigate={navigate} />;
+  }
 
   return (
-    <div style={styles.testContainer}>
-      {/* Header com progresso */}
-      <div style={styles.testHeader}>
-        <div style={styles.headerLeft}>
-          <h2 style={styles.simuladoTitle}>{simulado.nome}</h2>
-          <div style={styles.progressInfo}>
-            Questão {currentQuestionIndex + 1} de {questoes.length}
-          </div>
-        </div>
-        <div style={styles.headerRight}>
-          <div style={styles.timer}>
-            Tempo: {timer.formatTime()}
-          </div>
-        </div>
-      </div>
+    <div style={styles.container}>
+      {/* Header com informações do simulado */}
+      <div style={styles.header}>
+        <div style={styles.headerContent}>
+          <h1 style={styles.simuladoTitle}>{simulado.nome}</h1>
+          <div style={styles.headerStats}>
+            <div style={styles.statItem}>
+              <span style={styles.statLabel}>Questão:</span>
+              <span style={styles.statValue}>{currentQuestionIndex + 1} / {questoes.length}</span>
+            </div>
 
-      {/* Barra de progresso */}
-      <div style={styles.progressBar}>
-        <div style={{...styles.progressFill, width: `${progress}%`}}></div>
-      </div>
-
-      {/* Questão atual */}
-      <div style={styles.questionContainer}>
-        <div style={styles.questionHeader}>
-          <span style={styles.questionArea}>{currentQuestion.area}</span>
-          <span style={styles.questionTopic}>{currentQuestion.topic}</span>
-        </div>
-
-        <div style={styles.questionText}>
-          {currentQuestion.questionText}
-        </div>
-
-        {/* Anexos se existirem */}
-        {currentQuestion.attachments && currentQuestion.attachments.length > 0 && (
-          <div style={styles.attachments}>
-            {currentQuestion.attachments.map((attachment, index) => (
-              <div key={index} style={styles.attachment}>
-                {attachment.endsWith('.png') || attachment.endsWith('.jpg') || 
-                 attachment.endsWith('.jpeg') || attachment.endsWith('.gif') ? (
-                  <div style={styles.imageAttachment}>
-                    <img 
-                      src={attachment} 
-                      alt={`Anexo ${index + 1}`} 
-                      style={styles.attachmentImageThumb}
-                      onClick={() => openImageModal(attachment)}
-                    />
-                    <button 
-                      onClick={() => openImageModal(attachment)}
-                      style={styles.expandImageButton}
-                    >
-                      🔍 Ampliar Imagem
-                    </button>
-                  </div>
-                ) : (
-                  <div style={styles.attachmentText}>{attachment}</div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Opções de resposta */}
-        <div style={styles.optionsContainer}>
-          {currentQuestion.options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => selectAnswer(currentQuestionIndex, index)}
-              style={{
-                ...styles.optionButton,
-                ...(selectedAnswer === index ? styles.optionSelected : {})
-              }}
-            >
-              <span style={{
-                ...styles.optionLetter,
-                ...(selectedAnswer === index ? styles.optionLetterSelected : {})
-              }}>
-                {String.fromCharCode(65 + index)}
-              </span>
-              <span style={styles.optionText}>{option}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Navegação */}
-      <div style={styles.navigationContainer}>
-        <div style={styles.navButtons}>
-          <button 
-            onClick={previousQuestion}
+      {/* Barra de Navegação Inferior Fixa */}
+      <div style={styles.bottomNavigation}>
+        <div style={styles.bottomNavContent}>
+          <button
+            onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
             disabled={currentQuestionIndex === 0}
             style={{
-              ...styles.navButton,
-              ...(currentQuestionIndex === 0 ? styles.navButtonDisabled : {})
+              ...styles.bottomNavButton,
+              ...(currentQuestionIndex === 0 ? styles.bottomNavButtonDisabled : styles.bottomNavButtonPrevious)
+            }}
+            onMouseEnter={(e) => {
+              if (currentQuestionIndex !== 0) {
+                e.target.style.backgroundColor = '#5a6268';
+                e.target.style.transform = 'translateY(-2px)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (currentQuestionIndex !== 0) {
+                e.target.style.backgroundColor = '#6c757d';
+                e.target.style.transform = 'translateY(0)';
+              }
             }}
           >
             ← Anterior
           </button>
 
+          <div style={styles.bottomNavInfo}>
+            <span style={styles.bottomNavText}>
+              {currentQuestionIndex + 1} de {questoes.length}
+            </span>
+            <span style={styles.bottomNavSubtext}>
+              {Object.keys(selectedAnswers).length} respondidas
+            </span>
+          </div>
+
           {currentQuestionIndex === questoes.length - 1 ? (
-            <button 
+            <button
               onClick={finishTest}
-              style={{...styles.navButton, ...styles.finishButton}}
+              style={{
+                ...styles.bottomNavButton,
+                backgroundColor: '#dc3545',
+                color: 'white',
+                boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#c82333';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 20px rgba(220, 53, 69, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#dc3545';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px rgba(220, 53, 69, 0.3)';
+              }}
             >
-              Finalizar Simulado
+              🏁 Finalizar
             </button>
           ) : (
-            <button 
-              onClick={nextQuestion}
-              style={styles.navButton}
+            <button
+              onClick={() => setCurrentQuestionIndex(Math.min(questoes.length - 1, currentQuestionIndex + 1))}
+              style={{
+                ...styles.bottomNavButton,
+                backgroundColor: '#007bff',
+                color: 'white',
+                boxShadow: '0 4px 15px rgba(0, 123, 255, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#0056b3';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 20px rgba(0, 123, 255, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#007bff';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px rgba(0, 123, 255, 0.3)';
+              }}
             >
               Próxima →
             </button>
           )}
         </div>
-
-        {/* Mini navegador de questões */}
-        <div style={styles.questionNavigator}>
-          {questoes.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToQuestion(index)}
-              style={{
-                ...styles.questionNumber,
-                ...(index === currentQuestionIndex ? styles.questionNumberActive : {}),
-                ...(selectedAnswers[index] !== undefined ? styles.questionNumberAnswered : {})
-              }}
-            >
-              {index + 1}
-            </button>
-          ))}
+      </div>
+            <div style={styles.statItem}>
+              <span style={styles.statLabel}>Tempo:</span>
+              <span style={styles.statValue}>{timer.formattedTime}</span>
+            </div>
+            <div style={styles.statItem}>
+              <span style={styles.statLabel}>Respondidas:</span>
+              <span style={styles.statValue}>{Object.keys(selectedAnswers).length} / {questoes.length}</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Modal de Imagem */}
-      <ImageModal 
-        isOpen={isModalOpen}
-        onClose={closeImageModal}
-        imageUrl={modalImage}
-        title="Anexo da Questão"
-      />
+      {/* Conteúdo principal */}
+      <div style={styles.content}>
+        <div style={styles.questionSection}>
+          {/* Área da questão */}
+          <div style={styles.questionCard}>
+            <div style={styles.questionHeader}>
+              <div style={styles.questionInfo}>
+                <span style={styles.questionArea}>{currentQuestion.area}</span>
+                <span style={styles.questionTopic}>{currentQuestion.topic}</span>
+              </div>
+              
+              {/* Botão de anexos - só aparece se houver attachments */}
+              {currentQuestion.attachments && currentQuestion.attachments.length > 0 && (
+                <button 
+                  onClick={() => setIsModalOpen(true)} 
+                  style={styles.attachmentButton}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#218838';
+                    e.target.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = '#28a745';
+                    e.target.style.transform = 'translateY(0)';
+                  }}
+                >
+                  📎 {getButtonText(currentQuestion.attachments)}
+                </button>
+              )}
+            </div>
+
+            <div style={styles.questionText}>
+              {currentQuestion.questionText}
+            </div>
+
+            {/* Opções de resposta */}
+            <div style={styles.optionsContainer}>
+              {currentQuestion.options.map((option, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleAnswerSelect(currentQuestionIndex, index)}
+                  style={{
+                    ...styles.optionButton,
+                    ...(selectedAnswers[currentQuestionIndex] === index ? styles.optionSelected : {})
+                  }}
+                  onMouseEnter={(e) => {
+                    if (selectedAnswers[currentQuestionIndex] !== index) {
+                      e.target.style.backgroundColor = '#f8f9fa';
+                      e.target.style.borderColor = '#667eea';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selectedAnswers[currentQuestionIndex] !== index) {
+                      e.target.style.backgroundColor = 'white';
+                      e.target.style.borderColor = '#e2e8f0';
+                    }
+                  }}
+                >
+                  <span style={styles.optionLetter}>{String.fromCharCode(65 + index)}</span>
+                  <span style={styles.optionText}>{option}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Barra de navegação - só números das questões */}
+        <div style={styles.navigationSection}>
+          <div style={styles.navigationCard}>
+            <div style={styles.questionNavContainer}>
+              <span style={styles.questionNavLabel}>Ir para questão:</span>
+              <div style={styles.questionNav}>
+                {questoes.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentQuestionIndex(index)}
+                    style={{
+                      ...styles.questionNavButton,
+                      ...(index === currentQuestionIndex ? styles.questionNumberActive : {}),
+                      ...(selectedAnswers[index] !== undefined ? styles.questionNumberAnswered : {})
+                    }}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal de Anexos */}
+      {isModalOpen && (
+        <div style={styles.modalOverlay} onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            setIsModalOpen(false);
+          }
+        }}>
+          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button 
+              onClick={() => setIsModalOpen(false)} 
+              style={styles.closeButton}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#e9ecef';
+                e.target.style.color = '#495057';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#f8f9fa';
+                e.target.style.color = '#6c757d';
+              }}
+            >
+              ✕
+            </button>
+            
+            <h3 style={styles.modalTitle}>
+              📎 Material de Apoio
+            </h3>
+            
+            <div style={styles.modalAttachments}>
+              {currentQuestion.attachments.map((content, index) => {
+                const isImage = isImageUrl(content);
+                const prevIsImage = index > 0 ? isImageUrl(currentQuestion.attachments[index - 1]) : false;
+                
+                return (
+                  <div key={index}>
+                    {/* Separador visual entre tipos diferentes de conteúdo */}
+                    {index > 0 && isImage !== prevIsImage && (
+                      <div style={styles.contentSeparator}></div>
+                    )}
+                    
+                    {isImage ? (
+                      <div style={styles.imageContainer}>
+                        <img 
+                          src={content} 
+                          alt={`Material de apoio ${index + 1}`}
+                          style={styles.attachmentImage}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            const errorDiv = document.createElement('div');
+                            errorDiv.style.cssText = `
+                              display: inline-block; padding: 20px; background-color: #f8d7da;
+                              border: 1px solid #f5c6cb; border-radius: 8px; color: #721c24; margin: 15px 0;
+                            `;
+                            errorDiv.textContent = `⚠️ Erro ao carregar imagem: ${content}`;
+                            e.target.parentNode.appendChild(errorDiv);
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <p style={styles.attachmentText}>{content}</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
+// Componente LoadingScreen
+const LoadingScreen = () => (
+  <div style={styles.loadingContainer}>
+    <div style={styles.spinner}></div>
+    <p style={styles.loadingText}>Carregando simulado...</p>
+  </div>
+);
+
+// Componente ErrorScreen
+const ErrorScreen = ({ error, onBack }) => (
+  <div style={styles.errorContainer}>
+    <h2>❌ Erro</h2>
+    <p>{error}</p>
+    <button onClick={onBack} style={styles.backButton}>
+      Voltar
+    </button>
+  </div>
+);
 
 // Componente PreTestPage
 const PreTestPage = ({ simulado, onStart, onBack }) => (
@@ -397,41 +495,26 @@ const ResultsPage = ({ results, simulado, onRestart, navigate }) => {
   return (
     <div style={styles.resultsContainer}>
       <div style={styles.resultsCard}>
-        <div style={styles.resultsHeader}>
-          <h1 style={styles.resultsTitle}>Resultado do Simulado</h1>
-          <h2 style={styles.simuladoNameResult}>{results.simuladoNome}</h2>
-        </div>
-
+        <h1 style={styles.resultsTitle}>🎯 Resultado do Simulado</h1>
+        
         <div style={styles.scoreSection}>
-          <div style={{...styles.scoreCircle, borderColor: scoreColor}}>
-            <span style={{...styles.scoreNumber, color: scoreColor}}>
-              {results.score.toFixed(1)}%
-            </span>
+          <div style={{ ...styles.scoreCircle, borderColor: scoreColor }}>
+            <span style={{ ...styles.scoreNumber, color: scoreColor }}>{results.score}%</span>
           </div>
-          <div style={styles.scoreInfo}>
-            <div style={styles.scoreStats}>
-              <span style={{...styles.correctCount, color: '#28a745'}}>
-                ✓ {results.correctAnswers} acertos
-              </span>
-              <span style={{...styles.incorrectCount, color: '#dc3545'}}>
-                ✗ {results.incorrectAnswers} erros
-              </span>
-            </div>
-            <div style={styles.timeInfo}>
-              Tempo total: {useTimer().formatTime(results.timeElapsed)}
-            </div>
-          </div>
+          <p style={styles.scoreText}>
+            {results.correctAnswers} de {results.totalQuestions} questões corretas
+          </p>
+          <p style={styles.timeText}>
+            Tempo total: {results.timeElapsed}
+          </p>
         </div>
 
-        <div style={styles.resultsActions}>
+        <div style={styles.resultActions}>
           <button onClick={onRestart} style={styles.restartButton}>
-            Refazer Simulado
+            🔄 Tentar Novamente
           </button>
-          <button 
-            onClick={() => navigate(`/simulados/${simulado.ano}`)} 
-            style={styles.backToSimuladosButton}
-          >
-            Outros Simulados
+          <button onClick={() => navigate(`/simulados/${simulado.ano}`)} style={styles.backToListButton}>
+            📚 Outros Simulados
           </button>
         </div>
       </div>
@@ -441,177 +524,562 @@ const ResultsPage = ({ results, simulado, onRestart, navigate }) => {
 
 // Estilos
 const styles = {
-  // Loading e Error styles
+  container: {
+    minHeight: '100vh',
+    backgroundColor: '#f8fafc',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    paddingBottom: '80px' // Espaço para a barra inferior fixa
+  },
+
+  header: {
+    backgroundColor: 'white',
+    borderBottom: '1px solid #e2e8f0',
+    padding: '20px 0',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+  },
+
+  headerContent: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '20px'
+  },
+
+  simuladoTitle: {
+    fontSize: '1.8rem',
+    fontWeight: '600',
+    color: '#2d3748',
+    margin: 0
+  },
+
+  headerStats: {
+    display: 'flex',
+    gap: '30px',
+    alignItems: 'center'
+  },
+
+  statItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '4px'
+  },
+
+  statLabel: {
+    fontSize: '0.85rem',
+    color: '#6c757d',
+    fontWeight: '500'
+  },
+
+  statValue: {
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    color: '#667eea'
+  },
+
+  content: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '30px 20px',
+    display: 'grid',
+    gridTemplateColumns: '1fr 300px',
+    gap: '30px'
+  },
+
+  questionSection: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+
+  questionCard: {
+    backgroundColor: 'white',
+    borderRadius: '15px',
+    padding: '30px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+    border: '1px solid #e2e8f0'
+  },
+
+  questionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '25px',
+    flexWrap: 'wrap',
+    gap: '15px'
+  },
+
+  questionInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px'
+  },
+
+  questionArea: {
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    color: '#667eea'
+  },
+
+  questionTopic: {
+    fontSize: '0.95rem',
+    color: '#6c757d'
+  },
+
+  attachmentButton: {
+    padding: '10px 20px',
+    backgroundColor: '#28a745',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '0.9rem',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 2px 8px rgba(40, 167, 69, 0.3)'
+  },
+
+  questionText: {
+    fontSize: '1.1rem',
+    lineHeight: '1.7',
+    color: '#2d3748',
+    marginBottom: '30px',
+    fontWeight: '400'
+  },
+
+  optionsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px'
+  },
+
+  optionButton: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '15px',
+    padding: '18px 20px',
+    backgroundColor: 'white',
+    border: '2px solid #e2e8f0',
+    borderRadius: '12px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    textAlign: 'left',
+    fontSize: '1rem',
+    lineHeight: '1.5'
+  },
+
+  optionSelected: {
+    backgroundColor: '#f0f4ff',
+    borderColor: '#667eea',
+    boxShadow: '0 4px 15px rgba(102, 126, 234, 0.15)'
+  },
+
+  optionLetter: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '30px',
+    height: '30px',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '50%',
+    fontSize: '0.9rem',
+    fontWeight: '600',
+    color: '#495057',
+    flexShrink: 0
+  },
+
+  optionText: {
+    flex: 1,
+    color: '#2d3748'
+  },
+
+  navigationSection: {
+    position: 'sticky',
+    top: '20px',
+    height: 'fit-content'
+  },
+
+  navigationCard: {
+    backgroundColor: 'white',
+    borderRadius: '15px',
+    padding: '25px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+    border: '1px solid #e2e8f0'
+  },
+
+  questionNavContainer: {
+    // Removido borderTop e paddingTop já que não há mais botões acima
+  },
+
+  questionNavLabel: {
+    fontSize: '0.9rem',
+    color: '#6c757d',
+    fontWeight: '500',
+    marginBottom: '12px',
+    display: 'block'
+  },
+
+  questionNav: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(5, 1fr)',
+    gap: '8px'
+  },
+
+  questionNavButton: {
+    width: '40px',
+    height: '40px',
+    border: '2px solid #e2e8f0',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    fontWeight: '500',
+    color: '#495057',
+    transition: 'all 0.3s ease',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  questionNumberActive: {
+    backgroundColor: '#667eea',
+    borderColor: '#667eea',
+    color: 'white'
+  },
+
+  questionNumberAnswered: {
+    backgroundColor: '#28a745',
+    borderColor: '#28a745',
+    color: 'white'
+  },
+
+  // Barra de navegação inferior fixa
+  bottomNavigation: {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    borderTop: '2px solid #e2e8f0',
+    boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
+    zIndex: 100,
+    padding: '15px 0'
+  },
+
+  bottomNavContent: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '20px'
+  },
+
+  bottomNavButton: {
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '10px',
+    fontSize: '1rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    minWidth: '120px',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+  },
+
+  bottomNavButtonDisabled: {
+    backgroundColor: '#f8f9fa',
+    color: '#adb5bd',
+    cursor: 'not-allowed',
+    boxShadow: 'none'
+  },
+
+  bottomNavButtonPrevious: {
+    backgroundColor: '#6c757d',
+    color: 'white',
+    boxShadow: '0 4px 15px rgba(108, 117, 125, 0.3)'
+  },
+
+  bottomNavInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '4px'
+  },
+
+  bottomNavText: {
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    color: '#2d3748'
+  },
+
+  bottomNavSubtext: {
+    fontSize: '0.9rem',
+    color: '#6c757d',
+    fontWeight: '500'
+  },
+
+  // Modal styles
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000
+  },
+
+  modalContent: {
+    backgroundColor: 'white',
+    padding: '20px 30px 30px',
+    borderRadius: '16px',
+    width: '90%',
+    maxWidth: '950px',
+    maxHeight: '90vh',
+    overflowY: 'auto',
+    position: 'relative',
+    boxShadow: '0 15px 35px rgba(0, 0, 0, 0.3)'
+  },
+
+  closeButton: {
+    position: 'absolute',
+    top: '15px',
+    right: '15px',
+    padding: '10px 14px',
+    backgroundColor: '#f8f9fa',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '18px',
+    fontWeight: 'bold',
+    color: '#6c757d',
+    transition: 'all 0.2s ease',
+    zIndex: 10
+  },
+
+  modalTitle: {
+    margin: '0 0 25px 0',
+    color: '#333',
+    fontSize: '24px',
+    fontWeight: '600',
+    borderBottom: '3px solid #e9ecef',
+    paddingBottom: '12px'
+  },
+
+  modalAttachments: {
+    marginBottom: 0
+  },
+
+  attachmentImage: {
+    maxWidth: '100%',
+    height: 'auto',
+    margin: '20px 0',
+    borderRadius: '12px',
+    boxShadow: '0 6px 20px rgba(0, 0, 0, 0.15)',
+    display: 'block'
+  },
+
+  imageContainer: {
+    textAlign: 'center',
+    margin: '20px 0'
+  },
+
+  attachmentText: {
+    marginBottom: '18px',
+    lineHeight: '1.7',
+    fontSize: '16px',
+    color: '#333',
+    textAlign: 'justify'
+  },
+
+  contentSeparator: {
+    height: '1px',
+    background: 'linear-gradient(to right, transparent, #ddd, transparent)',
+    margin: '25px 0'
+  },
+
+  // Loading, Error, PreTest, Results styles
   loadingContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#f8f9fa',
+    justifyContent: 'center',
+    height: '100vh',
+    gap: '20px'
   },
 
   spinner: {
     width: '50px',
     height: '50px',
-    border: '4px solid #e3f2fd',
-    borderTop: '4px solid #1a73e8',
+    border: '4px solid #e2e8f0',
+    borderTop: '4px solid #667eea',
     borderRadius: '50%',
-    animation: 'spin 1s linear infinite',
-    marginBottom: '20px',
+    animation: 'spin 1s linear infinite'
   },
 
   loadingText: {
+    fontSize: '1.2rem',
     color: '#6c757d',
-    fontSize: '1.1em',
+    fontWeight: '500'
   },
 
   errorContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#f8f9fa',
-    textAlign: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    gap: '20px',
+    padding: '20px'
   },
-
-  errorIcon: { fontSize: '4em', marginBottom: '20px' },
-  errorTitle: { color: '#dc3545', fontSize: '1.5em', marginBottom: '10px' },
-  errorText: { color: '#6c757d', marginBottom: '30px' },
 
   backButton: {
     padding: '12px 24px',
-    backgroundColor: '#1a73e8',
+    backgroundColor: '#667eea',
     color: 'white',
-    textDecoration: 'none',
+    border: 'none',
     borderRadius: '8px',
-    fontSize: '1em',
-    fontWeight: '600',
+    cursor: 'pointer',
+    fontSize: '1rem',
+    fontWeight: '500'
   },
 
-  // Pre-test styles
   preTestContainer: {
     minHeight: '100vh',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f8fafc',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: '20px',
+    justifyContent: 'center',
+    padding: '20px'
   },
 
   preTestCard: {
     backgroundColor: 'white',
-    borderRadius: '16px',
+    borderRadius: '20px',
     padding: '40px',
     maxWidth: '800px',
     width: '100%',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+    border: '1px solid #e2e8f0'
   },
 
   preTestHeader: {
     textAlign: 'center',
-    marginBottom: '40px',
+    marginBottom: '40px'
   },
 
   preTestTitle: {
-    fontSize: '2.5em',
+    fontSize: '2.5rem',
     fontWeight: '700',
-    color: '#2c3e50',
-    marginBottom: '10px',
+    color: '#2d3748',
+    marginBottom: '10px'
   },
 
   preTestSubtitle: {
-    fontSize: '1.2em',
+    fontSize: '1.2rem',
     color: '#6c757d',
+    fontWeight: '400'
   },
 
   preTestInfo: {
-    marginBottom: '40px',
+    marginBottom: '40px'
   },
 
   infoGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '30px',
-    marginBottom: '30px',
-    textAlign: 'center',
+    gap: '20px',
+    marginBottom: '30px'
   },
 
   infoItem: {
+    textAlign: 'center',
     padding: '20px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '12px',
+    backgroundColor: '#f8fafc',
+    borderRadius: '12px'
   },
 
   infoNumber: {
-    fontSize: '2em',
+    fontSize: '2rem',
     fontWeight: '700',
-    color: '#1a73e8',
-    marginBottom: '5px',
+    color: '#667eea',
+    marginBottom: '8px'
   },
 
   infoLabel: {
+    fontSize: '0.9rem',
     color: '#6c757d',
-    fontSize: '0.9em',
-    fontWeight: '500',
+    fontWeight: '500'
   },
 
   areasInfo: {
-    marginBottom: '30px',
+    marginBottom: '30px'
   },
 
   areasTitle: {
-    fontSize: '1.2em',
+    fontSize: '1.3rem',
     fontWeight: '600',
-    color: '#2c3e50',
-    marginBottom: '15px',
+    color: '#2d3748',
+    marginBottom: '15px'
   },
 
   areasGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '10px',
+    gap: '12px'
   },
 
   areaItem: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '10px 15px',
-    backgroundColor: '#f8f9fa',
+    padding: '12px 16px',
+    backgroundColor: '#f8fafc',
     borderRadius: '8px',
-    fontSize: '0.9em',
+    border: '1px solid #e2e8f0'
   },
 
   areaName: {
     fontWeight: '500',
-    color: '#2c3e50',
+    color: '#2d3748'
   },
 
   areaCount: {
-    color: '#1a73e8',
     fontWeight: '600',
+    color: '#667eea'
   },
 
-  instructions: {},
+  instructions: {
+    backgroundColor: '#f0f4ff',
+    padding: '25px',
+    borderRadius: '12px',
+    border: '1px solid #e2e8f0'
+  },
 
   instructionsTitle: {
-    fontSize: '1.2em',
+    fontSize: '1.2rem',
     fontWeight: '600',
-    color: '#2c3e50',
-    marginBottom: '15px',
+    color: '#2d3748',
+    marginBottom: '15px'
   },
 
   instructionsList: {
-    color: '#6c757d',
-    lineHeight: '1.8',
+    margin: 0,
     paddingLeft: '20px',
+    color: '#4a5568'
   },
 
   preTestActions: {
     display: 'flex',
     gap: '20px',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 
   backButtonPre: {
@@ -620,428 +1088,172 @@ const styles = {
     color: 'white',
     border: 'none',
     borderRadius: '10px',
-    fontSize: '1.1em',
-    fontWeight: '600',
     cursor: 'pointer',
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    transition: 'all 0.3s ease'
   },
 
   startButton: {
-    padding: '15px 40px',
+    padding: '15px 30px',
     backgroundColor: '#28a745',
     color: 'white',
     border: 'none',
     borderRadius: '10px',
-    fontSize: '1.1em',
-    fontWeight: '600',
     cursor: 'pointer',
-  },
-
-  // Test execution styles
-  testContainer: {
-    minHeight: '100vh',
-    backgroundColor: '#f8f9fa',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
-  testHeader: {
-    backgroundColor: 'white',
-    padding: '20px 40px',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  headerLeft: {},
-
-  simuladoTitle: {
-    fontSize: '1.5em',
-    fontWeight: '700',
-    color: '#2c3e50',
-    margin: 0,
-  },
-
-  progressInfo: {
-    color: '#6c757d',
-    fontSize: '0.9em',
-    marginTop: '5px',
-  },
-
-  headerRight: {},
-
-  timer: {
-    fontSize: '1.2em',
+    fontSize: '1.1rem',
     fontWeight: '600',
-    color: '#1a73e8',
-    padding: '8px 16px',
-    backgroundColor: '#e3f2fd',
-    borderRadius: '20px',
+    transition: 'all 0.3s ease'
   },
 
-  progressBar: {
-    height: '4px',
-    backgroundColor: '#e9ecef',
-    position: 'relative',
-  },
-
-  progressFill: {
-    height: '100%',
-    backgroundColor: '#28a745',
-    transition: 'width 0.3s ease',
-  },
-
-  questionContainer: {
-    flex: 1,
-    padding: '40px',
-    maxWidth: '900px',
-    margin: '0 auto',
-    width: '100%',
-  },
-
-  questionHeader: {
-    marginBottom: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-  },
-
-  questionArea: {
-    fontSize: '1.1em',
-    fontWeight: '600',
-    color: '#1a73e8',
-  },
-
-  questionTopic: {
-    fontSize: '0.95em',
-    color: '#6c757d',
-  },
-
-  questionText: {
-    fontSize: '1.3em',
-    lineHeight: '1.6',
-    color: '#2c3e50',
-    marginBottom: '30px',
-    padding: '25px',
-    backgroundColor: 'white',
-    borderRadius: '12px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-  },
-
-  attachments: {
-    marginBottom: '30px',
-  },
-
-  attachment: {
-    marginBottom: '15px',
-  },
-
-  imageAttachment: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    alignItems: 'center',
-  },
-
-  attachmentImageThumb: {
-    maxWidth: '300px',
-    maxHeight: '200px',
-    objectFit: 'contain',
-    borderRadius: '8px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    cursor: 'pointer',
-    transition: 'transform 0.2s ease',
-  },
-
-  expandImageButton: {
-    padding: '8px 16px',
-    backgroundColor: '#1a73e8',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    fontSize: '0.9em',
-    fontWeight: '500',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-  },
-
-  attachmentText: {
-    padding: '15px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '8px',
-    border: '1px solid #dee2e6',
-    fontFamily: 'monospace',
-  },
-
-  optionsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '15px',
-  },
-
-  optionButton: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px',
-    padding: '20px',
-    backgroundColor: 'white',
-    border: '2px solid #e9ecef',
-    borderRadius: '12px',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    textAlign: 'left',
-    fontSize: '1.1em',
-  },
-
-  optionSelected: {
-    borderColor: '#1a73e8',
-    backgroundColor: '#e3f2fd',
-  },
-
-  optionLetter: {
-    width: '35px',
-    height: '35px',
-    backgroundColor: '#6c757d',
-    color: 'white',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: '600',
-    fontSize: '1em',
-    flexShrink: 0,
-  },
-
-  optionLetterSelected: {
-    backgroundColor: '#1a73e8',
-  },
-
-  optionText: {
-    flex: 1,
-    lineHeight: '1.4',
-  },
-
-  navigationContainer: {
-    backgroundColor: 'white',
-    padding: '20px 40px',
-    boxShadow: '0 -2px 4px rgba(0,0,0,0.1)',
-  },
-
-  navButtons: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '20px',
-  },
-
-  navButton: {
-    padding: '12px 24px',
-    backgroundColor: '#1a73e8',
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    fontSize: '1em',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-  },
-
-  navButtonDisabled: {
-    backgroundColor: '#6c757d',
-    cursor: 'not-allowed',
-  },
-
-  finishButton: {
-    backgroundColor: '#28a745',
-  },
-
-  questionNavigator: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '8px',
-    justifyContent: 'center',
-  },
-
-  questionNumber: {
-    width: '40px',
-    height: '40px',
-    border: '2px solid #e9ecef',
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    fontSize: '0.9em',
-    fontWeight: '600',
-    color: '#6c757d',
-  },
-
-  questionNumberActive: {
-    borderColor: '#1a73e8',
-    backgroundColor: '#1a73e8',
-    color: 'white',
-  },
-
-  questionNumberAnswered: {
-    borderColor: '#28a745',
-    backgroundColor: '#d4edda',
-    color: '#155724',
-  },
-
-  // Results styles
   resultsContainer: {
     minHeight: '100vh',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f8fafc',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: '20px',
+    justifyContent: 'center',
+    padding: '20px'
   },
 
   resultsCard: {
     backgroundColor: 'white',
-    borderRadius: '16px',
+    borderRadius: '20px',
     padding: '40px',
     maxWidth: '600px',
     width: '100%',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
     textAlign: 'center',
-  },
-
-  resultsHeader: {
-    marginBottom: '40px',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+    border: '1px solid #e2e8f0'
   },
 
   resultsTitle: {
-    fontSize: '2.2em',
+    fontSize: '2.2rem',
     fontWeight: '700',
-    color: '#2c3e50',
-    marginBottom: '10px',
-  },
-
-  simuladoNameResult: {
-    fontSize: '1.3em',
-    color: '#1a73e8',
-    fontWeight: '600',
+    color: '#2d3748',
+    marginBottom: '30px'
   },
 
   scoreSection: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '40px',
-    marginBottom: '40px',
+    marginBottom: '40px'
   },
 
   scoreCircle: {
-    width: '120px',
-    height: '120px',
+    width: '150px',
+    height: '150px',
     borderRadius: '50%',
-    border: '6px solid',
+    border: '8px solid',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f8f9fa',
+    margin: '0 auto 20px'
   },
 
   scoreNumber: {
-    fontSize: '1.8em',
-    fontWeight: '700',
+    fontSize: '2.5rem',
+    fontWeight: '700'
   },
 
-  scoreInfo: {
-    textAlign: 'left',
+  scoreText: {
+    fontSize: '1.3rem',
+    color: '#2d3748',
+    fontWeight: '500',
+    marginBottom: '10px'
   },
 
-  scoreStats: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-    marginBottom: '15px',
+  timeText: {
+    fontSize: '1.1rem',
+    color: '#6c757d'
   },
 
-  correctCount: {
-    fontSize: '1.1em',
-    fontWeight: '600',
-  },
-
-  incorrectCount: {
-    fontSize: '1.1em',
-    fontWeight: '600',
-  },
-
-  timeInfo: {
-    color: '#6c757d',
-    fontSize: '1em',
-  },
-
-  resultsActions: {
+  resultActions: {
     display: 'flex',
     gap: '20px',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 
   restartButton: {
     padding: '15px 30px',
-    backgroundColor: '#1a73e8',
+    backgroundColor: '#28a745',
     color: 'white',
     border: 'none',
     borderRadius: '10px',
-    fontSize: '1.1em',
-    fontWeight: '600',
     cursor: 'pointer',
+    fontSize: '1.1rem',
+    fontWeight: '600'
   },
 
-  backToSimuladosButton: {
+  backToListButton: {
     padding: '15px 30px',
-    backgroundColor: '#6c757d',
+    backgroundColor: '#667eea',
     color: 'white',
     border: 'none',
     borderRadius: '10px',
-    fontSize: '1.1em',
-    fontWeight: '600',
     cursor: 'pointer',
-  },
+    fontSize: '1.1rem',
+    fontWeight: '600'
+  }
 };
 
-// CSS para animações
+// Adicionar CSS de animação
 const animationCSS = `
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
-@media (max-width: 768px) {
-  .test-header {
-    padding: 15px 20px !important;
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+    }
+    
+    .navigationSection {
+      position: static !important;
+    }
+    
+    .headerContent {
+      flex-direction: column !important;
+      text-align: center !important;
+    }
+    
+    .headerStats {
+      justify-content: center !important;
+    }
+    
+    .infoGrid {
+      grid-template-columns: 1fr !important;
+    }
+    
+    .questionNav {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    .bottomNavContent {
+      padding: 0 15px !important;
+      gap: 10px !important;
+    }
+    
+    .bottomNavButton {
+      min-width: 80px !important;
+      padding: 10px 16px !important;
+      font-size: 0.9rem !important;
+    }
+    
+    .bottomNavInfo {
+      gap: 2px !important;
+    }
+    
+    .bottomNavText {
+      font-size: 1rem !important;
+    }
+    
+    .bottomNavSubtext {
+      font-size: 0.8rem !important;
+    }
   }
-  
-  .question-container {
-    padding: 25px 20px !important;
-  }
-  
-  .nav-container {
-    padding: 15px 20px !important;
-  }
-  
-  .nav-buttons {
-    gap: 10px !important;
-  }
-  
-  .question-navigator {
-    gap: 6px !important;
-  }
-  
-  .question-number {
-    width: 35px !important;
-    height: 35px !important;
-    font-size: 0.85em !important;
-  }
-}
 `;
 
-// Adicionar CSS no documento
+// Adicionar estilos ao documento
 if (typeof document !== 'undefined') {
   const existingStyle = document.getElementById('executar-simulado-styles');
   if (!existingStyle) {

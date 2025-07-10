@@ -12,7 +12,21 @@ const generateSimulados = async () => {
   try {
     console.log('=== INICIANDO GERAÇÃO DE SIMULADOS ===\n');
     
-    // 1. Verificar anos disponíveis
+    // 🗑️ PASSO 1: DELETAR TODOS OS SIMULADOS EXISTENTES
+    console.log('🗑️  Verificando simulados existentes...');
+    const totalExistentes = await Simulado.countDocuments();
+    
+    if (totalExistentes > 0) {
+      console.log(`📊 Encontrados ${totalExistentes} simulados existentes`);
+      console.log('🗑️  Removendo todos os simulados...');
+      
+      const deleteResult = await Simulado.deleteMany({});
+      console.log(`✅ ${deleteResult.deletedCount} simulados removidos com sucesso!\n`);
+    } else {
+      console.log('ℹ️  Nenhum simulado existente encontrado\n');
+    }
+    
+    // 📅 PASSO 2: VERIFICAR ANOS DISPONÍVEIS
     const anosDisponiveis = await Question.distinct('ano');
     console.log('📅 Anos disponíveis:', anosDisponiveis);
     
@@ -23,24 +37,18 @@ const generateSimulados = async () => {
       process.exit();
     }
     
-    // 2. Para cada ano, gerar simulados se não existirem
+    // 🎯 PASSO 3: GERAR SIMULADOS PARA CADA ANO
+    let totalSimuladosGerados = 0;
+    
     for (const ano of anosDisponiveis) {
       console.log(`\n🎯 Processando ano ${ano}...`);
-      
-      // Verificar se já existem simulados para este ano
-      const simuladosExistentes = await Simulado.countDocuments({ ano });
-      
-      if (simuladosExistentes > 0) {
-        console.log(`   ⚠️  ${simuladosExistentes} simulados já existem para ${ano}. Pulando...`);
-        continue;
-      }
       
       // Buscar questões do ano
       const questoesAno = await Question.find({ ano });
       console.log(`   📚 ${questoesAno.length} questões encontradas para ${ano}`);
       
-      if (questoesAno.length < 12) {
-        console.log(`   ❌ Não há questões suficientes (mínimo 12) para gerar simulados de ${ano}`);
+      if (questoesAno.length < 5) {
+        console.log(`   ❌ Não há questões suficientes (mínimo 5) para gerar simulados de ${ano}`);
         continue;
       }
       
@@ -56,11 +64,17 @@ const generateSimulados = async () => {
       console.log(`   📊 Áreas encontradas:`, Object.keys(areasCounts));
       
       const totalQuestoes = questoesAno.length;
+      // 🎯 CALCULAR QUESTÕES POR SIMULADO = TOTAL ÷ 5
+      const questoesPorSimulado = Math.floor(totalQuestoes / 5);
+      
+      console.log(`   🔢 Total de questões: ${totalQuestoes}`);
+      console.log(`   📊 Questões por simulado: ${questoesPorSimulado}`);
+      
       const proporcoes = {};
       
       Object.entries(areasCounts).forEach(([area, count]) => {
         const porcentagem = (count / totalQuestoes) * 100;
-        const questoesSimulado = Math.round((porcentagem / 100) * 12);
+        const questoesSimulado = Math.round((porcentagem / 100) * questoesPorSimulado);
         
         proporcoes[area] = {
           questoesTotais: count,
@@ -69,11 +83,11 @@ const generateSimulados = async () => {
         };
       });
       
-      // Ajustar para garantir exatamente 12 questões
+      // Ajustar para garantir exatamente o número correto de questões
       let totalSimulado = Object.values(proporcoes).reduce((sum, prop) => sum + prop.questoesSimulado, 0);
       
-      while (totalSimulado !== 12) {
-        if (totalSimulado < 12) {
+      while (totalSimulado !== questoesPorSimulado) {
+        if (totalSimulado < questoesPorSimulado) {
           // Adicionar questões nas áreas com mais questões
           const areaComMaisQuestoes = Object.entries(proporcoes)
             .sort((a, b) => b[1].questoesTotais - a[1].questoesTotais)[0][0];
@@ -123,26 +137,32 @@ const generateSimulados = async () => {
         });
         
         await simulado.save();
-        console.log(`   ✅ Simulado ${ano}-${numero} criado com ${questoesFinais.length} questões`);
+        totalSimuladosGerados++;
+        console.log(`   ✅ Simulado ${ano}-${numero} criado com ${questoesFinais.length} questões (${questoesPorSimulado} questões por simulado)`);
       }
     }
     
-    // 3. Mostrar resumo final
+    // 📊 PASSO 4: MOSTRAR RESUMO FINAL
     console.log('\n=== RESUMO FINAL ===');
     const totalSimulados = await Simulado.countDocuments();
     console.log(`📊 Total de simulados criados: ${totalSimulados}`);
+    console.log(`🎯 Simulados gerados nesta execução: ${totalSimuladosGerados}`);
     
     const simuladosPorAno = await Simulado.aggregate([
       { $group: { _id: '$ano', total: { $sum: 1 } } },
       { $sort: { _id: 1 } }
     ]);
     
-    console.log('📈 Simulados por ano:');
+    console.log('\n📈 Simulados por ano:');
     simuladosPorAno.forEach(item => {
       console.log(`   ${item._id}: ${item.total} simulados`);
     });
     
     console.log('\n🎉 GERAÇÃO DE SIMULADOS CONCLUÍDA!');
+    console.log('\n💡 Para testar os simulados:');
+    console.log('   - Acesse: http://localhost:3000/simulados');
+    console.log('   - API: http://localhost:5000/api/simulados/anos');
+    
     process.exit();
     
   } catch (error) {
@@ -161,4 +181,5 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
+// Executar o script
 generateSimulados();
