@@ -22,6 +22,7 @@ const ExecutarSimuladoPage = () => {
   const [testStarted, setTestStarted] = useState(false);
   const [testFinished, setTestFinished] = useState(false);
   const [results, setResults] = useState(null);
+  const [showIncompleteWarning, setShowIncompleteWarning] = useState(false);
   
   // Estados do modal de anexos
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,6 +67,19 @@ const ExecutarSimuladoPage = () => {
   };
 
   const finishTest = () => {
+    // Verificar se todas as questões foram respondidas
+    const totalQuestoes = questoes.length;
+    const questoesRespondidas = Object.keys(selectedAnswers).length;
+    
+    if (questoesRespondidas < totalQuestoes) {
+      setShowIncompleteWarning(true);
+      // Esconder o aviso após 5 segundos
+      setTimeout(() => {
+        setShowIncompleteWarning(false);
+      }, 5000);
+      return;
+    }
+
     timer.stop();
     
     // Calcular resultados
@@ -247,6 +261,34 @@ const ExecutarSimuladoPage = () => {
 
       {/* Conteúdo principal */}
       <div style={styles.content}>
+        {/* Aviso de questões incompletas */}
+        {showIncompleteWarning && (
+          <div style={styles.warningBanner}>
+            <div style={styles.warningContent}>
+              <span style={styles.warningIcon}>⚠️</span>
+              <div style={styles.warningText}>
+                <strong>Atenção!</strong> Você precisa responder todas as questões antes de finalizar o simulado.
+                <br />
+                <span style={styles.warningSubtext}>
+                  Ainda faltam {questoes.length - Object.keys(selectedAnswers).length} questões para responder.
+                </span>
+              </div>
+              <button 
+                onClick={() => setShowIncompleteWarning(false)}
+                style={styles.warningCloseButton}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = 'rgba(133, 100, 4, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                }}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        )}
+
         <div style={styles.questionSection}>
           {/* Área da questão */}
           <div style={styles.questionCard}>
@@ -316,19 +358,31 @@ const ExecutarSimuladoPage = () => {
             <div style={styles.questionNavContainer}>
               <span style={styles.questionNavLabel}>Ir para questão:</span>
               <div style={styles.questionNav}>
-                {questoes.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentQuestionIndex(index)}
-                    style={{
-                      ...styles.questionNavButton,
-                      ...(index === currentQuestionIndex ? styles.questionNumberActive : {}),
-                      ...(selectedAnswers[index] !== undefined ? styles.questionNumberAnswered : {})
-                    }}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
+                {questoes.map((_, index) => {
+                  const isAnswered = selectedAnswers[index] !== undefined;
+                  const isCurrent = index === currentQuestionIndex;
+                  
+                  let buttonStyle = { ...styles.questionNavButton };
+                  
+                  if (isCurrent) {
+                    buttonStyle = { ...buttonStyle, ...styles.questionNumberActive };
+                  } else if (isAnswered) {
+                    buttonStyle = { ...buttonStyle, ...styles.questionNumberAnswered };
+                  } else {
+                    buttonStyle = { ...buttonStyle, ...styles.questionNumberUnanswered };
+                  }
+
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentQuestionIndex(index)}
+                      style={buttonStyle}
+                      title={isAnswered ? 'Questão respondida' : 'Questão não respondida'}
+                    >
+                      {index + 1}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -754,6 +808,66 @@ const styles = {
     backgroundColor: '#28a745',
     borderColor: '#28a745',
     color: 'white'
+  },
+
+  questionNumberUnanswered: {
+    backgroundColor: '#dc3545',
+    borderColor: '#dc3545',
+    color: 'white',
+    animation: 'pulse 2s infinite'
+  },
+
+  // Aviso de questões incompletas
+  warningBanner: {
+    position: 'fixed',
+    top: '80px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    zIndex: 200,
+    width: '90%',
+    maxWidth: '600px',
+    animation: 'slideDown 0.3s ease'
+  },
+
+  warningContent: {
+    backgroundColor: '#fff3cd',
+    border: '2px solid #ffc107',
+    borderRadius: '12px',
+    padding: '20px',
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '15px',
+    boxShadow: '0 8px 25px rgba(255, 193, 7, 0.3)'
+  },
+
+  warningIcon: {
+    fontSize: '24px',
+    flexShrink: 0
+  },
+
+  warningText: {
+    flex: 1,
+    color: '#856404',
+    fontSize: '1rem',
+    lineHeight: '1.5'
+  },
+
+  warningSubtext: {
+    fontSize: '0.9rem',
+    fontWeight: 'normal',
+    opacity: 0.8
+  },
+
+  warningCloseButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontSize: '18px',
+    color: '#856404',
+    cursor: 'pointer',
+    padding: '5px',
+    borderRadius: '4px',
+    transition: 'background-color 0.2s ease',
+    flexShrink: 0
   },
 
   // Barra de navegação inferior fixa
@@ -1201,6 +1315,23 @@ const animationCSS = `
     100% { transform: rotate(360deg); }
   }
 
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes slideDown {
+    0% { 
+      opacity: 0; 
+      transform: translateX(-50%) translateY(-20px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateX(-50%) translateY(0); 
+    }
+  }
+
   @media (max-width: 768px) {
     .content {
       grid-template-columns: 1fr !important;
@@ -1249,6 +1380,20 @@ const animationCSS = `
     
     .bottomNavSubtext {
       font-size: 0.8rem !important;
+    }
+    
+    .warningBanner {
+      width: 95% !important;
+      top: 70px !important;
+    }
+    
+    .warningContent {
+      padding: 15px !important;
+      gap: 12px !important;
+    }
+    
+    .warningText {
+      font-size: 0.9rem !important;
     }
   }
 `;
