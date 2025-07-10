@@ -3098,6 +3098,1052 @@ const questions = [
     "ano": 2022,
     "numeroQuestao": 60,
     "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Semântica e Significação das Palavras",
+    "questionText": "As opções abaixo mostram definições de palavras. Assinale aquela que mostra um tipo de definição não técnica, diferente das demais por seu caráter criativo.",
+    "options": [
+      "Espada é uma arma branca de lâmina comprida e pontuda, dotada de punho, com um ou dois gumes.",
+      "Chuvisco é uma chuva pouco intensa.",
+      "Cigarra é um inseto cujo macho é provido de órgão que produz som estridente.",
+      "Cigarro é tabaco picado e enrolado em papel, para se fumar.",
+      "A naturezа é uma nuvem mutável, sempre e nunca a mesma."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 1,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Sentido Próprio e Figurado das Palavras",
+    "questionText": "As frases abaixo mostram um adjetivo sublinhado, com valor de ironia, à exceção de uma. Assinale-a.",
+    "options": [
+      "O problema com nossos jovens escritores é que todos eles estão na faixa dos sessenta.",
+      "Fazer um filme é como ter sua mão pega numa máquina de moer carne. Na verdade, nem é tão agradável.",
+      "É muitíssimo prazeroso que caminhemos com os nossos pés sendo torturados pelos sapatos.",
+      "O bombeiro gostava muito de animais e sentiu-se confortável ao participar do salvamento do cavalo.",
+      "O treinador do Flamengo estava com cara de satisfeito após aquele empate com uma equipe adversária muito fraca."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 2,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Pontuação",
+    "questionText": "Assinale a frase em que todos os sinais de pontuação foram bem-empregados.",
+    "options": [
+      "A verdadeira questão não é se as máquinas pensam, mas se os homens pensam.",
+      "Antigamente, a cidade era o mundo hoje o mundo é uma cidade.",
+      "Ciência, sem consciência, não é senão, uma ruína da alma.",
+      "A ciência é o grande antídoto do veneno, do entusiasmo, e da superstição.",
+      "Genética é uma coisa, hereditária."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 3,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Crase",
+    "questionText": "Assinale a frase em que o sinal indicativo da crase está bem-empregado.",
+    "options": [
+      "É difícil ensinar o alfabeto à garotos atualmente, pois todos pensam que o \"vê\" vem depois do \"tê\".",
+      "Uma mão lava à outra e a poluição suja as duas.",
+      "O progresso é a injustiça que cada geração comete em relação à geração precedente.",
+      "Vou usar o computador com reservas. Esse equipamento invade à privacidade humana.",
+      "O automóvel resolve à ansiedade dos homens."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 4,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Interpretação de Texto",
+    "questionText": "Leia com atenção a seguinte frase:\n\"Quanto mais sou obrigado a deixar recado com os filhos e empregadas de amigos, mais me apaixono por secretárias eletrônicas\".\nPodemos deduzir do que aí está escrito que",
+    "options": [
+      "os filhos e empregadas de amigos são bons transmissores de recados.",
+      "as secretárias eletrônicas são aparelhos de custo muito elevado.",
+      "as empregadas transmitem recados com rapidez e eficiência.",
+      "as secretárias eletrônicas são mais eficientes que os seres humanos.",
+      "a paixão pelas secretárias eletrônicas é proveniente de sua beleza e elegância."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 5,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "As frases abaixo mostram locuções adjetivas que foram substituídas por adjetivos, indicados entre parênteses. Entre as substituições propostas, assinale aquela que é inadequada.",
+    "options": [
+      "Um beijo de minha mãe (materno) fez de mim um pintor.",
+      "O importante na obra de arte (artística) é o espanto.",
+      "A obra-prima é uma variedade do milagre (milagrosa).",
+      "Apreciar os defeitos do próximo (alheios) é ter talento?",
+      "Nenhuma arte pode imitar a indústria da natureza (natural)."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 6,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "A preposição DE mostra inúmeros valores semânticos, ou seja, muitos sentidos. Assinale a frase em que essa preposição tem seu valor corretamente indicado.",
+    "options": [
+      "Com a inundação, o castelo, no alto do morro, ficou cercado de gente. / agente.",
+      "A chaleira de água quente ficou afastada das crianças. / continente.",
+      "Os quadros de Portinari valem muito. / propriedade.",
+      "As mulheres de classe são atraentes. / assunto.",
+      "Vieram de ônibus para a festa da matriz. / modo."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 7,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "Nas frases abaixo está presente a conjunção E. Assinale a frase em que o significado dessa conjunção está indicado corretamente.",
+    "options": [
+      "Em muitos terrenos de cidades pequenas há simultaneamente plantas frutíferas e plantas ornamentais / oposição.",
+      "Algo só é impossível até que alguém duvide e acabe provando o contrário / consequência.",
+      "Ambiente limpo não é o que mais se limpa, e sim o que menos se suja / adição.",
+      "Há gente que fala e fala, mas nada diz / causa.",
+      "Os policiais chegam a suas casas e tiram o uniforme / conclusão."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 8,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Tipologia Textual",
+    "questionText": "Assinale o texto que deve ser classificado como informativo, por centrar seu interesse na divulgação de informações.",
+    "options": [
+      "Se você pretende ter uma velhice tranquila, economize o dinheiro que ganha enquanto jovem.",
+      "Eu nunca sei o que fazer no dia seguinte a um feriado.",
+      "Todos devemos ter respeito com os mais velhos, pois todos chegaremos lá.",
+      "Os povos mais ricos sempre dominam a cena política.",
+      "O Palmeiras desembarcou ontem em Buenos Aires, onde vai disputar mais um título."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 9,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "Assinale a frase em que o termo adverbial sublinhado foi adequadamente substituído por um advérbio equivalente.",
+    "options": [
+      "A música deve vir antes de tudo (antecipadamente).",
+      "Viajar é estar constantemente emocionado e nem sempre alegre (raramente)",
+      "Se você se parece com a sua fotografia do passaporte, sem dúvida (indubitavelmente) precisa viajar.",
+      "Os britânicos são invejosos porque eles não têm vinho, e lá chove o tempo todo (eternamente).",
+      "Veneza é como comer de uma só vez (totalmente) uma caixa inteira de bombons de licor."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 10,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Sentido Próprio e Figurado das Palavras",
+    "questionText": "Assinale a frase em que a palavra sublinhada está empregada em sentido figurado.",
+    "options": [
+      "A primeira criatura que Deus fez foi a luz.",
+      "Tudo quanto está debaixo da terra, o tempo porá a descoberto à luz do sol.",
+      "A luz é o ouro das casas dos pobres.",
+      "A luz da lua é vista como romântica.",
+      "As palavras dele trouxeram luz a nosso estudo."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 11,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Interpretação de Texto",
+    "questionText": "\"Salve, lindo pendão da esperança,\nSalve, símbolo augusto da paz!\nTua nobre presença à lembrança\nA grandeza da Pátria nos traz.\"\nEsses são os quatro primeiros versos do nosso conhecido Hino à Bandeira. Assinale a afirmação correta sobre a estruturação ou significação desses versos.",
+    "options": [
+      "Os versos exploram as cores simbólicas da bandeira.",
+      "Por seu nacionalismo, a mensagem desses versos se relaciona ao movimento Barroco.",
+      "A letra do hino opõe aspectos positivos e negativos de nosso país.",
+      "Os termos \"pendão\" e \"símbolo\" se referem a nossa bandeira.",
+      "A ordem direta dos dois últimos versos seria: A grandeza da pátria nos traz tua nobre presença à lembrança."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 12,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Reescrita de Frases",
+    "questionText": "Assinale a frase em que a oração adjetiva sublinhada foi substituída por um adjetivo semanticamente inadequado.",
+    "options": [
+      "Esta terra é de tal maneira graciosa que se dará nela tudo por causa das águas que tem / disponíveis.",
+      "O Rio de Janeiro é a única cidade das que conheço que não conseguiu expulsar a natureza. / visitadas.",
+      "Os Estados Unidos são um Itu que deu certo. / bem-sucedido.",
+      "O maior prazer, durante o periodo de viagens, é o dos criados que permanecem em casa / domésticos.",
+      "O caminho é o que importa, não o seu fim. / importante."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 13,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Interpretação de Texto",
+    "questionText": "Cada opção abaixo traz uma pequena frase e uma possível interpretação dela. Assinale a frase que mostra uma interpretação adequada.",
+    "options": [
+      "\"Meus pais foram doidos ao ensinar-me as primeiras letras\". / A doidice está no fato de que os pais preferiram o ensino doméstico ao ensino na escola.",
+      "\"A ciência não tem pátria\". / Isso significa que o conhecimento científico deve pertencer ao mundo inteiro e não somente à pátria do cientista.",
+      "\"A informática veio para resolver problemas que antes não existiam\". / A frase mostra que a informática resolve todos os problemas atuais.",
+      "\"De erro em erro descobre-se a verdade inteira.\" / A frase critica as pesquisas que cometem muitos erros.",
+      "\"Não há mestre que não possa ser aluno.\" / A afirmação critica os professores que não têm conhecimento do que ensinam."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 14,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Sinônimos e Antônimos",
+    "questionText": "Assinale a frase em que houve substituição adequada do vocábulo sublinhado por um sinônimo.",
+    "options": [
+      "Um provérbio é uma sentença curta baseada em longa experiência / afirmação.",
+      "A harmonia das cores reside no princípio de seu eficiente contato com a alma humana / conciliação.",
+      "Não procurem qualquer nexo naquilo que os poetas pronunciam acordados / coerência.",
+      "Sou artista, moro entre as minhas pinturas. Escrever é um luxo para mim / excesso.",
+      "A arte é a trilha que leva de volta, da fantasia à realidade / via férrea."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 15,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Interpretação de Texto",
+    "questionText": "As frases abaixo mostram erros, ora de seleção vocabular, ora de informação, à exceção de uma. Assinale-a.",
+    "options": [
+      "Na Bahia todo mundo é simpático. É um povo muito hospitalar.",
+      "Este disco foi gravado à base de muita cerveja. Foram quilos.",
+      "Estou louca para ir para Nova Iorque. Eu sempre quis conhecer a Europa.",
+      "Um abraço a todos os goianos de Juiz de Fora.",
+      "Bons leitores extraem muito de pouco."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 16,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Classes de Palavras",
+    "questionText": "Assinale a frase cujo adjetivo mostra o grau em que está empregado classificado corretamente.",
+    "options": [
+      "O melhor amigo do homem é o uísque. O uísque é o cachorro engarrafado. / Superlativo relativo de superioridade.",
+      "Nada custa tão caro como ser pobre. / Superlativo absoluto analítico.",
+      "Um sorriso é a distância mais curta entre duas pessoas. / Comparativo de superioridade.",
+      "Todas as pessoas são imensamente iguais. / Comparativo de igualdade.",
+      "Nosso país é menos rico do que todos os demais. / Superlativo relativo de inferioridade."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 17,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Reescrita de Frases",
+    "questionText": "Assinale a frase em que a oração substantiva sublinhada foi substituída por uma forma substantiva semanticamente inadequada.",
+    "options": [
+      "Decidi sair do jogo enquanto estou com a bola, em vez de esperar que ela me escape / a sua escapada.",
+      "Reconheço que uma obra está terminada quando chega a hora do jantar/ o término de uma obra.",
+      "Espero que a passeata comece e termine em paz / começo e fim pacíficos para a passeata.",
+      "A empresa promete que a entrega se fará rapidamente / uma entrega rápida.",
+      "Ele gostaria de que todos viessem à festa/da chegada de todos à festa."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 18,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Tipologia Textual",
+    "questionText": "Observe o seguinte texto:\n\"A casa era pequena, no centro do terreno, toda branca com janelas azuis, como todas as da pequena cidade. Após passar pela porta, o visitante se deparava com cômodos pequenos, mas simpáticos, muito bem arrumados. Na parte de trás, um terreno grande com grande diversidade de árvores frutíferas.\"\nA observação correta em relação a ele é:",
+    "options": [
+      "o texto é descritivo e a descrição realizada é de caráter físico, tendo por objeto uma casa, que é focalizada de fora para dentro.",
+      "o texto é narrativo, contando a história de uma casa em uma cidade do interior.",
+      "o texto é narrativo e descritivo, pois, ao mesmo tempo que nos dá a história da casa, mostra detalhes dela.",
+      "a descrição realizada é feita de forma estática, em que observador e objeto estão imóveis.",
+      "a casa que é objeto da descrição é observada de cima para baixo."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 19,
+    "printar": false
+  },
+  {
+    "area": "Língua Portuguesa e Interpretação de Texto",
+    "topic": "Interpretação de Texto",
+    "questionText": "Observe a seguinte frase:\n\"Uma acumulação de fatos não é uma ciência, da mesma forma que uma porção de pedras não é uma casa\".\nDois termos que são comparados nessa frase, são:",
+    "options": [
+      "acumulação de fatos / ciência.",
+      "fatos/pedras.",
+      "acumulação / casa.",
+      "ciência / porção.",
+      "pedras/casa."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 20,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Equações do 1º Grau",
+    "questionText": "Um dado número somado com a sua terça parte dá como resultado 228. A soma dos algarismos do número dado é",
+    "options": [
+      "5.",
+      "6.",
+      "7.",
+      "8.",
+      "9."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 21,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Porcentagem",
+    "questionText": "Em certa loja um artigo que custa 80 reais pode ser comprado, na promoção, por 66 reais. O valor do desconto é",
+    "options": [
+      "14%.",
+      "16,5%.",
+      "17,5%.",
+      "18%.",
+      "19,5%."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 22,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Sistema de Equações",
+    "questionText": "Em uma lanchonete todos os sanduíches têm o mesmo preço e todos os sucos têm mesmo preço. Certo dia, Joana e Laura compraram, nessa lanchonete, 2 sanduíches e 3 sucos pagando o total de 51 reais. Na semana seguinte, as duas levaram Maria a essa lanchonete. Elas compraram 3 sanduíches e 4 sucos e pagaram o total de 72 reais. Nessa lanchonete o preço do sanduíche é",
+    "options": [
+      "9 reais.",
+      "10 reais.",
+      "11 reais.",
+      "12 reais.",
+      "13 reais."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 23,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Notação Científica e Potenciação",
+    "questionText": "O prefixo peta aplicado a qualquer unidade significa 2^50 vezes essa unidade. Sabe-se que o Google processa cerca de 24 petabytes de informação por dia. Utilizando a aproximação 2^10 ≅ 10^3, o número de bytes de informação que o Google processa por dia possui",
+    "options": [
+      "15 algarismos.",
+      "16 algarismos.",
+      "17 algarismos.",
+      "18 algarismos.",
+      "19 algarismos."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 24,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Média Aritmética",
+    "questionText": "Quatro pessoas estão em um elevador. A média aritmética dos pesos dessas quatro pessoas é 85 kg, e a mais pesada entre elas pesa 100 kg. A pessoa mais pesada sai do elevador e duas pessoas, de 50 kg cada uma, entram no elevador. A nova média dos pesos das pessoas que agora estão no elevador é:",
+    "options": [
+      "igual à média anterior.",
+      "13 kg menor que a média anterior.",
+      "15 kg menor que a média anterior.",
+      "17 kg menor que a média anterior.",
+      "19 kg menor que a média anterior."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 25,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Geometria Plana",
+    "questionText": "Um terreno tem a forma de um quadrilátero ABCD em que os ângulos de vértices A e D são retos. São dadas as medidas de três lados: AB = 30 m, BC = 20 m e CD = 18 m. A área desse terreno em metros quadrados é igual a",
+    "options": [
+      "360.",
+      "384.",
+      "418.",
+      "436.",
+      "460."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 26,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Medidas de Tempo",
+    "questionText": "Uma máquina leva 2 minutos e 15 segundos (2min15s) para imprimir e encadernar certo livro. Para imprimir e encadernar 24 exemplares desse livro, trabalhando continuamente, a máquina levará",
+    "options": [
+      "50min.",
+      "51min45s.",
+      "52min30s.",
+      "53min15s.",
+      "54min."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 27,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Raciocínio Lógico",
+    "questionText": "João, Carlos, Pedro, Manoel e Francisco estão sentados em torno de uma mesa hexagonal regular e um lugar ficou vazio. Sabe-se que:\n• Pedro é o vizinho à esquerda de Carlos.\n• Carlos não está em lugar oposto a Francisco.\n• João é o vizinho à direita de Manoel.\n• O lugar à direita de Francisco está vazio.\nAssim, é correto afirmar que",
+    "options": [
+      "o lugar à esquerda de Pedro não está vazio.",
+      "Manoel está em lugar oposto a Pedro.",
+      "O vizinho à direita de Carlos é João.",
+      "Pedro e Francisco estão em lugares opostos.",
+      "o vizinho à direita de João não é Pedro."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": ["localhost:5000/images/2024-28.png"],
+    "ano": 2024,
+    "numeroQuestao": 28,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Números Decimais",
+    "questionText": "Considere os números: a = 0,7; b = 0,45; c = 1,00; d = 0,085. É correto concluir que",
+    "options": [
+      "a < b < c < d.",
+      "d < c < b < a.",
+      "b < c < d < a.",
+      "d < b < a < c.",
+      "a < b < d < c."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 29,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Frações",
+    "questionText": "Seja p/q = 1/3 + 2/5 - 3/8, em que p e q são primos entre si, isto é, a fração p/q está em sua forma irredutível. O valor de p + q é",
+    "options": [
+      "0.",
+      "11.",
+      "77.",
+      "85.",
+      "163."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 30,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Razão e Proporção",
+    "questionText": "Em um encontro de 57 Policiais Militares, há apenas sargentos, cabos e soldados. Para cada cabo, há 5 soldados, e para cada sargento, há 3 cabos. O número de soldados nesse encontro é igual a",
+    "options": [
+      "50.",
+      "48.",
+      "45.",
+      "42.",
+      "40."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 31,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Regra de Três",
+    "questionText": "Três profissionais executam um determinado trabalho em 12 horas. Dois profissionais, com a mesma eficiência, executarão o mesmo trabalho em",
+    "options": [
+      "8 horas.",
+      "9 horas.",
+      "15 horas.",
+      "16 horas.",
+      "18 horas."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 32,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Geometria Espacial",
+    "questionText": "Uma caixa tem dimensões internas de 3 cm x 8 cm x 15 cm. A capacidade dessa caixa em litros é",
+    "options": [
+      "960.",
+      "96.",
+      "9,6.",
+      "0,36.",
+      "0,096."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 33,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Raciocínio Lógico",
+    "questionText": "Em uma urna há 4 bolas numeradas, cada uma com um número inteiro positivo. Sabe-se que a soma dos 4 números é par e que o produto dos 4 números também é par. Nesse caso, é correto concluir que",
+    "options": [
+      "nenhuma bola tem número par.",
+      "exatamente uma bola tem número par.",
+      "exatamente uma bola tem número impar.",
+      "no mínimo duas bolas têm números pares.",
+      "no mínimo duas bolas têm números impares."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 34,
+    "printar": false
+  },
+  {
+    "area": "Matemática",
+    "topic": "Mínimo Múltiplo Comum",
+    "questionText": "Um número N é tal que dividido por 6 deixa resto 2 e dividido por 8 também deixa resto 2. A soma dos algarismos do menor número N que satisfaz essas condições é",
+    "options": [
+      "8.",
+      "7.",
+      "6.",
+      "5.",
+      "4."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 35,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História Geral",
+    "questionText": "O plano Schlieffen, nomeado em homenagem ao seu idealizador, o conde Schlieffen, foi uma estratégia militar implementada pela Alemanha no início da Primeira Guerra Mundial. Assinale a afirmativa que apresenta corretamente os objetivos do plano Schlieffen.",
+    "options": [
+      "O plano tinha como objetivo provocar o desgaste do inimigo, visando a uma guerra de trincheiras em solo alemão, como uma medida preventiva frente ao conhecimento do plano russo de ataque à Alemanha.",
+      "O plano tinha como objetivo prolongar o conflito, adotando a tática de empregar gradualmente as forças militares alemäs nos primeiros confrontos com a Rússia e, posteriormente, com a França.",
+      "O plano tinha como objetivo atacar a França através da Bélgica, contornando as defesas francesas e empregando um alto investimento militar, com a expectativa de uma rápida vitória alemã.",
+      "O plano tinha como objetivo empreender ataques frontais nas duas frentes, francesa e russa, simultaneamente, visando desmoralizar os exércitos inimigos, que culminaria na tomada de Paris e o armistício com a Rússia.",
+      "O plano tinha como objetivo adotar uma postura defensiva contra os ataques russos e franceses, priorizando investimentos em fortificações nas fronteiras do território alemão."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 36,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História Geral",
+    "questionText": "Assinale a afirmativa que menciona corretamente as diferentes interpretações do evento histórico apresentadas nos trechos citados.",
+    "options": [
+      "O trecho I atribui à União Soviética a responsabilidade pela gênese da Guerra Fria, devido à sua política expansionista influenciada pelo marxismo, enquanto os trechos II e III enfatizam o imperialismo estadunidense como o fator desencadeador dos conflitos.",
+      "Os trechos I e II acreditam que a ideologia soviética provocou uma resposta dos Estados Unidos, dando origem à Guerra Fria, enquanto o trecho III destaca a agressividade da política externa norte-americana em relação aos russos.",
+      "O trecho II argumenta que o desgaste sofrido pela União Soviética após a Segunda Guerra Mundial impossibilitava atribuir-lhe a responsabilidade pelo início da Guerra Fria, enquanto os trechos I e III destacam suas capacidades bélicas.",
+      "O trecho III enfatiza o poder hegemônico dos Estados Unidos em relação aos soviéticos, enquanto os trechos I e II criticam a ambição estadunidense de impor uma nova ordem mundial por meio do sistema econômico capitalista.",
+      "Os trechos I, II e III atribuem a responsabilidade pela origem do conflito aos interesses soviéticos, que se manifestavam por meio da coerção e imposição bélica sobre outros países para exercer sua influência."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [
+      "I. A causa fundamental da Guerra Fria foi a ambição doentia de Stalin...",
+      "II. A Guerra Fria poderia ter sido evitada somente se a União Soviética não tivesse sido possuída por convicções...",
+      "III. Especialmente depois da criação e utilização da bomba atómica, a atitude dos Estados Unidos deixou aos soviéticos apenas uma opção real..."
+    ],
+    "ano": 2024,
+    "numeroQuestao": 37,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História do Brasil",
+    "questionText": "Assinale a afirmativa que descreve corretamente as inovações introduzidas pelas constituições brasileiras do período contemporâneo.",
+    "options": [
+      "A constituição de 1934 ampliou a participação eleitoral, concedendo pela primeira vez o direito de voto aos analfabetos.",
+      "A constituição de 1937 confirmou a liberdade partidária e a independência dos poderes Legislativo e Judiciário em relação ao Executivo.",
+      "A constituição de 1946 estabeleceu a legalidade da pena de morte para punir determinados crimes e a eleição indireta para o cargo de presidente.",
+      "A constituição de 1967 suprimiu o Congresso Nacional e reforçou o poder do Judiciário como principal responsável por garantir a segurança nacional.",
+      "A constituição de 1988 reduziu quatro horas semanais da jornada de trabalho e garantiu o direito à greve e à liberdade sindical."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 38,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História do Brasil",
+    "questionText": "A respeito das motivações que levaram à Revolução de 1930, assinale a afirmativa correta.",
+    "options": [
+      "A reação foi contra a indicação do presidente da República em exercício de seu sucessor, que priorizava o fortalecimento econômico paulista por meio da expansão das exportações de café.",
+      "A reação começou com o descontentamento do setor popular em relação à alternância de governo que favorecia apenas as oligarquias cafeicultoras.",
+      "A reação surgiu contra a reforma eleitoral proposta pelo presidente da República, que eliminava o voto secreto, como medida para favorecer sua reeleição.",
+      "A reação surgiu contra a integração de setores militares na política republicana, em meio à crescente onda liberal de ampliação política.",
+      "A reação, limitada à região Sudeste do Brasil, onde se concentravam as maiores oligarquias cafeicultoras, advogava a favor da supressão do arranjo político vigente, que previa os privilégios paulistas."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [
+      "\"Não seria a primeira vez que políticos e intelectuais vinculados a um novo momento atribuiriam a si mesmos os méritos da novidade e jogariam para outro período, em geral o imediatamente anterior, a designação de \"ultrapassado\"... Esse seria o caso da Revolução de 1930 e do Estado que foi logo autodesignado como \"Novo\": Estado Novo.\"",
+      "Fonte: Schwarcz, Lilia; Starling, Heloisa. Brasil: Uma Biografia, São Paulo: Companhia das Letras, 2015, p. 523."
+    ],
+    "ano": 2024,
+    "numeroQuestao": 39,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "História do Brasil",
+    "questionText": "Analise as afirmativas a seguir, que descrevem os movimentos sociais de resistência ao regime militar brasileiro, e assinale (V) para a verdadeira e (F) para a falsa.\n( ) A Vanguarda Popular Revolucionária (VPR) foi uma organização guerrilheira formada por alguns dissidentes do Movimento Nacionalista Revolucionário (MNR). Seus membros incluíam estudantes, operários e, inclusive, militares desertores.\n( ) A guerrilha do Araguaia, centrada na área rural, foi liderada por integrantes do Partido Comunista do Brasil (PCdoB) e contou com o apoio da população que residia na confluência dos estados do Pará, do Maranhão e do Tocantins.\n( ) A Ação Libertadora Nacional (ALN) se conformou a partir de uma dissidência do Partido Comunista Brasileiro (PCB) e tinha como característica a crença na via eleitoral e pacífica como forma de derrubar o governo militar.\nAs afirmativas são, respectivamente,",
+    "options": [
+      "V-V-F.",
+      "V-F-V.",
+      "F-F-V.",
+      "F-V-F.",
+      "V-V-V."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 40,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia do Brasil",
+    "questionText": "Sobre o resultado apresentado na notícia, julgue as afirmativas a seguir:\nI. Comprova a diminuição no ritmo do crescimento populacional.\nII. Demonstra a necessidade de políticas públicas para a população idosa.\nIII. Evidencia a redução da população economicamente inativa do país.\nEstá correto o que se afirma em",
+    "options": [
+      "I, apenas.",
+      "I e II, apenas.",
+      "I e III, apenas.",
+      "II e III, apenas.",
+      "I, II e III."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [
+      "Censo 2022: o número de pessoas com 65 anos ou mais cresceu 57,4% em 12 anos.",
+      "Disponível em: https://agenciadenoticias.ibge.gov.br Acesso: 28 abr.2024"
+    ],
+    "ano": 2024,
+    "numeroQuestao": 41,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia do Brasil",
+    "questionText": "Uma característica do espaço urbano, a qual a letra da canção remete é a",
+    "options": [
+      "centralização do poder.",
+      "eficiência na infraestrutura.",
+      "desigualdade no valor dos terrenos.",
+      "existência da autossegregação espacial.",
+      "ausência de territórios antropológicos."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [
+      "Punk da Periferia",
+      "\"Das feridas / Que a pobreza cria / Sou o pus / Sou o que de resto / Restaria aos urubus / Pus por isso mesmo / Este blusão carniça / Fiz no rosto / Este make-up pó caliça / Quis trazer assim / Nossa desgraça à luz... / Sou um punk da periferia / Sou da Freguesia do Ó / Ooooooooo! / Aqui pra vocês! / Sou da Freguesia...\"",
+      "GILBERTO GIL. Punk da periferia. Rio de Janeiro: Warner Music Brasil, 1983."
+    ],
+    "ano": 2024,
+    "numeroQuestao": 42,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia do Brasil",
+    "questionText": "Sobre o rio em questão, avalie as afirmativas a seguir.\nI. Consiste num regulador térmico ao longo de toda a extensão de suas margens.\nII. Constitui fonte de renda, alimentação e produção de energia hidrelétrica para moradores de várias cidades do Estado de São Paulo.\nIII. Teve parte da metrópole paulista construída sobre sua planície de inundação, passando por diferentes tipos de transformações e problemas.\nEstá correto o que se afirma em",
+    "options": [
+      "I, apenas.",
+      "I e II, apenas.",
+      "II e III, apenas.",
+      "I e III, apenas.",
+      "I, II e III."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [
+      "Ao tratar das memórias do rio Tietê, a Secretaria do Meio Ambiente, Infraestrutura e Logística do governo do Estado de São Paulo diz: \"Ao longo de suas curvas sinuosas que atravessam 62 municípios, em seus mais de mil e cem quilômetros de extensão, a história se entrelaça e traz um profundo impacto na vida de muitas pessoas (...), que assim como o rio de água doce, fluem e se misturam.\""
+    ],
+    "ano": 2024,
+    "numeroQuestao": 43,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia Geral",
+    "questionText": "Sobre o momento da globalização na visão do autor, avalie se as afirmativas a seguir são verdadeiras (V) ou falsas (F).\n( ) A designação de países do Norte e do Sul remete a uma divisão baseada em níveis de desenvolvimento e qualidade de vida, sendo estes países denominados respectivamente de centrais e semiperiféricos ou periféricos.\n( ) Na atual etapa do século XXI as novas tecnologias do mundo globalizado conseguem superar as antigas desigualdades verificadas no início deste processo em diferentes escalas.\n( ) A evolução dos meios de transporte e comunicação, somada aos acordos econômicos e à exploração da mão de obra barata, possibilitou a oferta de produtos estrangeiros tradicionais e modernos, com preços atrativos em boa parte dos países do planeta.\nAs afirmativas são, respectivamente,",
+    "options": [
+      "V-F-V.",
+      "V-V-V.",
+      "V-V-F.",
+      "F-F-V.",
+      "V-F-F."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [
+      "\"O território tanto quanto o lugar são esquizofrênicos, porque de um lado acolhem os vetores da globalização, que neles se instalam para impor sua nova ordem, e, de outro lado, neles se produz uma contraordem, porque há uma produção acelerada de pobres, excluídos, marginalizados.\"",
+      "SANTOS, Milton, Por uma outra globalização: do pensamento único à consciência universal. Rio de Janeiro: Record, 2000. p.55-56"
+    ],
+    "ano": 2024,
+    "numeroQuestao": 44,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Geografia do Brasil",
+    "questionText": "Avalie se os seguintes fatores justificam a posição do estado de São Paulo, apresentada na notícia:\nI. A existência de uma infraestrutura logística, com modais de transporte abundantes e variados.\nII. A presença de importantes instituições de pesquisa e desenvolvimento tecnológico, voltadas para o setor agroindustrial.\nIII. A topografia adequada ao processo de mecanização padronizada, desde o preparo do solo até a colheita.\nEstá correto o que se afirma em",
+    "options": [
+      "I, apenas.",
+      "II, apenas.",
+      "I e II, apenas.",
+      "I e III, apenas.",
+      "I, II e III."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [
+      "SP EXPANDE PRODUTIVIDADE DA CANA-DE-AÇÚCAR",
+      "São Paulo lidera a produção sucroalcooleira no Brasil, que é o maior produtor mundial. Nos sete primeiros meses de 2023, o setor liderou as exportações no agro paulista."
+    ],
+    "ano": 2024,
+    "numeroQuestao": 45,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "O texto apresentado pela diplomacia brasileira foi vetado porque",
+    "options": [
+      "os Estados Unidos da América exerceram seu poder de veto contra a resolução.",
+      "a resolução recebeu uma votação majoritariamente desfavorável.",
+      "o texto apresentava erros significativos em relação aos protocolos do conselho.",
+      "o Brasil não possui o estatuto de membro permanente no conselho.",
+      "a resolução contrariava os interesses de países como Rússia e China na região."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [
+      "Em outubro de 2023, o Brasil apresentou uma resolução ao Conselho de Segurança da Organização das Nações Unidas. Esse documento pedia a pausa do conflito entre Israel e o Hamas na Faixa de Gaza para permitir o acesso de ajuda humanitária aos civis afetados."
+    ],
+    "ano": 2024,
+    "numeroQuestao": 46,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "A empresa americana Tesla é uma referência no crescente mercado dos veículos elétricos. Sob a liderança do empresário Elon Musk, a companhia permaneceu por anos como a maior fabricante desse segmento no mundo. No entanto, nos últimos meses, ela foi superada pela concorrente",
+    "options": [
+      "Lucid Motors (EUA).",
+      "Hyundai (Coreia do Sul).",
+      "BYD (China).",
+      "Nissan (Japão).",
+      "Volkswagen (Alemanha)."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 47,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "A brasileira Rebeca Andrade conseguiu uma impressionante medalha de ouro nos últimos Jogos Pan-Americanos, em Santiago, Chile. Para esse resultado, a atleta teve de superar inclusive a campeã americana Simone Biles. Esse feito se deu em uma das modalidades",
+    "options": [
+      "do atletismo.",
+      "da natação.",
+      "dos esportes coletivos.",
+      "da ginástica artística.",
+      "do remo."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 48,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "Em novembro do ano passado, um grupo de cidadãos brasileiros residentes na Palestina aguardava, preocupado, pelas autorizações necessárias para seu processo de repatriação. A saída se daria pela cidade de Rafah, ao sul da Faixa de Gaza, de onde cruzariam para o país vizinho e, posteriormente, seguiriam para o Brasil. O país, referido no texto, que faz fronteira com a Faixa de Gaza é",
+    "options": [
+      "o Catar.",
+      "a Jordânia.",
+      "o Egito.",
+      "a Síria.",
+      "o Libano."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 49,
+    "printar": false
+  },
+  {
+    "area": "Conhecimentos Gerais",
+    "topic": "Atualidades",
+    "questionText": "Nos últimos tempos, a popularização do acesso às ferramentas de inteligência artificial tem mudado diversos aspectos da sociedade. É o caso do ChatGPT, da empresa OpenAl, com brasileiros representando 5,16% do seu tráfego total em janeiro deste ano. O ChatGPT é uma ferramenta de inteligência artificial",
+    "options": [
+      "reativa.",
+      "simbólica.",
+      "geral.",
+      "híbrida.",
+      "generativa."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 50,
+    "printar": false
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "MS-Windows",
+    "questionText": "Com base nos conceitos do sistema operacional Microsoft Windows 10, avalie as afirmações abaixo:\nI. No Windows 10, ao excluir um arquivo usando a tecla \"Delete\", o arquivo é permanentemente removido do sistema sem passar pela Lixeira.\nII. A área de transferência permite ao usuário copiar e mover arquivos e textos entre diferentes locais, armazenando temporariamente os dados copiados ou cortados.\nIII. Atalhos são ícones que permitem acesso rápido a arquivos, pastas ou programas e ocupam menos espaço no disco rígido do que os próprios arquivos originais.\nEstá correto o que se afirma em",
+    "options": [
+      "I, apenas.",
+      "II, apenas.",
+      "III, apenas.",
+      "I e II, apenas.",
+      "II e III, apenas."
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 51,
+    "printar": false
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "MS-Office",
+    "questionText": "No contexto dos aplicativos Microsoft Office 2016, avalie as afirmações a seguir:\nI. No Word 2016, a ferramenta \"Comparar Documentos\" permite mesclar automaticamente o conteúdo de dois documentos diferentes em um único documento.\nII. No Excel 2016, a função \"SOMASE\" permite somar valores em um intervalo que atendam a um critério especificado.\nIII. No PowerPoint 2016, o recurso \"Slide Mestre\" é usado para aplicar animações específicas a cada elemento individual de um slide.\nEstá correto o que se afirma em",
+    "options": [
+      "I, apenas.",
+      "II, apenas.",
+      "III, apenas.",
+      "I e II, apenas.",
+      "II e III, apenas."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 52,
+    "printar": false
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "MS-Excel",
+    "questionText": "A planilha a seguir, feita no Excel 2016, contém dados de vendas de três produtos, por semestre:\n[Tabela anexa referente à questão]\nAssinale a fórmula que retorna o nome do produto com a maior média de vendas semestral quando inserida em uma célula em branco.",
+    "options": [
+      "=PROCV(MÁXIMO (D2:D4); A2:D4;1;FALSO)",
+      "=PROCH(MÁXIMO(D2:D4);A2:D4;1;FALSO)",
+      "=CORRESP(MÁXIMO(D2:D4);D2:D4;0)",
+      "=ÍNDICE(A2:A4; CORRESP (MÁXIMO (D2:D4);D2:D4;0))",
+      "=ÍNDICE(A2:A4; PROCV(MÁXIMO(D2:D4); D2:D4;0);0)"
+    ],
+    "correctOptionIndex": 4,
+    "attachments": [
+      "localhost:5000/images/2024-53.png"
+    ],
+    "ano": 2024,
+    "numeroQuestao": 53,
+    "printar": true
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "Correio Eletrônico",
+    "questionText": "Com base no uso do correio eletrônico, avalie as afirmações abaixo:\nI. O campo Cc (Cópia Carbono) é utilizado para enviar uma cópia do e-mail para outros destinatários sem que os destinatários principais ou outros destinatários Cc vejam que a cópia foi enviada.\nII. O campo Cco (Cópia Carbono Oculta) é utilizado para enviar uma cópia do e-mail para outros destinatários além do destinatário principal, e todos os destinatários podem ver quem recebeu a cópia.\nIII. Para enviar anexos, é importante verificar o tamanho dos arquivos e os limites do serviço de correio eletrônico, de modo a garantir que o e-mail seja entregue corretamente.\nEstá correto o que se afirma em",
+    "options": [
+      "I, apenas.",
+      "II, apenas.",
+      "III, apenas.",
+      "I e III, apenas.",
+      "I, II e III."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 54,
+    "printar": false
+  },
+  {
+    "area": "Noções Básicas de Informática",
+    "topic": "Ambientes Colaborativos",
+    "questionText": "No contexto dos ambientes colaborativos Google Workspace e Microsoft Teams, avalie as afirmações abaixo e assinale (V) para a verdadeira e (F) para a falsa.\n( ) No Google Workspace, o Google Meet só permite a participação em reuniões por meio de convites enviados por e-mail, sem possibilidade de criar reuniões diretamente na plataforma.\n( ) No Microsoft Teams, é possível fazer chamadas de áudio e vídeo, bem como compartilhar a tela durante as reuniões.\n( ) No Google Workspace, o Google Drive permite o armazenamento de arquivos na nuvem e a colaboração em tempo real em Documentos, Planilhas e Apresentações.\nAs afirmativas são, respectivamente,",
+    "options": [
+      "V-V-F.",
+      "V-F-F.",
+      "F-V-V.",
+      "F-F-V.",
+      "F-F-F."
+    ],
+    "correctOptionIndex": 2,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 55,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Constituição Federal",
+    "questionText": "João, após estudar muitos anos no exterior, aprendeu a realizar um trabalho de grande relevância social, o que lhe permitia auferir uma boa renda. Ao retornar ao território brasileiro, constatou, para sua surpresa, que não existia lei regulamentando o exercício dessa profissão. Ao consultar um especialista nessa temática, foi corretamente informado a João que",
+    "options": [
+      "a ausência de lei impede o exercício da profissão.",
+      "a ausência de lei indica ser livre o exercício da profissão.",
+      "o trabalho é livre, logo, a lei não pode estabelecer qualquer requisito para o seu exercício.",
+      "é cabível a impetração de mandado de injunção para que lhe seja permitido o exercício da profissão.",
+      "é cabível a impetração de mandado de segurança para que lhe seja permitido o exercício da profissão."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 56,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Constituição Federal",
+    "questionText": "O Prefeito do Município Alfa foi informado por sua assessoria que era necessário o preenchimento de uma função de confiança e de um cargo em comissão. Os pretendentes eram Ana, servidora ocupante de cargo de provimento efetivo; Pedro, servidor público estadual aposentado; e Maria, que jamais ocupou um cargo público. À luz da sistemática constitucional vigente, é correto afirmar que",
+    "options": [
+      "Ana pode ocupar a função de confiança ou o cargo em comissão.",
+      "Pedro pode ocupar a função de confiança ou o cargo em comissão.",
+      "Maria pode ocupar a função de confiança ou o cargo em comissão.",
+      "Ana e Pedro somente podem ocupar o cargo em comissão.",
+      "Maria somente pode ocupar a função de confiança."
+    ],
+    "correctOptionIndex": 0,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 57,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Constituição do Estado de São Paulo",
+    "questionText": "Considere o seguinte problema hipotético: o Comandante de um Batalhão da Polícia Militar do Estado de São Paulo teria supostamente praticado um crime militar cometido contra um civil. Nesse caso, à luz da Constituição do Estado de São Paulo, o referido agente será processado e julgado",
+    "options": [
+      "pelo Tribunal de Justiça.",
+      "pelo Conselho de Justificação.",
+      "pelo Tribunal de Justiça Militar.",
+      "por um juiz de Direito do juízo militar.",
+      "pelo Conselho de Justiça Militar, sob a presidência do juiz de Direito."
+    ],
+    "correctOptionIndex": 3,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 58,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Constituição do Estado de São Paulo",
+    "questionText": "Um grupo de servidores públicos, formado por ocupantes de cargos de provimento efetivo do Poder Executivo do Estado de São Paulo, almejava promover uma associação sindical. Ao consultarem a Constituição do Estado de São Paulo, os servidores concluíram corretamente que o referido objetivo",
+    "options": [
+      "é expressamente vedado.",
+      "pode ser livremente realizado.",
+      "depende de autorização do superior hierárquico.",
+      "depende de autorização do Governador do Estado.",
+      "será permitido, ou não, conforme venha a ser previsto em lei complementar estadual."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 59,
+    "printar": false
+  },
+  {
+    "area": "Noções de Administração Pública",
+    "topic": "Lei de Acesso à Informação",
+    "questionText": "Maria, pessoa analfabeta e que não se alistou como eleitora, mas que possui elevada consciência cívica, sendo residente no Estado Alfa, apresentou requerimento de acesso à informação a uma autarquia federal com sede em Brasília, com o objetivo de que fosse informada sobre a remuneração dos seus servidores. Na situação descrita na narrativa, é correto afirmar, à luz da Lei de Acesso à Informação, que",
+    "options": [
+      "Maria não pode requerer as informações, pois não é cidadã.",
+      "não precisam ser apresentados os motivos determinantes da solicitação.",
+      "a Lei de Acesso à Informação somente é aplicada aos Estados e aos Municípios, não à União.",
+      "a remuneração dos servidores diz respeito à intimidade desses agentes, não podendo ser fornecida.",
+      "o requerimento somente deve ser atendido caso a autarquia tenha classificado tais informações como publicizáveis."
+    ],
+    "correctOptionIndex": 1,
+    "attachments": [],
+    "ano": 2024,
+    "numeroQuestao": 60,
+    "printar": false
   }
 ];
 
