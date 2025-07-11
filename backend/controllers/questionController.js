@@ -26,7 +26,6 @@ const getQuestionById = async (req, res) => {
   try {
     console.log("Buscando questão com ID:", req.params.id);
     
-    // Remove o populate que estava causando erro
     const question = await Question.findById(req.params.id);
 
     if (!question) {
@@ -68,8 +67,33 @@ const getRandomQuestionsByArea = async (req, res) => {
     }
 };
 
+// ← NOVA FUNÇÃO PARA QUESTÕES ALEATÓRIAS SIMPLES
+const getRandomQuestions = async (req, res) => {
+    try {
+        const count = parseInt(req.query.count) || 5;
+        
+        // Buscar questões aleatórias usando MongoDB aggregation
+        const questions = await Question.aggregate([
+            { $sample: { size: count } }
+        ]);
+
+        if (questions.length === 0) {
+            return res.status(404).json({ 
+                message: 'Nenhuma questão encontrada no banco de dados' 
+            });
+        }
+
+        console.log(`Retornando ${questions.length} questões aleatórias`);
+        return res.json(questions);
+    } catch (error) {
+        console.error("ERRO NO CONTROLLER (getRandomQuestions):", error);
+        return res.status(500).json({ message: 'Erro no servidor' });
+    }
+};
+
 module.exports = {
   getAllQuestions,
   getQuestionById,
   getRandomQuestionsByArea,
+  getRandomQuestions, // ← EXPORTAR NOVA FUNÇÃO
 };

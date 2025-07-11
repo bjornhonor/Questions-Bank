@@ -1,856 +1,1218 @@
 // /frontend/src/pages/RandomTestPage.jsx
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AuthContext from '../context/AuthContext';
-import { colors, baseStyles } from '../styles';
 
-// Estilos para o modal de anexos
-const modalOverlayStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: 1000,
-};
+const API_BASE_URL = 'http://localhost:5000';
 
-const modalContentStyle = {
-  backgroundColor: 'white',
-  padding: '20px 40px 40px 40px',
-  borderRadius: '12px',
-  width: '70%',
-  maxWidth: '800px',
-  height: '80%',
-  overflowY: 'auto',
-  position: 'relative',
-  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-};
+const RandomTestPage = () => {
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [testState, setTestState] = useState('loading'); // 'loading', 'active', 'finished', 'error'
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showIncompleteWarning, setShowIncompleteWarning] = useState(false);
+  const [showIncompleteQuestions, setShowIncompleteQuestions] = useState(false);
+  const navigate = useNavigate();
 
-const closeButtonStyle = {
-  position: 'absolute',
-  top: '15px',
-  right: '15px',
-  padding: '8px 12px',
-  cursor: 'pointer',
-  border: 'none',
-  backgroundColor: '#f44336',
-  color: 'white',
-  borderRadius: '6px',
-  fontSize: '14px',
-  fontWeight: 'bold',
-  transition: 'all 0.2s ease',
-  boxShadow: '0 2px 6px rgba(244, 67, 54, 0.3)'
-};
+  useEffect(() => {
+    generateRandomTest();
+  }, []);
 
-function RandomTestPage() {
-    const [questions, setQuestions] = useState([]);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState({});
-    const [testState, setTestState] = useState('loading');
-    const [finalResult, setFinalResult] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalQuestionIndex, setModalQuestionIndex] = useState(0);
-    const [errorMessage, setErrorMessage] = useState('');
+  // Effect para esconder aviso e questões vermelhas quando todas questões forem respondidas
+  useEffect(() => {
+    if ((showIncompleteWarning || showIncompleteQuestions) && Object.keys(selectedAnswers).length === questions.length) {
+      setShowIncompleteWarning(false);
+      setShowIncompleteQuestions(false);
+    }
+  }, [selectedAnswers, questions.length, showIncompleteWarning, showIncompleteQuestions]);
 
-    const { userInfo } = useContext(AuthContext);
+  const generateRandomTest = async () => {
+    try {
+      setTestState('loading');
+      setErrorMessage('');
+      
+      const response = await axios.get(`${API_BASE_URL}/api/questions/random?count=5`);
+      
+      if (response.data && response.data.length > 0) {
+        setQuestions(response.data);
+        setCurrentQuestionIndex(0);
+        setSelectedAnswers({});
+        setTestState('active');
+      } else {
+        setErrorMessage('Não há questões suficientes disponíveis para gerar um teste.');
+        setTestState('error');
+      }
+    } catch (error) {
+      console.error('Erro ao gerar teste aleatório:', error);
+      setErrorMessage('Erro ao conectar com o servidor. Tente novamente.');
+      setTestState('error');
+    }
+  };
 
-    useEffect(() => {
-        const fetchQuestions = async () => {
-            setTestState('loading');
-            setErrorMessage('');
-            try {
-                const response = await axios.get('http://localhost:5000/api/questions/random-by-area?count=5');
-                if (response.data && response.data.length > 0) {
-                    setQuestions(response.data);
-                    setTestState('in-progress');
-                } else {
-                    setErrorMessage('Nenhuma questão encontrada');
-                    setTestState('error');
-                }
-            } catch (error) {
-                console.error("Erro ao buscar questões:", error);
-                setErrorMessage('Erro ao carregar questões. Tente novamente.');
-                setTestState('error');
-            }
-        };
-        fetchQuestions();
-    }, []);
+  const handleSelectOption = (optionIndex) => {
+    if (testState === 'finished') return;
+    
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [currentQuestionIndex]: optionIndex
+    }));
+  };
 
-    const handleSelectOption = (questionId, optionIndex) => {
-        if (testState === 'finished') return;
-        setAnswers(prev => ({ ...prev, [questionId]: optionIndex }));
-    };
-
-    const handleSubmitTest = async () => {
-        if (!userInfo || !userInfo.token) {
-            alert('Você precisa estar logado para salvar seu resultado.');
-            return;
-        }
-
-        // Verificar se todas as questões foram respondidas
-        const unansweredQuestions = questions.filter(q => answers[q._id] === undefined);
-        if (unansweredQuestions.length > 0) {
-            alert(`Você precisa responder todas as ${questions.length} questões antes de finalizar.`);
-            return;
-        }
-
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${userInfo.token}`,
-                },
-            };
-
-            const response = await axios.post(
-                'http://localhost:5000/api/results/submit-random', 
-                { answers, questions }, 
-                config
-            );
-
-            setFinalResult(response.data);
-            setTestState('finished');
-            setCurrentQuestionIndex(0);
-        } catch (error) {
-            console.error("Erro ao submeter o teste:", error);
-            setErrorMessage('Houve um erro ao finalizar o teste. Tente novamente.');
-        }
-    };
-
-    const getButtonColor = (question, optionIndex) => {
-        if (testState !== 'finished') return colors.cardBackground;
-        const isCorrect = optionIndex === question.correctOptionIndex;
-        const userWasSelected = answers[question._id] === optionIndex;
-
-        if (isCorrect) return '#d4edda';
-        if (userWasSelected && !isCorrect) return '#f8d7da';
-        return colors.cardBackground;
-    };
-
-    const getButtonBorderColor = (question, optionIndex) => {
-        if (testState !== 'finished') {
-            return answers[question._id] === optionIndex ? colors.primary : colors.border;
-        }
-        const isCorrect = optionIndex === question.correctOptionIndex;
-        const userWasSelected = answers[question._id] === optionIndex;
-
-        if (isCorrect) return colors.success;
-        if (userWasSelected && !isCorrect) return colors.error;
-        return colors.border;
-    };
-
-    // Função para determinar o texto do botão baseado no tipo de conteúdo
-    const getButtonText = (attachments) => {
-        if (!attachments || attachments.length === 0) {
-            return 'Ver Material de Apoio';
-        }
-
-        const hasImages = attachments.some(isImageUrl);
-        const hasText = attachments.some(content => !isImageUrl(content));
-
-        if (hasImages && hasText) {
-            return 'Ver Material de Apoio';
-        } else if (hasImages) {
-            return 'Ver Imagens';
-        } else {
-            return 'Ver Texto de Apoio';
-        }
-    };
-
-    // Função para detectar se o conteúdo é uma imagem (baseada no SingleQuestionPage)
-    const isImageUrl = (content) => {
-        if (typeof content !== 'string') return false;
-        const imageExtensions = /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i;
-        const urlPattern = /^(https?:\/\/|\.\.?\/|\/)/;
-        return urlPattern.test(content) && imageExtensions.test(content);
-    };
-
-    // Função para renderizar o conteúdo do anexo
-    const renderAttachmentContent = (content, index) => {
-        if (isImageUrl(content)) {
-            return (
-                <div key={index} style={{ textAlign: 'center', margin: '20px 0' }}>
-                    <img 
-                        src={content} 
-                        alt={`Material de apoio ${index + 1}`}
-                        style={{
-                            maxWidth: '100%',
-                            height: 'auto',
-                            margin: '15px 0',
-                            borderRadius: '8px',
-                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                            display: 'block'
-                        }}
-                        onError={(e) => {
-                            e.target.style.display = 'none';
-                            const errorDiv = document.createElement('div');
-                            errorDiv.style.cssText = `
-                                display: inline-block;
-                                padding: 20px;
-                                background-color: #f8d7da;
-                                border: 1px solid #f5c6cb;
-                                border-radius: 8px;
-                                color: #721c24;
-                                margin: 15px 0;
-                            `;
-                            errorDiv.textContent = `⚠️ Erro ao carregar imagem: ${content}`;
-                            e.target.parentNode.appendChild(errorDiv);
-                        }}
-                    />
-                </div>
-            );
-        } else {
-            return (
-                <p key={index} style={{
-                    marginBottom: '15px',
-                    lineHeight: '1.6',
-                    fontSize: '14px',
-                    color: '#333',
-                    whiteSpace: 'pre-wrap'
-                }}>
-                    {content}
-                </p>
-            );
-        }
-    };
-
-    if (testState === 'loading') {
-        return (
-            <div style={{ textAlign: 'center', padding: '40px' }}>
-                <div style={{ 
-                    display: 'inline-block', 
-                    padding: '20px 40px', 
-                    backgroundColor: colors.cardBackground,
-                    borderRadius: baseStyles.borderRadius,
-                    boxShadow: baseStyles.boxShadow 
-                }}>
-                    <h3 style={{ color: colors.primary, marginBottom: '10px' }}>🎲 Gerando Teste Aleatório</h3>
-                    <p style={{ color: colors.textSecondary }}>Selecionando 5 questões de diferentes áreas...</p>
-                </div>
-            </div>
-        );
+  const finishTest = () => {
+    // Verificar se todas as questões foram respondidas
+    const totalQuestoes = questions.length;
+    const questoesRespondidas = Object.keys(selectedAnswers).length;
+    
+    if (questoesRespondidas < totalQuestoes) {
+      setShowIncompleteWarning(true); // Banner de alerta
+      setShowIncompleteQuestions(true); // Questões ficam vermelhas
+      // Banner se esconde após 5 segundos, mas questões continuam vermelhas
+      setTimeout(() => {
+        setShowIncompleteWarning(false);
+        // showIncompleteQuestions continua true até todas serem respondidas
+      }, 5000);
+      return;
     }
 
-    if (testState === 'error' || questions.length === 0) {
-        return (
-            <div style={{ textAlign: 'center', padding: '40px' }}>
-                <div style={{ 
-                    padding: '30px', 
-                    backgroundColor: '#fff3cd',
-                    border: '1px solid #ffeaa7',
-                    borderRadius: baseStyles.borderRadius,
-                    color: '#856404',
-                    marginBottom: '20px'
-                }}>
-                    <h3>⚠️ Oops!</h3>
-                    <p>{errorMessage || 'Não foi possível carregar as questões.'}</p>
-                </div>
-                <button
-                    onClick={() => window.location.reload()}
-                    style={{
-                        padding: '12px 24px',
-                        backgroundColor: colors.primary,
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                        fontWeight: 'bold',
-                        transition: baseStyles.transition
-                    }}
-                    onMouseOver={(e) => e.target.style.backgroundColor = colors.primaryDark}
-                    onMouseOut={(e) => e.target.style.backgroundColor = colors.primary}
-                >
-                    🔄 Tentar Novamente
-                </button>
-            </div>
-        );
+    // Se chegou aqui, todas as questões foram respondidas
+    setTestState('finished');
+  };
+
+  // Função para ir para a primeira questão não respondida
+  const goToFirstUnansweredQuestion = () => {
+    const firstUnanswered = questions.findIndex((_, index) => selectedAnswers[index] === undefined);
+    if (firstUnanswered !== -1) {
+      setCurrentQuestionIndex(firstUnanswered);
+    }
+  };
+
+  const calculateResults = () => {
+    let correct = 0;
+    questions.forEach((question, index) => {
+      if (selectedAnswers[index] === question.correctOptionIndex) {
+        correct++;
+      }
+    });
+    return {
+      correct,
+      total: questions.length,
+      percentage: Math.round((correct / questions.length) * 100)
+    };
+  };
+
+  // Funções auxiliares para modal de anexos
+  const isImageUrl = (url) => {
+    if (typeof url !== 'string') return false;
+    const imageExtensions = /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i;
+    const urlPattern = /^(https?:\/\/|\.\.?\/|\/)/;
+    return urlPattern.test(url) && imageExtensions.test(url);
+  };
+
+  const getButtonText = (attachments) => {
+    if (!attachments || attachments.length === 0) {
+      return 'Ver Material de Apoio';
     }
 
-    if (testState === 'finished' && finalResult) {
-        return (
-            <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-                <div style={{
-                    backgroundColor: colors.cardBackground,
-                    borderRadius: baseStyles.borderRadius,
-                    boxShadow: baseStyles.boxShadow,
-                    padding: '30px',
-                    marginBottom: '20px',
-                    textAlign: 'center'
-                }}>
-                    <h2 style={{ color: colors.primary, marginBottom: '20px' }}>🎉 Teste Finalizado!</h2>
-                    
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                        gap: '20px',
-                        marginBottom: '30px'
-                    }}>
-                        <div style={{
-                            padding: '20px',
-                            backgroundColor: colors.primary,
-                            color: 'white',
-                            borderRadius: '12px',
-                            textAlign: 'center'
-                        }}>
-                            <h3 style={{ margin: '0 0 10px 0' }}>Pontuação</h3>
-                            <p style={{ fontSize: '24px', fontWeight: 'bold', margin: 0 }}>
-                                {finalResult.score}%
-                            </p>
-                        </div>
-                        
-                        <div style={{
-                            padding: '20px',
-                            backgroundColor: colors.success,
-                            color: 'white',
-                            borderRadius: '12px',
-                            textAlign: 'center'
-                        }}>
-                            <h3 style={{ margin: '0 0 10px 0' }}>Acertos</h3>
-                            <p style={{ fontSize: '24px', fontWeight: 'bold', margin: 0 }}>
-                                {finalResult.correctAnswers}/{finalResult.totalQuestions}
-                            </p>
-                        </div>
-                    </div>
+    const hasImages = attachments.some(isImageUrl);
+    const hasText = attachments.some(content => !isImageUrl(content));
 
-                    {finalResult.performanceByArea && finalResult.performanceByArea.length > 0 && (
-                        <div style={{ marginBottom: '30px' }}>
-                            <h3 style={{ color: colors.primary, marginBottom: '15px' }}>📊 Performance por Área</h3>
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                                gap: '15px'
-                            }}>
-                                {finalResult.performanceByArea.map((area, index) => (
-                                    <div key={index} style={{
-                                        padding: '15px',
-                                        backgroundColor: 'white',
-                                        borderRadius: '8px',
-                                        border: '1px solid #e0e0e0',
-                                        textAlign: 'center'
-                                    }}>
-                                        <h4 style={{ margin: '0 0 10px 0', color: colors.textPrimary }}>{area.area}</h4>
-                                        <p style={{ margin: '0', color: colors.textSecondary }}>
-                                            {area.correct}/{area.total} ({area.percentage}%)
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    <button
-                        onClick={() => window.location.reload()}
-                        style={{
-                            padding: '15px 30px',
-                            backgroundColor: colors.primary,
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '10px',
-                            cursor: 'pointer',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            transition: baseStyles.transition
-                        }}
-                        onMouseOver={(e) => e.target.style.backgroundColor = colors.primaryDark}
-                        onMouseOut={(e) => e.target.style.backgroundColor = colors.primary}
-                    >
-                        🎲 Novo Teste Aleatório
-                    </button>
-                </div>
-
-                {/* Revisão das questões */}
-                <div style={{
-                    backgroundColor: colors.cardBackground,
-                    borderRadius: baseStyles.borderRadius,
-                    boxShadow: baseStyles.boxShadow,
-                    padding: '20px'
-                }}>
-                    <h3 style={{ color: colors.primary, marginBottom: '20px' }}>📝 Revisão das Questões</h3>
-                    {questions.map((question, index) => (
-                        <div key={question._id} style={{
-                            marginBottom: '25px',
-                            padding: '20px',
-                            backgroundColor: 'white',
-                            borderRadius: '12px',
-                            border: '1px solid #e0e0e0'
-                        }}>
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginBottom: '15px'
-                            }}>
-                                <span style={{
-                                    backgroundColor: colors.primary,
-                                    color: 'white',
-                                    padding: '4px 12px',
-                                    borderRadius: '12px',
-                                    fontSize: '14px',
-                                    fontWeight: 'bold'
-                                }}>
-                                    Questão {index + 1}
-                                </span>
-                                <span style={{
-                                    backgroundColor: question.area ? colors.secondary : colors.textSecondary,
-                                    color: 'white',
-                                    padding: '4px 12px',
-                                    borderRadius: '12px',
-                                    fontSize: '12px'
-                                }}>
-                                    {question.area || 'Área não especificada'}
-                                </span>
-                            </div>
-
-                            <h4 style={{ 
-                                color: colors.textPrimary, 
-                                marginBottom: '15px',
-                                fontSize: '16px',
-                                lineHeight: '1.5'
-                            }}>
-                                {question.questionText}
-                            </h4>
-
-                            {question.attachments && question.attachments.length > 0 && (
-                                <div style={{ marginBottom: '15px' }}>
-                                    <button
-                                        onClick={() => {
-                                            setModalQuestionIndex(index);
-                                            setIsModalOpen(true);
-                                        }}
-                                        style={{
-                                            padding: '8px 16px',
-                                            backgroundColor: '#1e88e5',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '6px',
-                                            cursor: 'pointer',
-                                            fontSize: '14px',
-                                            fontWeight: 'bold',
-                                            transition: baseStyles.transition,
-                                            boxShadow: '0 2px 8px rgba(30, 136, 229, 0.3)'
-                                        }}
-                                        onMouseOver={(e) => {
-                                            e.target.style.backgroundColor = '#1565c0';
-                                            e.target.style.boxShadow = '0 3px 12px rgba(30, 136, 229, 0.4)';
-                                        }}
-                                        onMouseOut={(e) => {
-                                            e.target.style.backgroundColor = '#1e88e5';
-                                            e.target.style.boxShadow = '0 2px 8px rgba(30, 136, 229, 0.3)';
-                                        }}
-                                    >
-                                        📎 {getButtonText(question.attachments)}
-                                    </button>
-                                </div>
-                            )}
-
-                            <div style={{ marginTop: '15px' }}>
-                                {question.options.map((option, optionIndex) => (
-                                    <button
-                                        key={optionIndex}
-                                        style={{
-                                            width: '100%',
-                                            padding: '12px 16px',
-                                            marginBottom: '8px',
-                                            backgroundColor: getButtonColor(question, optionIndex),
-                                            border: `2px solid ${getButtonBorderColor(question, optionIndex)}`,
-                                            borderRadius: '8px',
-                                            cursor: 'default',
-                                            fontSize: '14px',
-                                            textAlign: 'left',
-                                            transition: baseStyles.transition
-                                        }}
-                                    >
-                                        {String.fromCharCode(65 + optionIndex)}) {option}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Modal de anexos */}
-                {isModalOpen && (
-                    <div style={modalOverlayStyle} onClick={() => {
-                        setIsModalOpen(false);
-                        setModalQuestionIndex(0);
-                    }}>
-                        <div style={modalContentStyle} onClick={(e) => e.stopPropagation()}>
-                            <button
-                                style={closeButtonStyle}
-                                onClick={() => {
-                                    setIsModalOpen(false);
-                                    setModalQuestionIndex(0);
-                                }}
-                                onMouseOver={(e) => {
-                                    e.target.style.backgroundColor = '#d32f2f';
-                                    e.target.style.boxShadow = '0 3px 10px rgba(244, 67, 54, 0.4)';
-                                }}
-                                onMouseOut={(e) => {
-                                    e.target.style.backgroundColor = '#f44336';
-                                    e.target.style.boxShadow = '0 2px 6px rgba(244, 67, 54, 0.3)';
-                                }}
-                            >
-                                ✕
-                            </button>
-                            <h3 style={{ marginBottom: '20px' }}>📎 {getButtonText(questions[modalQuestionIndex]?.attachments)}</h3>
-                            <div>
-                                {questions[modalQuestionIndex]?.attachments?.map((attachment, index) => {
-                                    const isImage = isImageUrl(attachment);
-                                    const prevIsImage = index > 0 ? isImageUrl(questions[modalQuestionIndex].attachments[index - 1]) : false;
-                                    const showSeparator = index > 0 && isImage !== prevIsImage;
-                                    
-                                    return (
-                                        <div key={index}>
-                                            {showSeparator && (
-                                                <div style={{
-                                                    height: '1px',
-                                                    background: 'linear-gradient(to right, transparent, #ddd, transparent)',
-                                                    margin: '25px 0'
-                                                }} />
-                                            )}
-                                            {renderAttachmentContent(attachment, index)}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                            
-                            {/* Instrução de uso */}
-                            {questions[modalQuestionIndex]?.attachments?.some(isImageUrl) && (
-                                <div style={{
-                                    marginTop: '20px',
-                                    padding: '12px 16px',
-                                    backgroundColor: '#e3f2fd',
-                                    border: '1px solid #1e88e5',
-                                    borderRadius: '8px',
-                                    fontSize: '14px',
-                                    color: '#1565c0'
-                                }}>
-                                    💡 <strong>Dica:</strong> As imagens são exibidas em tamanho otimizado.
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
-            </div>
-        );
+    if (hasImages && hasText) {
+      return 'Ver Material de Apoio';
+    } else if (hasImages) {
+      return 'Ver Imagens';
+    } else {
+      return 'Ver Texto de Apoio';
     }
+  };
 
-    const currentQuestion = questions[currentQuestionIndex];
-    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-
-    return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-            {/* Cabeçalho do teste */}
-            <div style={{
-                backgroundColor: colors.cardBackground,
-                borderRadius: baseStyles.borderRadius,
-                boxShadow: baseStyles.boxShadow,
-                padding: '20px',
-                marginBottom: '20px'
-            }}>
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '15px'
-                }}>
-                    <h2 style={{ color: colors.primary, margin: 0 }}>🎲 Teste Aleatório</h2>
-                    <span style={{ color: colors.textSecondary, fontSize: '14px' }}>
-                        Questão {currentQuestionIndex + 1} de {questions.length}
-                    </span>
-                </div>
-                
-                {/* Barra de progresso */}
-                <div style={{
-                    backgroundColor: '#e0e0e0',
-                    borderRadius: '10px',
-                    height: '8px',
-                    overflow: 'hidden'
-                }}>
-                    <div style={{
-                        backgroundColor: colors.primary,
-                        height: '100%',
-                        width: `${progress}%`,
-                        transition: 'width 0.3s ease'
-                    }}></div>
-                </div>
-            </div>
-
-            {/* Questão atual */}
-            <div style={{
-                backgroundColor: colors.cardBackground,
-                borderRadius: baseStyles.borderRadius,
-                boxShadow: baseStyles.boxShadow,
-                padding: '25px',
-                marginBottom: '20px'
-            }}>
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '20px'
-                }}>
-                    <span style={{
-                        backgroundColor: colors.primary,
-                        color: 'white',
-                        padding: '6px 16px',
-                        borderRadius: '15px',
-                        fontSize: '14px',
-                        fontWeight: 'bold'
-                    }}>
-                        Questão {currentQuestionIndex + 1}
-                    </span>
-                    <span style={{
-                        backgroundColor: colors.secondary,
-                        color: 'white',
-                        padding: '6px 16px',
-                        borderRadius: '15px',
-                        fontSize: '12px'
-                    }}>
-                        {currentQuestion.area || 'Área não especificada'}
-                    </span>
-                </div>
-
-                <h3 style={{ 
-                    color: colors.textPrimary, 
-                    marginBottom: '20px',
-                    fontSize: '18px',
-                    lineHeight: '1.6'
-                }}>
-                    {currentQuestion.questionText}
-                </h3>
-
-                {currentQuestion.attachments && currentQuestion.attachments.length > 0 && (
-                    <div style={{ marginBottom: '20px' }}>
-                        <button
-                            onClick={() => {
-                                setModalQuestionIndex(currentQuestionIndex);
-                                setIsModalOpen(true);
-                            }}
-                            style={{
-                                padding: '10px 20px',
-                                backgroundColor: '#1e88e5',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                fontSize: '14px',
-                                fontWeight: 'bold',
-                                transition: baseStyles.transition,
-                                boxShadow: '0 3px 10px rgba(30, 136, 229, 0.3)'
-                            }}
-                            onMouseOver={(e) => {
-                                e.target.style.backgroundColor = '#1565c0';
-                                e.target.style.boxShadow = '0 4px 15px rgba(30, 136, 229, 0.4)';
-                            }}
-                            onMouseOut={(e) => {
-                                e.target.style.backgroundColor = '#1e88e5';
-                                e.target.style.boxShadow = '0 3px 10px rgba(30, 136, 229, 0.3)';
-                            }}
-                        >
-                            📎 {getButtonText(currentQuestion.attachments)}
-                        </button>
-                    </div>
-                )}
-
-                <div style={{ marginTop: '20px' }}>
-                    {currentQuestion.options.map((option, index) => (
-                        <button
-                            key={index}
-                            onClick={() => handleSelectOption(currentQuestion._id, index)}
-                            style={{
-                                width: '100%',
-                                padding: '15px 20px',
-                                marginBottom: '10px',
-                                backgroundColor: answers[currentQuestion._id] === index ? colors.primary : colors.cardBackground,
-                                color: answers[currentQuestion._id] === index ? 'white' : colors.textPrimary,
-                                border: `2px solid ${answers[currentQuestion._id] === index ? colors.primary : colors.border}`,
-                                borderRadius: '10px',
-                                cursor: 'pointer',
-                                fontSize: '16px',
-                                textAlign: 'left',
-                                transition: baseStyles.transition,
-                                boxShadow: answers[currentQuestion._id] === index ? '0 4px 12px rgba(64, 123, 255, 0.3)' : 'none'
-                            }}
-                            onMouseOver={(e) => {
-                                if (answers[currentQuestion._id] !== index) {
-                                    e.target.style.backgroundColor = '#f0f0f0';
-                                    e.target.style.borderColor = colors.primary;
-                                }
-                            }}
-                            onMouseOut={(e) => {
-                                if (answers[currentQuestion._id] !== index) {
-                                    e.target.style.backgroundColor = colors.cardBackground;
-                                    e.target.style.borderColor = colors.border;
-                                }
-                            }}
-                        >
-                            {String.fromCharCode(65 + index)}) {option}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            {/* Navegação */}
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: '30px'
-            }}>
-                <button
-                    onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
-                    disabled={currentQuestionIndex === 0}
-                    style={{
-                        padding: '12px 24px',
-                        backgroundColor: currentQuestionIndex === 0 ? colors.disabled : colors.textSecondary,
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: currentQuestionIndex === 0 ? 'not-allowed' : 'pointer',
-                        fontSize: '16px',
-                        fontWeight: 'bold',
-                        transition: baseStyles.transition,
-                        minWidth: '100px'
-                    }}
-                >
-                    ← Anterior
-                </button>
-
-                <div style={{
-                    display: 'flex',
-                    gap: '8px',
-                    alignItems: 'center'
-                }}>
-                    {questions.map((_, index) => (
-                        <div
-                            key={index}
-                            style={{
-                                width: '12px',
-                                height: '12px',
-                                borderRadius: '50%',
-                                backgroundColor: index === currentQuestionIndex ? colors.primary : 
-                                               answers[questions[index]._id] !== undefined ? colors.success : colors.border,
-                                transition: baseStyles.transition
-                            }}
-                        />
-                    ))}
-                </div>
-
-                {currentQuestionIndex < questions.length - 1 ? (
-                    <button
-                        onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
-                        style={{
-                            padding: '12px 24px',
-                            backgroundColor: colors.primary,
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            transition: baseStyles.transition,
-                            minWidth: '100px'
-                        }}
-                        onMouseOver={(e) => e.target.style.backgroundColor = colors.primaryDark}
-                        onMouseOut={(e) => e.target.style.backgroundColor = colors.primary}
-                    >
-                        {currentQuestionIndex === questions.length - 2 ? 'Próxima' : 'Avançar'} →
-                    </button>
-                ) : (
-                    <button 
-                        onClick={handleSubmitTest}
-                        style={{
-                            padding: '12px 24px',
-                            backgroundColor: colors.success,
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            transition: baseStyles.transition,
-                            minWidth: '140px',
-                            boxShadow: '0 4px 12px rgba(52, 168, 83, 0.3)'
-                        }}
-                        onMouseOver={(e) => e.target.style.backgroundColor = '#2d7c3e'}
-                        onMouseOut={(e) => e.target.style.backgroundColor = colors.success}
-                    >
-                        🏁 Finalizar Teste
-                    </button>
-                )}
-            </div>
-
-            {/* Modal de anexos */}
-            {isModalOpen && (
-                <div style={modalOverlayStyle} onClick={() => {
-                    setIsModalOpen(false);
-                    setModalQuestionIndex(0);
-                }}>
-                    <div style={modalContentStyle} onClick={(e) => e.stopPropagation()}>
-                        <button
-                            style={closeButtonStyle}
-                            onClick={() => {
-                                setIsModalOpen(false);
-                                setModalQuestionIndex(0);
-                            }}
-                            onMouseOver={(e) => {
-                                e.target.style.backgroundColor = '#d32f2f';
-                                e.target.style.boxShadow = '0 3px 10px rgba(244, 67, 54, 0.4)';
-                            }}
-                            onMouseOut={(e) => {
-                                e.target.style.backgroundColor = '#f44336';
-                                e.target.style.boxShadow = '0 2px 6px rgba(244, 67, 54, 0.3)';
-                            }}
-                        >
-                            ✕
-                        </button>
-                        <h3 style={{ marginBottom: '20px' }}>📎 {getButtonText(questions[modalQuestionIndex]?.attachments)}</h3>
-                        <div>
-                            {questions[modalQuestionIndex]?.attachments?.map((attachment, index) => {
-                                const isImage = isImageUrl(attachment);
-                                const prevIsImage = index > 0 ? isImageUrl(questions[modalQuestionIndex].attachments[index - 1]) : false;
-                                const showSeparator = index > 0 && isImage !== prevIsImage;
-                                
-                                return (
-                                    <div key={index}>
-                                        {showSeparator && (
-                                            <div style={{
-                                                height: '1px',
-                                                background: 'linear-gradient(to right, transparent, #ddd, transparent)',
-                                                margin: '25px 0'
-                                            }} />
-                                        )}
-                                        {renderAttachmentContent(attachment, index)}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                        
-                        {/* Instrução de uso */}
-                        {questions[modalQuestionIndex]?.attachments?.some(isImageUrl) && (
-                            <div style={{
-                                marginTop: '20px',
-                                padding: '12px 16px',
-                                backgroundColor: '#e3f2fd',
-                                border: '1px solid #1e88e5',
-                                borderRadius: '8px',
-                                fontSize: '14px',
-                                color: '#1565c0'
-                            }}>
-                                💡 <strong>Dica:</strong> As imagens são exibidas em tamanho otimizado.
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
+  const renderAttachmentContent = (content, index) => {
+    if (isImageUrl(content)) {
+      return (
+        <div key={index} style={{ textAlign: 'center', margin: '20px 0' }}>
+          <img 
+            src={content} 
+            alt={`Material de apoio ${index + 1}`}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+              margin: '15px 0',
+              borderRadius: '8px',
+              boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+              display: 'block'
+            }}
+            onError={(e) => {
+              e.target.style.display = 'none';
+              const errorDiv = document.createElement('div');
+              errorDiv.style.cssText = `
+                display: inline-block;
+                padding: 20px;
+                background-color: #f8d7da;
+                border: 1px solid #f5c6cb;
+                border-radius: 8px;
+                color: #721c24;
+                margin: 15px 0;
+              `;
+              errorDiv.textContent = `⚠️ Erro ao carregar imagem: ${content}`;
+              e.target.parentNode.appendChild(errorDiv);
+            }}
+          />
         </div>
-    );
+      );
+    } else {
+      return (
+        <p key={index} style={{
+          marginBottom: '15px',
+          lineHeight: '1.6',
+          fontSize: '16px',
+          color: '#333',
+          whiteSpace: 'pre-wrap'
+        }}>
+          {content}
+        </p>
+      );
+    }
+  };
+
+  // Estados de loading e erro
+  if (testState === 'loading') {
+    return <LoadingScreen />;
+  }
+
+  if (testState === 'error') {
+    return <ErrorScreen error={errorMessage} onRetry={generateRandomTest} />;
+  }
+
+  if (testState === 'finished') {
+    const results = calculateResults();
+    return <ResultsPage results={results} onRestart={generateRandomTest} navigate={navigate} />;
+  }
+
+  const currentQuestion = questions[currentQuestionIndex];
+
+  return (
+    <div style={styles.container}>
+      {/* Aviso de questões incompletas */}
+      {showIncompleteWarning && (
+        <div style={styles.warningBanner}>
+          <div 
+            style={styles.warningContent}
+            onClick={goToFirstUnansweredQuestion}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#fff8e1';
+              e.target.style.transform = 'scale(1.02)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#fff3cd';
+              e.target.style.transform = 'scale(1)';
+            }}
+          >
+            <span style={styles.warningIcon}>⚠️</span>
+            <div style={styles.warningText}>
+              <strong>Atenção!</strong> Você precisa responder todas as questões antes de finalizar o teste.
+              <br />
+              <span style={styles.warningSubtext}>
+                Ainda faltam {questions.length - Object.keys(selectedAnswers).length} questões para responder.
+                <br />
+                <em style={{ fontSize: '0.85rem', color: '#6c5005' }}>
+                  Clique aqui para ir à primeira questão não respondida. As questões não respondidas ficarão destacadas em vermelho.
+                </em>
+              </span>
+            </div>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowIncompleteWarning(false);
+                // Não resetar showIncompleteQuestions - elas devem continuar vermelhas
+              }}
+              style={styles.warningCloseButton}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = 'rgba(133, 100, 4, 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'transparent';
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Header com informações do teste */}
+      <div style={styles.header}>
+        <div style={styles.headerContent}>
+          <h1 style={styles.testTitle}>🎲 Teste Aleatório</h1>
+          <div style={styles.headerStats}>
+            <div style={styles.statItem}>
+              <span style={styles.statLabel}>Questão:</span>
+              <span style={styles.statValue}>{currentQuestionIndex + 1} / {questions.length}</span>
+            </div>
+            <div style={styles.statItem}>
+              <span style={styles.statLabel}>Respondidas:</span>
+              <span style={styles.statValue}>{Object.keys(selectedAnswers).length} / {questions.length}</span>
+            </div>
+            <div style={styles.statItem}>
+              <span style={styles.statLabel}>Área:</span>
+              <span style={styles.statValue}>{currentQuestion.area || 'Geral'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Aviso de questões incompletas */}
+      {showIncompleteWarning && (
+        <div style={styles.warningBanner}>
+          <div 
+            style={styles.warningContent}
+            onClick={goToFirstUnansweredQuestion}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#fff8e1';
+              e.target.style.transform = 'scale(1.02)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#fff3cd';
+              e.target.style.transform = 'scale(1)';
+            }}
+          >
+            <span style={styles.warningIcon}>⚠️</span>
+            <div style={styles.warningText}>
+              <strong>Atenção!</strong> Você precisa responder todas as questões antes de finalizar o teste.
+              <br />
+              <span style={styles.warningSubtext}>
+                Ainda faltam {questions.length - Object.keys(selectedAnswers).length} questões para responder.
+                <br />
+                <em style={{ fontSize: '0.85rem', color: '#6c5005' }}>
+                  Clique aqui para ir à primeira questão não respondida. As questões não respondidas ficarão destacadas em vermelho.
+                </em>
+              </span>
+            </div>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowIncompleteWarning(false);
+                // Não resetar showIncompleteQuestions - elas devem continuar vermelhas
+              }}
+              style={styles.warningCloseButton}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = 'rgba(133, 100, 4, 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'transparent';
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Conteúdo principal */}
+      <div style={styles.content}>
+        {/* Seção da questão */}
+        <div style={styles.questionSection}>
+          <div style={styles.questionCard}>
+            <div style={styles.questionHeader}>
+              <div style={styles.questionInfo}>
+                <div style={styles.questionArea}>{currentQuestion.area || 'Área Geral'}</div>
+                <div style={styles.questionTopic}>{currentQuestion.topic || 'Tópico não especificado'}</div>
+              </div>
+              
+              {currentQuestion.attachments && currentQuestion.attachments.length > 0 && (
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  style={styles.attachmentButton}
+                >
+                  📎 {getButtonText(currentQuestion.attachments)}
+                </button>
+              )}
+            </div>
+
+            <div style={styles.questionText}>
+              {currentQuestion.questionText}
+            </div>
+
+            <div style={styles.optionsContainer}>
+              {currentQuestion.options.map((option, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSelectOption(index)}
+                  style={{
+                    ...styles.optionButton,
+                    ...(selectedAnswers[currentQuestionIndex] === index ? styles.optionSelected : {})
+                  }}
+                  onMouseEnter={(e) => {
+                    if (selectedAnswers[currentQuestionIndex] !== index) {
+                      e.target.style.backgroundColor = '#f8f9fa';
+                      e.target.style.borderColor = '#667eea';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selectedAnswers[currentQuestionIndex] !== index) {
+                      e.target.style.backgroundColor = 'white';
+                      e.target.style.borderColor = '#e2e8f0';
+                    }
+                  }}
+                >
+                  <span style={styles.optionLetter}>{String.fromCharCode(65 + index)}</span>
+                  <span style={styles.optionText}>{option}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Navegação lateral */}
+        <div style={styles.navigationSection}>
+          <div style={styles.navigationCard}>
+            <div style={styles.questionNavContainer}>
+              <span style={styles.questionNavLabel}>Ir para questão:</span>
+              <div style={styles.questionNav}>
+                {questions.map((_, index) => {
+                  const isAnswered = selectedAnswers[index] !== undefined;
+                  const isCurrent = index === currentQuestionIndex;
+                  const shouldShowAsIncomplete = showIncompleteQuestions && !isAnswered;
+                  
+                  let buttonStyle = { ...styles.questionNavButton };
+                  
+                  if (isCurrent) {
+                    buttonStyle = { ...buttonStyle, ...styles.questionNumberActive };
+                  } else if (isAnswered) {
+                    buttonStyle = { ...buttonStyle, ...styles.questionNumberAnswered };
+                  } else if (shouldShowAsIncomplete) {
+                    buttonStyle = { ...buttonStyle, ...styles.questionNumberIncomplete };
+                  }
+
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentQuestionIndex(index)}
+                      style={buttonStyle}
+                      title={
+                        isAnswered 
+                          ? 'Questão respondida' 
+                          : shouldShowAsIncomplete 
+                            ? 'Questão não respondida' 
+                            : 'Questão não respondida'
+                      }
+                    >
+                      {index + 1}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Barra de navegação inferior fixa */}
+      <div style={styles.bottomNavigation}>
+        <div style={styles.bottomNavContent}>
+          <button
+            onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
+            disabled={currentQuestionIndex === 0}
+            style={{
+              ...styles.bottomNavButton,
+              ...(currentQuestionIndex === 0 ? styles.bottomNavButtonDisabled : styles.bottomNavButtonPrevious)
+            }}
+            onMouseEnter={(e) => {
+              if (currentQuestionIndex !== 0) {
+                e.target.style.backgroundColor = '#5a6268';
+                e.target.style.transform = 'translateY(-2px)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (currentQuestionIndex !== 0) {
+                e.target.style.backgroundColor = '#6c757d';
+                e.target.style.transform = 'translateY(0)';
+              }
+            }}
+          >
+            ← Anterior
+          </button>
+
+          <div style={styles.bottomNavInfo}>
+            <span style={styles.bottomNavText}>
+              {currentQuestionIndex + 1} de {questions.length}
+            </span>
+            <span style={styles.bottomNavSubtext}>
+              {Object.keys(selectedAnswers).length} respondidas
+            </span>
+          </div>
+
+          {currentQuestionIndex === questions.length - 1 ? (
+            <button
+              onClick={finishTest}
+              style={{
+                ...styles.bottomNavButton,
+                backgroundColor: '#dc3545',
+                color: 'white',
+                boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#c82333';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 20px rgba(220, 53, 69, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#dc3545';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px rgba(220, 53, 69, 0.3)';
+              }}
+            >
+              🏁 Finalizar
+            </button>
+          ) : (
+            <button
+              onClick={() => setCurrentQuestionIndex(Math.min(questions.length - 1, currentQuestionIndex + 1))}
+              style={{
+                ...styles.bottomNavButton,
+                backgroundColor: '#667eea',
+                color: 'white',
+                boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#5a67d8';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#667eea';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
+              }}
+            >
+              Próxima →
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Modal para anexos */}
+      {isModalOpen && (
+        <div style={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+          <div style={styles.modalContent} onClick={e => e.stopPropagation()}>
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              style={styles.modalCloseButton}
+            >
+              ✕
+            </button>
+            <h3 style={styles.modalTitle}>
+              Material de Apoio - Questão {currentQuestionIndex + 1}
+            </h3>
+            <div style={styles.modalBody}>
+              {currentQuestion.attachments?.map((content, index) => 
+                renderAttachmentContent(content, index)
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Componente de Loading
+const LoadingScreen = () => (
+  <div style={styles.centerScreen}>
+    <div style={styles.spinner}></div>
+    <p style={styles.loadingText}>Gerando teste aleatório...</p>
+  </div>
+);
+
+// Componente de Erro
+const ErrorScreen = ({ error, onRetry }) => (
+  <div style={styles.centerScreen}>
+    <div style={styles.errorIcon}>⚠️</div>
+    <h3 style={styles.errorTitle}>Erro ao carregar teste</h3>
+    <p style={styles.errorText}>{error}</p>
+    <button onClick={onRetry} style={styles.retryButton}>
+      Tentar Novamente
+    </button>
+  </div>
+);
+
+// Componente de Resultados
+const ResultsPage = ({ results, onRestart, navigate }) => {
+  const scoreColor = results.percentage >= 70 ? '#28a745' : results.percentage >= 50 ? '#ffc107' : '#dc3545';
+
+  return (
+    <div style={styles.resultsContainer}>
+      <div style={styles.resultsCard}>
+        <h1 style={styles.resultsTitle}>🎯 Resultado do Teste</h1>
+        
+        <div style={styles.scoreSection}>
+          <div style={{ ...styles.scoreCircle, borderColor: scoreColor }}>
+            <span style={{ ...styles.scoreNumber, color: scoreColor }}>{results.percentage}%</span>
+          </div>
+          <p style={styles.scoreText}>
+            {results.correct} de {results.total} questões corretas
+          </p>
+        </div>
+
+        <div style={styles.resultActions}>
+          <button onClick={onRestart} style={styles.restartButton}>
+            🔄 Novo Teste
+          </button>
+          <button onClick={() => navigate('/questions')} style={styles.backToListButton}>
+            📚 Banco de Questões
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Estilos (baseados no ExecutarSimuladoPage)
+const styles = {
+  container: {
+    minHeight: '100vh',
+    backgroundColor: '#f8fafc',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    paddingBottom: '80px'
+  },
+
+  header: {
+    backgroundColor: 'white',
+    borderBottom: '1px solid #e2e8f0',
+    padding: '20px 0',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+  },
+
+  headerContent: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '20px'
+  },
+
+  testTitle: {
+    fontSize: '1.8rem',
+    fontWeight: '600',
+    color: '#2d3748',
+    margin: 0
+  },
+
+  headerStats: {
+    display: 'flex',
+    gap: '30px',
+    alignItems: 'center'
+  },
+
+  statItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '4px'
+  },
+
+  statLabel: {
+    fontSize: '0.85rem',
+    color: '#6c757d',
+    fontWeight: '500'
+  },
+
+  statValue: {
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    color: '#667eea'
+  },
+
+  content: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '30px 20px',
+    display: 'grid',
+    gridTemplateColumns: '1fr 300px',
+    gap: '30px'
+  },
+
+  questionSection: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+
+  questionCard: {
+    backgroundColor: 'white',
+    borderRadius: '15px',
+    padding: '30px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+    border: '1px solid #e2e8f0'
+  },
+
+  questionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '25px',
+    flexWrap: 'wrap',
+    gap: '15px'
+  },
+
+  questionInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px'
+  },
+
+  questionArea: {
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    color: '#667eea'
+  },
+
+  questionTopic: {
+    fontSize: '0.95rem',
+    color: '#6c757d'
+  },
+
+  attachmentButton: {
+    padding: '10px 20px',
+    backgroundColor: '#28a745',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '0.9rem',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 2px 8px rgba(40, 167, 69, 0.3)'
+  },
+
+  questionText: {
+    fontSize: '1.1rem',
+    lineHeight: '1.7',
+    color: '#2d3748',
+    marginBottom: '30px',
+    fontWeight: '400'
+  },
+
+  optionsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px'
+  },
+
+  optionButton: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '15px',
+    padding: '18px 20px',
+    backgroundColor: 'white',
+    border: '2px solid #e2e8f0',
+    borderRadius: '12px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    textAlign: 'left',
+    fontSize: '1rem',
+    lineHeight: '1.5'
+  },
+
+  optionSelected: {
+    backgroundColor: '#f0f4ff',
+    borderColor: '#667eea',
+    boxShadow: '0 4px 15px rgba(102, 126, 234, 0.15)'
+  },
+
+  optionLetter: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '30px',
+    height: '30px',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '50%',
+    fontSize: '0.9rem',
+    fontWeight: '600',
+    color: '#495057',
+    flexShrink: 0
+  },
+
+  optionText: {
+    flex: 1,
+    color: '#2d3748'
+  },
+
+  navigationSection: {
+    position: 'sticky',
+    top: '20px',
+    height: 'fit-content'
+  },
+
+  navigationCard: {
+    backgroundColor: 'white',
+    borderRadius: '15px',
+    padding: '25px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+    border: '1px solid #e2e8f0'
+  },
+
+  questionNavContainer: {},
+
+  questionNavLabel: {
+    fontSize: '0.9rem',
+    color: '#6c757d',
+    fontWeight: '500',
+    marginBottom: '12px',
+    display: 'block'
+  },
+
+  questionNav: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(5, 1fr)',
+    gap: '8px'
+  },
+
+  questionNavButton: {
+    width: '40px',
+    height: '40px',
+    border: '2px solid #e2e8f0',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    fontWeight: '500',
+    color: '#495057',
+    transition: 'all 0.3s ease',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  questionNumberActive: {
+    backgroundColor: '#667eea',
+    borderColor: '#667eea',
+    color: 'white'
+  },
+
+  questionNumberAnswered: {
+    backgroundColor: '#28a745',
+    borderColor: '#28a745',
+    color: 'white'
+  },
+
+  questionNumberIncomplete: {
+    backgroundColor: '#dc3545',
+    borderColor: '#dc3545',
+    color: 'white',
+    animation: 'pulse 2s infinite'
+  },
+
+  warningBanner: {
+    position: 'fixed',
+    top: '80px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    zIndex: 200,
+    width: '90%',
+    maxWidth: '600px',
+    animation: 'slideDown 0.3s ease'
+  },
+
+  warningContent: {
+    backgroundColor: '#fff3cd',
+    border: '2px solid #ffc107',
+    borderRadius: '12px',
+    padding: '20px',
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '15px',
+    boxShadow: '0 8px 25px rgba(255, 193, 7, 0.3)',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease'
+  },
+
+  warningIcon: {
+    fontSize: '24px',
+    flexShrink: 0
+  },
+
+  warningText: {
+    flex: 1,
+    color: '#856404',
+    fontSize: '1rem',
+    lineHeight: '1.5'
+  },
+
+  warningSubtext: {
+    fontSize: '0.9rem',
+    fontWeight: 'normal',
+    opacity: 0.8
+  },
+
+  warningCloseButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontSize: '18px',
+    color: '#856404',
+    cursor: 'pointer',
+    padding: '5px',
+    borderRadius: '4px',
+    transition: 'background-color 0.2s ease',
+    flexShrink: 0
+  },
+
+  bottomNavigation: {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    borderTop: '2px solid #e2e8f0',
+    boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
+    zIndex: 100,
+    padding: '15px 0'
+  },
+
+  bottomNavContent: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '20px'
+  },
+
+  bottomNavButton: {
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '10px',
+    cursor: 'pointer',
+    fontSize: '1rem',
+    fontWeight: '600',
+    transition: 'all 0.3s ease',
+    minWidth: '120px'
+  },
+
+  bottomNavButtonPrevious: {
+    backgroundColor: '#6c757d',
+    color: 'white'
+  },
+
+  bottomNavButtonDisabled: {
+    backgroundColor: '#e9ecef',
+    color: '#6c757d',
+    cursor: 'not-allowed'
+  },
+
+  bottomNavInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '4px'
+  },
+
+  bottomNavText: {
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    color: '#2d3748'
+  },
+
+  bottomNavSubtext: {
+    fontSize: '0.9rem',
+    color: '#6c757d'
+  },
+
+  // Modal styles
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+  },
+
+  modalContent: {
+    backgroundColor: 'white',
+    padding: '20px 40px 40px 40px',
+    borderRadius: '12px',
+    width: '70%',
+    maxWidth: '800px',
+    height: '80%',
+    overflowY: 'auto',
+    position: 'relative',
+    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+  },
+
+  modalCloseButton: {
+    position: 'absolute',
+    top: '15px',
+    right: '15px',
+    padding: '8px 12px',
+    cursor: 'pointer',
+    border: 'none',
+    backgroundColor: '#f44336',
+    color: 'white',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    transition: 'all 0.2s ease',
+    boxShadow: '0 2px 6px rgba(244, 67, 54, 0.3)'
+  },
+
+  modalTitle: {
+    fontSize: '1.4rem',
+    fontWeight: '600',
+    color: '#2d3748',
+    marginBottom: '20px',
+  },
+
+  modalBody: {
+    fontSize: '1rem',
+    lineHeight: '1.6',
+    color: '#2d3748',
+  },
+
+  // Loading/Error screens
+  centerScreen: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '60vh',
+    backgroundColor: '#f8fafc',
+    textAlign: 'center'
+  },
+
+  spinner: {
+    width: '50px',
+    height: '50px',
+    border: '4px solid #e3f2fd',
+    borderTop: '4px solid #667eea',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    marginBottom: '20px',
+  },
+
+  loadingText: {
+    color: '#6c757d',
+    fontSize: '1.1em',
+    fontWeight: '500',
+  },
+
+  errorIcon: {
+    fontSize: '4em',
+    marginBottom: '20px',
+  },
+
+  errorTitle: {
+    color: '#dc3545',
+    fontSize: '1.5em',
+    fontWeight: '600',
+    marginBottom: '10px',
+  },
+
+  errorText: {
+    color: '#6c757d',
+    marginBottom: '30px',
+    lineHeight: '1.5',
+  },
+
+  retryButton: {
+    padding: '12px 24px',
+    backgroundColor: '#667eea',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '1em',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  },
+
+  // Results screen
+  resultsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '80vh',
+    backgroundColor: '#f8fafc',
+    padding: '40px 20px'
+  },
+
+  resultsCard: {
+    backgroundColor: 'white',
+    borderRadius: '20px',
+    padding: '50px',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+    border: '1px solid #e2e8f0',
+    textAlign: 'center',
+    maxWidth: '500px',
+    width: '100%'
+  },
+
+  resultsTitle: {
+    fontSize: '2.2rem',
+    fontWeight: '700',
+    color: '#2d3748',
+    marginBottom: '40px'
+  },
+
+  scoreSection: {
+    marginBottom: '40px'
+  },
+
+  scoreCircle: {
+    width: '150px',
+    height: '150px',
+    borderRadius: '50%',
+    border: '8px solid',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '0 auto 20px'
+  },
+
+  scoreNumber: {
+    fontSize: '2.5rem',
+    fontWeight: '700'
+  },
+
+  scoreText: {
+    fontSize: '1.2rem',
+    color: '#4a5568',
+    marginBottom: '10px'
+  },
+
+  resultActions: {
+    display: 'flex',
+    gap: '20px',
+    justifyContent: 'center',
+    flexWrap: 'wrap'
+  },
+
+  restartButton: {
+    padding: '15px 30px',
+    backgroundColor: '#667eea',
+    color: 'white',
+    border: 'none',
+    borderRadius: '10px',
+    cursor: 'pointer',
+    fontSize: '1.1rem',
+    fontWeight: '600'
+  },
+
+  backToListButton: {
+    padding: '15px 30px',
+    backgroundColor: '#28a745',
+    color: 'white',
+    border: 'none',
+    borderRadius: '10px',
+    cursor: 'pointer',
+    fontSize: '1.1rem',
+    fontWeight: '600'
+  }
+};
+
+// CSS para animações
+const animationCSS = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes slideDown {
+    0% { 
+      opacity: 0; 
+      transform: translateX(-50%) translateY(-20px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateX(-50%) translateY(0); 
+    }
+  }
+
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+    }
+    
+    .navigationSection {
+      position: static !important;
+    }
+    
+    .headerContent {
+      flex-direction: column !important;
+      text-align: center !important;
+    }
+    
+    .headerStats {
+      justify-content: center !important;
+    }
+    
+    .questionNav {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    .bottomNavContent {
+      padding: 0 15px !important;
+      gap: 10px !important;
+    }
+    
+    .bottomNavButton {
+      min-width: 80px !important;
+      padding: 10px 16px !important;
+      font-size: 0.9rem !important;
+    }
+    
+    .bottomNavInfo {
+      gap: 2px !important;
+    }
+    
+    .bottomNavText {
+      font-size: 1rem !important;
+    }
+    
+    .bottomNavSubtext {
+      font-size: 0.8rem !important;
+    }
+    
+    .warningBanner {
+      width: 95% !important;
+      top: 70px !important;
+    }
+    
+    .warningContent {
+      padding: 15px !important;
+      gap: 12px !important;
+    }
+    
+    .warningText {
+      font-size: 0.9rem !important;
+    }
+  }
+`;
+
+// Adicionar estilos ao documento
+if (typeof document !== 'undefined') {
+  const existingStyle = document.getElementById('random-test-page-styles');
+  if (!existingStyle) {
+    const style = document.createElement('style');
+    style.id = 'random-test-page-styles';
+    style.textContent = animationCSS;
+    document.head.appendChild(style);
+  }
 }
 
 export default RandomTestPage;
